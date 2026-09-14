@@ -3,7 +3,6 @@
 import { useMemo, useState } from 'react';
 import { ArrowLeft, ArrowRight, Check, Clock3, MapPin } from 'lucide-react';
 import Image from 'next/image';
-import Link from 'next/link';
 
 type Answers = {
   projectType: string;
@@ -92,10 +91,10 @@ export default function AppointmentPage() {
   return (
     <main className="booking-page">
       <header className="booking-header">
-        <Link href="/" className="booking-brand" aria-label="Volver al inicio de GMP Obras">
+        <a href="/" className="booking-brand" aria-label="Volver al inicio de GMP Obras">
           <span className="official-logo" aria-hidden="true"><Image src="/logo-gmp-web.png" alt="" width={190} height={58} /></span>
-        </Link>
-        <Link href="/" className="booking-back"><ArrowLeft aria-hidden="true" size={17} /> Volver al sitio</Link>
+        </a>
+        <a href="/" className="booking-back"><ArrowLeft aria-hidden="true" size={17} /> Volver al sitio</a>
       </header>
 
       <div className="booking-layout">

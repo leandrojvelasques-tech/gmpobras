@@ -19,7 +19,6 @@ import {
   Zap,
 } from 'lucide-react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { ProfileVideo } from './components/ProfileVideo';
 import { VideoTestimonial } from './components/VideoTestimonial';
 import { CassaformaVideoCover } from './components/CassaformaVideoCover';
@@ -203,13 +202,13 @@ export default function Home() {
           <a href="#obras">Proyectos</a>
           <a href="#sistema">Sistema</a>
           <a href="#preguntas-frecuentes">Preguntas</a>
-          <Link href="/agendar">Consulta</Link>
+          <a href="/agendar">Consulta</a>
         </nav>
 
-        <Link className="header-cta" href="/agendar">
+        <a className="header-cta" href="/agendar">
           Solicitar consulta
           <ArrowRight aria-hidden="true" size={17} strokeWidth={2.2} />
-        </Link>
+        </a>
       </header>
 
       <section className="hero" id="inicio">
@@ -239,10 +238,10 @@ export default function Home() {
             sistema constructivo eficiente y seguimiento directo.
           </p>
           <div className="hero-actions">
-            <Link className="button button-primary" href="/agendar">
+            <a className="button button-primary" href="/agendar">
               Solicitar consulta
               <ArrowRight aria-hidden="true" size={19} />
-            </Link>
+            </a>
             <a className="button button-secondary" href="#obras">
               Ver proyectos
               <ArrowDownRight aria-hidden="true" size={19} />
@@ -330,10 +329,10 @@ export default function Home() {
             <p className="section-kicker">Proyectos reales</p>
             <h2>Obras que se pueden ver, entender y consultar.</h2>
           </div>
-          <Link href="/agendar">
+          <a href="/agendar">
             Conversemos sobre tu proyecto
             <ArrowRight aria-hidden="true" size={18} />
-          </Link>
+          </a>
         </div>
 
         <section className="project-carousel" aria-label="Carrusel de proyectos reales">
@@ -448,7 +447,7 @@ export default function Home() {
         </div>
         <div className="system-benefits-cta">
           <p>¿Querés saber si este sistema sirve para tu proyecto?</p>
-          <Link href="/agendar">Solicitar una consulta <ArrowRight aria-hidden="true" size={18} /></Link>
+          <a href="/agendar">Solicitar una consulta <ArrowRight aria-hidden="true" size={18} /></a>
         </div>
       </section>
 
@@ -480,10 +479,10 @@ export default function Home() {
           Completá el tipo de obra, la ubicación, el estado actual y el
           presupuesto estimado. Con esa información preparamos la primera conversación.
         </p>
-        <Link className="button button-light" href="/agendar">
+        <a className="button button-light" href="/agendar">
           Solicitar consulta
           <ArrowRight aria-hidden="true" size={19} />
-        </Link>
+        </a>
       </section>
 
       <footer className="site-footer">

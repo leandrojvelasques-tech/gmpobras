@@ -1,5 +1,4 @@
 import { notFound } from 'next/navigation';
-import Link from 'next/link';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { ProjectImageCarousel } from '../../components/ProjectImageCarousel';
 import { VideoTestimonial } from '../../components/VideoTestimonial';
@@ -18,10 +17,10 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   return (
     <main className="project-detail">
       <header className="detail-header">
-        <Link href="/" className="detail-back">
+        <a href="/" className="detail-back">
           <ArrowLeft aria-hidden="true" size={18} />
           Volver a proyectos
-        </Link>
+        </a>
         <span>GMP Obras</span>
       </header>
 
@@ -79,10 +78,10 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
       <section className="detail-copy">
         <p>{project.description}</p>
         {project.provisional && <small>Las imágenes de este proyecto son provisionales hasta incorporar el material oficial.</small>}
-        <Link className="button button-primary" href="/agendar">
+        <a className="button button-primary" href="/agendar">
           Consultar sobre una obra
           <ArrowRight aria-hidden="true" size={19} />
-        </Link>
+        </a>
       </section>
     </main>
   );
