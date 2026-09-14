@@ -5,14 +5,16 @@ import test from 'node:test';
 
 const root = process.cwd();
 
-test('Home includes the system, FAQ and one appointment conversion path', () => {
+test('Home includes the system, FAQ, contact form and appointment conversion path', () => {
   const home = readFileSync(join(root, 'app/page.tsx'), 'utf8');
 
   assert.match(home, /id="sistema"/);
   assert.match(home, /Sistema Cassaforma/);
   assert.match(home, /id="preguntas-frecuentes"/);
   assert.match(home, /href="\/agendar"/);
-  assert.doesNotMatch(home, /contact-form/);
+  assert.match(home, /className="contact-form"/);
+  assert.match(home, /id="contacto"/);
+  assert.match(home, /Agendar cita/);
   assert.match(home, /Beneficios del sistema/);
   assert.match(home, /Resistencia ante vientos fuertes/);
   assert.match(home, /Ver beneficios siguientes/);

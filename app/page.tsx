@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useRef, useState, type FormEvent } from 'react';
 import {
   ArrowDownRight,
   ArrowRight,
@@ -9,6 +9,8 @@ import {
   Cable,
   ChevronLeft,
   ChevronRight,
+  AtSign,
+  Mail,
   MapPin,
   Paintbrush,
   Ruler,
@@ -189,6 +191,18 @@ export default function Home() {
     setActiveBenefit(Math.min(systemBenefits.length - 1, Math.max(0, index)));
   }
 
+  function openContactEmail(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    const firstName = String(formData.get('nombre') || '');
+    const lastName = String(formData.get('apellido') || '');
+    const email = String(formData.get('email') || '');
+    const message = String(formData.get('mensaje') || '');
+    const subject = encodeURIComponent(`Consulta desde el sitio · ${firstName} ${lastName}`.trim());
+    const body = encodeURIComponent(`Nombre: ${firstName} ${lastName}\nEmail: ${email}\n\nMensaje:\n${message}`);
+    window.location.href = `mailto:gpinto@gmpobras.com?subject=${subject}&body=${body}`;
+  }
+
   return (
     <main>
       <header className="site-header">
@@ -202,11 +216,11 @@ export default function Home() {
           <a href="#obras">Proyectos</a>
           <a href="#sistema">Sistema</a>
           <a href="#preguntas-frecuentes">Preguntas</a>
-          <a href="/agendar">Consulta</a>
+          <a href="#contacto">Contacto</a>
         </nav>
 
         <a className="header-cta" href="/agendar">
-          Solicitar consulta
+          Agendar cita
           <ArrowRight aria-hidden="true" size={17} strokeWidth={2.2} />
         </a>
       </header>
@@ -239,7 +253,7 @@ export default function Home() {
           </p>
           <div className="hero-actions">
             <a className="button button-primary" href="/agendar">
-              Solicitar consulta
+              Agendar cita
               <ArrowRight aria-hidden="true" size={19} />
             </a>
             <a className="button button-secondary" href="#obras">
@@ -330,7 +344,7 @@ export default function Home() {
             <h2>Obras que se pueden ver, entender y consultar.</h2>
           </div>
           <a href="/agendar">
-            Conversemos sobre tu proyecto
+            Agendar cita
             <ArrowRight aria-hidden="true" size={18} />
           </a>
         </div>
@@ -447,7 +461,7 @@ export default function Home() {
         </div>
         <div className="system-benefits-cta">
           <p>¿Querés saber si este sistema sirve para tu proyecto?</p>
-          <a href="/agendar">Solicitar una consulta <ArrowRight aria-hidden="true" size={18} /></a>
+          <a href="/agendar">Agendar cita <ArrowRight aria-hidden="true" size={18} /></a>
         </div>
       </section>
 
@@ -480,9 +494,43 @@ export default function Home() {
           presupuesto estimado. Con esa información preparamos la primera conversación.
         </p>
         <a className="button button-light" href="/agendar">
-          Solicitar consulta
+          Agendar cita
           <ArrowRight aria-hidden="true" size={19} />
         </a>
+      </section>
+
+      <section className="contact-section" id="contacto" aria-labelledby="contact-title">
+        <div className="contact-copy">
+          <p className="section-kicker">Contacto</p>
+          <h2 id="contact-title">Hablemos sobre tu proyecto.</h2>
+          <p>
+            Podés dejar un mensaje por este formulario o elegir un momento para conversar
+            sobre la obra.
+          </p>
+          <div className="contact-direct" aria-label="Datos de contacto de GMP Obras">
+            <a href="mailto:gpinto@gmpobras.com"><Mail aria-hidden="true" size={16} /> gpinto@gmpobras.com</a>
+            <a href="https://www.google.com/maps/dir/?api=1&destination=Ramos+Mej%C3%ADa+298%2C+Comodoro+Rivadavia%2C+Chubut" target="_blank" rel="noreferrer">
+              <MapPin aria-hidden="true" size={16} /> Ramos Mejía 298 · Comodoro Rivadavia
+            </a>
+            <a href="https://www.instagram.com/gmpobras/" target="_blank" rel="noreferrer">
+              <AtSign aria-hidden="true" size={16} /> Instagram · @gmpobras
+            </a>
+          </div>
+          <a className="button button-primary" href="/agendar">
+            Agendar cita <ArrowRight aria-hidden="true" size={19} />
+          </a>
+        </div>
+
+        <form className="contact-form" onSubmit={openContactEmail}>
+          <div className="field-row">
+            <label htmlFor="contact-nombre">Nombre<input id="contact-nombre" name="nombre" required autoComplete="given-name" /></label>
+            <label htmlFor="contact-apellido">Apellido<input id="contact-apellido" name="apellido" required autoComplete="family-name" /></label>
+          </div>
+          <label htmlFor="contact-email">Email<input id="contact-email" name="email" type="email" required autoComplete="email" /></label>
+          <label htmlFor="contact-mensaje">Dejanos tu mensaje<textarea id="contact-mensaje" name="mensaje" rows={6} required /></label>
+          <button className="button button-primary" type="submit">Enviar mensaje <ArrowRight aria-hidden="true" size={19} /></button>
+          <small>Al enviar, se abrirá tu aplicación de correo con el mensaje preparado.</small>
+        </form>
       </section>
 
       <footer className="site-footer">

@@ -33,7 +33,7 @@ test('models Gabriel Ambrozy testimonial and its project facts', () => {
   assert.match(source, /Gabriel Ambrozy/);
   assert.match(source, /Vivienda unifamiliar/);
   assert.match(source, /188 m²/);
-  assert.match(source, /testimonio-gabriel-ambrozy\.mp4/);
+  assert.match(source, /testimonio-gabriel-web\.mp4/);
   assert.match(source, /vivienda-gabriel-ambrozy-hero\.jpg/);
 });
 
