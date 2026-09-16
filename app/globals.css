@@ -189,7 +189,6 @@ h1, h2, h3, .button, .header-cta { font-family: var(--font-sansation), Arial, sa
 .system-media > p { display: grid; grid-template-columns: auto 1fr; gap: 8px; max-width: 720px; margin: 20px 0 0; padding-left: 18px; border-left: 2px solid var(--blue); color: rgba(255,255,255,.62); font-size: 14px; line-height: 1.55; }
 .system-media > p strong { color: var(--white); }
 .system-video-credit > span { display: block; }
-.system-video-credit-links { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-top: 8px; }
 .system-video-credit a { color: #b8c9ed; text-decoration: underline; text-underline-offset: 3px; }
 .system-video-credit a:hover { color: var(--white); }
 .system-copy { min-width: 0; padding-top: 4px; }

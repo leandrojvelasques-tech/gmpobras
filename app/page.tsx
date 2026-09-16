@@ -417,14 +417,10 @@ export default function Home() {
               <CassaformaVideoCover />
             </div>
             <p className="system-video-credit">
-              <strong>Miralo en obra.</strong>
+              <strong>Opinión experta.</strong>
               <span>
-                Video del <strong>Arquitecto Marcelo Seia</strong>, quien explica con claridad
+                Video del <a href="https://www.youtube.com/@arquitectomarceloseia8716" target="_blank" rel="noreferrer"><strong>Arquitecto Marcelo Seia</strong></a>, quien explica con claridad
                 los conceptos generales del sistema Cassaforma.
-                <span className="system-video-credit-links">
-                  <a href="https://marceloseia.com/" target="_blank" rel="noreferrer">Sitio de Marcelo Seia</a>
-                  <a href="https://www.youtube.com/@arquitectomarceloseia8716" target="_blank" rel="noreferrer">Canal de YouTube: Arquitecto Marcelo Seia</a>
-                </span>
               </span>
             </p>
           </div>
