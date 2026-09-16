@@ -95,22 +95,11 @@ export function HomeProjectShowcase({ projects }: HomeProjectShowcaseProps) {
     ) % activeStage.images.length);
   }
 
-  function focusDossier() {
-    document.getElementById('home-project-dossier')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  }
-
   return (
     <section className="home-project-showcase" aria-label="Proyectos reales de GMP Obras">
       <div className="home-project-stage">
         <div className="home-project-stage-head">
-          {panel === 'summary' && project.testimonial ? (
-            <button className="home-project-testimonial-advance" type="button" onClick={focusDossier}>
-              Testimonio de {project.testimonial.person}
-              <ArrowRight aria-hidden="true" size={18} />
-            </button>
-          ) : (
-            <span>{panel === 'summary' ? 'Presentación' : panel === 'stages' ? 'Fotos de la obra' : activeStage.label}</span>
-          )}
+          <span>{panel === 'summary' && project.testimonial ? `Testimonio de ${project.testimonial.person}` : panel === 'summary' ? 'Presentación' : panel === 'stages' ? 'Fotos de la obra' : activeStage.label}</span>
           <span>{String(activeProjectIndex + 1).padStart(2, '0')} / {String(projects.length).padStart(2, '0')}</span>
         </div>
 
@@ -130,17 +119,20 @@ export function HomeProjectShowcase({ projects }: HomeProjectShowcaseProps) {
               {!project.testimonial && <span className="home-project-media-label">Registro de obra</span>}
             </div>
 
-            <div className="home-project-dossier" id="home-project-dossier">
+            <div className="home-project-dossier">
               <div>
                 <p className="home-project-status">
                   {stages.length > 1 ? 'Proyecto en dos etapas' : 'Proyecto en una etapa'}
                 </p>
                 <h3>{project.title}</h3>
                 <p className="home-project-subtitle">{project.subtitle}</p>
-                <p className="home-project-description">{project.description}</p>
               </div>
 
               <div className="home-project-dossier-bottom">
+                <button className="home-project-photos-cta" type="button" onClick={() => setPanel('stages')}>
+                  Ver fotos de la obra
+                  <ArrowRight aria-hidden="true" size={22} />
+                </button>
                 {facts.length > 0 && (
                   <dl className="home-project-facts" aria-label={`Ficha de obra ${project.title}`}>
                     {facts.map((fact) => (
@@ -151,10 +143,6 @@ export function HomeProjectShowcase({ projects }: HomeProjectShowcaseProps) {
                     ))}
                   </dl>
                 )}
-                <button className="home-project-photos-cta" type="button" onClick={() => setPanel('stages')}>
-                  Ver fotos de la obra
-                  <ArrowRight aria-hidden="true" size={22} />
-                </button>
               </div>
             </div>
           </div>
