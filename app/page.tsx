@@ -203,8 +203,8 @@ export default function Home() {
       <section className="hero" id="inicio">
         <Image
           className="hero-image"
-          src="/obra-paneles-hero.jpg"
-          alt="Obra en ejecución con paneles Cassaforma y personas trabajando"
+          src="/hero-gustavo-obra-activa.jpg"
+          alt="Gustavo Pinto dirige una inspección mientras el equipo trabaja en una obra"
           fill
           priority
           sizes="100vw"

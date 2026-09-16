@@ -575,7 +575,7 @@ a:focus-visible, button:focus-visible, video:focus-visible { outline: 3px solid 
   .official-logo { width: 156px; height: 50px; }
   .header-cta { min-height: 42px; padding-inline: 15px; }
   .hero { min-height: 760px; }
-  .hero-image { object-position: 62% center; }
+  .hero-image { object-position: 78% center; }
   .hero-overlay { background: linear-gradient(90deg,rgba(14,18,28,.88) 0%,rgba(19,29,52,.56) 75%), linear-gradient(0deg,rgba(18,20,25,.82) 0%,transparent 64%); }
   .hero-content { width: calc(100% - 40px); margin-left: 20px; padding-bottom: 112px; }
   .hero h1 { font-size: clamp(49px,15vw,66px); }
