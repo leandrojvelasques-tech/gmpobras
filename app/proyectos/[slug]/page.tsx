@@ -47,17 +47,6 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
       <ProjectImageCarousel images={project.images} projectTitle={project.title} />
 
-      {project.testimonial && (
-        <section className="detail-testimonial-section" aria-labelledby="testimonio-title">
-          <VideoTestimonial testimonial={project.testimonial} />
-          <div className="detail-testimonial-copy">
-            <p className="section-kicker">La experiencia de {project.testimonial.person}</p>
-            <h2 id="testimonio-title">{project.testimonial.title}</h2>
-            <p>{project.testimonial.description}</p>
-          </div>
-        </section>
-      )}
-
       {project.details && (
         <section className="detail-facts" aria-labelledby="ficha-de-obra">
           <div className="detail-facts-heading">
@@ -83,11 +72,22 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         </section>
       )}
 
+      {project.testimonial && (
+        <section className="detail-testimonial-section" aria-labelledby="testimonio-title">
+          <VideoTestimonial testimonial={project.testimonial} />
+          <div className="detail-testimonial-copy">
+            <p className="section-kicker">La experiencia de {project.testimonial.person}</p>
+            <h2 id="testimonio-title">{project.testimonial.title}</h2>
+            <p>{project.testimonial.description}</p>
+          </div>
+        </section>
+      )}
+
       <section className="detail-copy">
         <p>{project.description}</p>
         {project.provisional && <small>Las imágenes de este proyecto son provisionales hasta incorporar el material oficial.</small>}
         <Link className="button button-primary" href="/agendar">
-          Consultar sobre una obra
+          Agendar una cita
           <ArrowRight aria-hidden="true" size={19} />
         </Link>
       </section>

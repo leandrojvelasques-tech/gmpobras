@@ -86,9 +86,14 @@ test('renders the Home testimonial and project media components', () => {
     'the photo sequence should appear before Nadia video on the project page',
   );
   assert.ok(
-    detail.indexOf('detail-testimonial-section') < detail.indexOf('detail-facts'),
-    'the technical facts should follow the media sequence',
+    detail.indexOf('ProjectImageCarousel') < detail.indexOf('detail-facts'),
+    'the technical facts should appear below the photo sequence',
   );
+  assert.ok(
+    detail.indexOf('detail-facts') < detail.indexOf('detail-testimonial-section'),
+    'Nadia experience should follow the project facts',
+  );
+  assert.match(detail, /Agendar una cita/);
 });
 
 test('uses local Sansation as the primary site typeface', () => {

@@ -10,6 +10,9 @@ test('home sends technical system information to the GMP landing', () => {
 
   assert.match(home, /href="\/sistema-cassaforma"/);
   assert.doesNotMatch(home, /href="https:\/\/cassaforma\.com\/sistema-constructivo"/);
+  assert.match(home, /Arquitecto Marcelo Seia/);
+  assert.match(home, /https:\/\/marceloseia\.com\//);
+  assert.match(home, /https:\/\/www\.youtube\.com\/@arquitectomarceloseia8716/);
 });
 
 test('Cassaforma landing includes the comparison, process and component assets', () => {
