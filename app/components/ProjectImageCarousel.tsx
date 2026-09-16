@@ -8,9 +8,10 @@ import type { ProjectImage } from '../data/projects';
 type ProjectImageCarouselProps = {
   images: ProjectImage[];
   projectTitle: string;
+  heading?: string;
 };
 
-export function ProjectImageCarousel({ images, projectTitle }: ProjectImageCarouselProps) {
+export function ProjectImageCarousel({ images, projectTitle, heading }: ProjectImageCarouselProps) {
   const [activeImage, setActiveImage] = useState(0);
   const currentImage = images[activeImage];
 
@@ -23,7 +24,7 @@ export function ProjectImageCarousel({ images, projectTitle }: ProjectImageCarou
       <div className="detail-carousel-heading">
         <div>
           <p className="section-kicker">Avance de obra</p>
-          <h2 id="avance-de-obra">{projectTitle}, etapa por etapa.</h2>
+          <h2 id="avance-de-obra">{heading ?? `${projectTitle}, etapa por etapa.`}</h2>
         </div>
         <p className="detail-carousel-count" aria-live="polite">
           Foto {currentImage.sequence ?? activeImage + 1} · {String(activeImage + 1).padStart(2, '0')} / {String(images.length).padStart(2, '0')}

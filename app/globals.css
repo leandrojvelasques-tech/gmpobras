@@ -276,10 +276,10 @@ a:focus-visible, button:focus-visible, video:focus-visible { outline: 3px solid 
 .detail-meta div:nth-last-child(-n+2) { border-bottom: 1px solid #c6c9cf; }
 .detail-meta span { color: #686e78; font-family: var(--font-plex-mono), monospace; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; }
 .detail-meta strong { font-size: 17px; font-weight: 650; line-height: 1.35; }
-.detail-tasks { grid-column: 2; }
+.detail-tasks { grid-column: 1 / -1; }
 .detail-tasks .section-kicker { margin-bottom: 15px; }
-.detail-tasks ul { display: flex; flex-wrap: wrap; gap: 9px; margin: 0; padding: 0; list-style: none; }
-.detail-tasks li { padding: 9px 12px; border: 1px solid #c6c9cf; background: var(--mist); color: #505660; font-size: 13px; line-height: 1.35; }
+.detail-tasks ul { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 0; padding: 0; list-style: none; }
+.detail-tasks li { display: flex; align-items: center; min-height: 48px; padding: 9px 12px; border: 1px solid #c6c9cf; background: var(--mist); color: #505660; font-size: 13px; line-height: 1.35; }
 .detail-testimonial-section { display: grid; grid-template-columns: minmax(260px,.7fr) minmax(0,1.3fr); gap: clamp(36px,7vw,110px); align-items: center; padding: clamp(72px,9vw,120px) clamp(24px,7.3vw,112px); background: var(--graphite); color: var(--white); }
 .detail-testimonial-section .video-testimonial { justify-self: center; }
 .detail-testimonial-copy { max-width: 700px; }
@@ -477,7 +477,7 @@ a:focus-visible, button:focus-visible, video:focus-visible { outline: 3px solid 
   .project-gallery { min-height: 440px; }
   .home-testimonial { grid-template-columns: minmax(240px,.72fr) minmax(0,1.28fr); }
   .detail-facts { grid-template-columns: 1fr; }
-  .detail-tasks { grid-column: auto; }
+  .detail-tasks { grid-column: 1 / -1; }
   .detail-testimonial-section { grid-template-columns: minmax(240px,.72fr) minmax(0,1.28fr); }
   .detail-intro { grid-template-columns: 1fr; }
   .detail-intro-media { min-height: min(58vw,460px); max-width: 760px; }
@@ -589,6 +589,7 @@ a:focus-visible, button:focus-visible, video:focus-visible { outline: 3px solid 
   .booking-review-list > div:nth-child(even):not(.is-wide) { padding-left: 0; border-left: 0; }
   .detail-facts { padding-inline: 20px; }
   .detail-meta { grid-template-columns: 1fr; }
+  .detail-tasks ul { grid-template-columns: 1fr; }
   .detail-meta div:nth-last-child(-n+2) { border-bottom: 0; }
   .detail-meta div:last-child { border-bottom: 1px solid #c6c9cf; }
   .detail-testimonial-section { grid-template-columns: 1fr; padding-inline: 20px; }

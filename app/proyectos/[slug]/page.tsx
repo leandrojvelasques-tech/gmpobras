@@ -45,7 +45,11 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         )}
       </section>
 
-      <ProjectImageCarousel images={project.images} projectTitle={project.title} />
+      <ProjectImageCarousel
+        images={project.images}
+        projectTitle={project.title}
+        heading={project.slug === 'volar-sin-escalas' ? 'Mirá el avance de la obra.' : undefined}
+      />
 
       {project.details && (
         <section className="detail-facts" aria-labelledby="ficha-de-obra">
@@ -86,10 +90,10 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
       <section className="detail-copy">
         <p>{project.description}</p>
         {project.provisional && <small>Las imágenes de este proyecto son provisionales hasta incorporar el material oficial.</small>}
-        <Link className="button button-primary" href="/agendar">
+        <a className="button button-primary" href="/agendar">
           Agendar una cita
           <ArrowRight aria-hidden="true" size={19} />
-        </Link>
+        </a>
       </section>
     </main>
   );
