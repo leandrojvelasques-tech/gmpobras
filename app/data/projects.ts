@@ -42,7 +42,7 @@ export const projects: Project[] = [
     title: 'Volar Sin Escalas',
     status: 'Proyecto en curso',
     subtitle: 'Una obra que avanza etapa por etapa.',
-    heroImage: { src: '/volar-sin-escalas-final.jpg', alt: 'Fachada terminada de la primera etapa de Volar Sin Escalas' },
+    heroImage: { src: '/volar-sin-escalas-final.jpg', alt: 'Consultorios terminados de Volar Sin Escalas' },
     description: 'Proyecto de consultorios médicos desarrollado por etapas, con seguimiento de fundaciones, estructura, instalaciones y terminaciones.',
     details: {
       workType: 'Consultorios médicos',
