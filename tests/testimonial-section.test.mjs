@@ -118,6 +118,19 @@ test('supports photo sequence navigation beyond the arrow controls', () => {
   assert.match(carousel, /aria-label=\{`Foto anterior de \$\{projectTitle\}`\}/);
 });
 
+test('uses the finished Volar facade as the Home opening image without replacing the stage sequence', () => {
+  const home = readFileSync(join(root, 'app/page.tsx'), 'utf8');
+  const data = readFileSync(join(root, 'app/data/projects.ts'), 'utf8');
+
+  assert.match(home, /activeImage === 0 && project\.heroImage/);
+  assert.match(home, /project\.images\[activeImage % project\.images\.length\]/);
+  assert.match(data, /heroImage: \{ src: '\/volar-sin-escalas-final\.jpg'/);
+
+  const stageAssets = readdirSync(join(root, 'public'))
+    .filter((name) => /^volar-sin-escalas-etapa-\d{3}\.jpg$/.test(name));
+  assert.equal(stageAssets.length, 39, 'the complete stage photo sequence should remain available');
+});
+
 test('Gustavo poster has a central play control that starts the video', () => {
   const component = readFileSync(join(root, 'app/components/ProfileVideo.tsx'), 'utf8');
 

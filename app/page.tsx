@@ -136,7 +136,10 @@ export default function Home() {
   const [activeBenefit, setActiveBenefit] = useState(0);
   const benefitTrackRef = useRef<HTMLDivElement>(null);
   const project = homeProjects[activeProject];
-  const currentImage = project.images[activeImage % project.images.length];
+  const currentImage =
+    activeImage === 0 && project.heroImage
+      ? project.heroImage
+      : project.images[activeImage % project.images.length];
   const testimonialProject = testimonialProjects[activeTestimonial];
   const testimonialFacts = testimonialProject?.details
     ? [
@@ -426,7 +429,7 @@ export default function Home() {
               GMP Obras utiliza el sistema Cassaforma para resolver estructura y cerramientos
               desde el proyecto, con una ejecución organizada por etapas.
             </p>
-            <a href="https://cassaforma.com/sistema-constructivo" target="_blank" rel="noreferrer">
+            <a href="/sistema-cassaforma">
               Ver información técnica del sistema
               <ArrowUpRight aria-hidden="true" size={18} />
             </a>

@@ -5,9 +5,11 @@ import { useRef, useState } from 'react';
 
 export function ProfileVideo() {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [hasStarted, setHasStarted] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
 
   function playVideo() {
+    setHasStarted(true);
     void videoRef.current?.play();
   }
 
@@ -20,14 +22,24 @@ export function ProfileVideo() {
         controls
         onEnded={() => setIsPlaying(false)}
         onPause={() => setIsPlaying(false)}
-        onPlay={() => setIsPlaying(true)}
+        onPlay={() => {
+          setHasStarted(true);
+          setIsPlaying(true);
+        }}
         playsInline
-        poster="/gustavo-presentacion-poster.png"
-        preload="metadata"
+        poster="/gustavo-presentacion-frame-04-clean.png"
+        preload="none"
       >
         <source src="/gustavo-presentacion-web.mp4" type="video/mp4" />
         Tu navegador no puede reproducir este video.
       </video>
+      {!hasStarted && (
+        <img
+          className="profile-video-cover"
+          src="/gustavo-presentacion-frame-04-clean.png"
+          alt="Gustavo Pinto señalando los planos de una obra"
+        />
+      )}
       {!isPlaying && (
         <button
           className="profile-video-play"

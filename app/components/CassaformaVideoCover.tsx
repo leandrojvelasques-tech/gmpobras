@@ -4,8 +4,12 @@ import { Play } from 'lucide-react';
 import Image from 'next/image';
 import { useState } from 'react';
 
+const OFFICIAL_THUMBNAIL = 'https://i.ytimg.com/vi/vtCQtq4RhqM/maxresdefault.jpg';
+const OFFICIAL_THUMBNAIL_FALLBACK = 'https://i.ytimg.com/vi/vtCQtq4RhqM/hqdefault.jpg';
+
 export function CassaformaVideoCover() {
   const [isPlaying, setIsPlaying] = useState(false);
+  const [thumbnail, setThumbnail] = useState(OFFICIAL_THUMBNAIL);
 
   if (isPlaying) {
     return (
@@ -27,11 +31,12 @@ export function CassaformaVideoCover() {
       aria-label="Reproducir explicación del sistema Cassaforma"
     >
       <Image
-        src="/cassaforma-video-cover-gustavo-clean.png"
-        alt="Gustavo Pinto presentando cómo funciona el sistema Cassaforma"
+        src={thumbnail}
+        alt="Miniatura oficial del video de Marcelo Seia sobre el sistema Cassaforma"
         fill
         sizes="(max-width: 760px) 100vw, 45vw"
         priority={false}
+        onError={() => setThumbnail(OFFICIAL_THUMBNAIL_FALLBACK)}
       />
       <span className="cassaforma-video-play" aria-hidden="true">
         <Play fill="currentColor" size={30} strokeWidth={1.5} />
