@@ -8,7 +8,8 @@ const root = process.cwd();
 test('home sends technical system information to the GMP landing', () => {
   const home = readFileSync(join(root, 'app/page.tsx'), 'utf8');
 
-  assert.match(home, /href="\/sistema-cassaforma"/);
+  assert.doesNotMatch(home, /href="\/sistema-cassaforma"/);
+  assert.match(home, /Conocer más información del sistema/);
   assert.doesNotMatch(home, /href="https:\/\/cassaforma\.com\/sistema-constructivo"/);
   assert.match(home, /Arquitecto Marcelo Seia/);
   assert.doesNotMatch(home, /https:\/\/marceloseia\.com\//);

@@ -432,10 +432,10 @@ export default function Home() {
               GMP Obras utiliza el sistema Cassaforma para resolver estructura y cerramientos
               desde el proyecto, con una ejecución organizada por etapas.
             </p>
-            <a href="/sistema-cassaforma">
-              Ver información técnica del sistema
+            <span className="system-copy-link is-disabled" aria-disabled="true">
+              Conocer más información del sistema
               <ArrowUpRight aria-hidden="true" size={18} />
-            </a>
+            </span>
           </div>
         </div>
 

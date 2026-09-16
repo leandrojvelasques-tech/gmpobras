@@ -194,8 +194,8 @@ h1, h2, h3, .button, .header-cta { font-family: var(--font-sansation), Arial, sa
 .system-copy { min-width: 0; padding-top: 4px; }
 .system-copy h2 { max-width: 720px; margin: 0; font-size: clamp(40px,4.15vw,64px); font-weight: 700; letter-spacing: -.048em; line-height: .99; }
 .system-lead { max-width: 720px; margin: 24px 0 0; color: rgba(255,255,255,.68); font-size: 17px; line-height: 1.6; }
-.system-copy > a { display: inline-flex; align-items: center; gap: 12px; margin-top: 30px; padding-bottom: 6px; border-bottom: 1px solid rgba(184,201,237,.55); color: #b8c9ed; font-size: 14px; font-weight: 700; }
-.system-copy > a:hover { color: var(--white); }
+.system-copy-link { display: inline-flex; align-items: center; gap: 12px; margin-top: 30px; padding-bottom: 6px; border-bottom: 1px solid rgba(184,201,237,.55); color: #b8c9ed; font-size: 14px; font-weight: 700; }
+.system-copy-link.is-disabled { cursor: not-allowed; opacity: .62; }
 .system-benefits-heading { display: flex; justify-content: space-between; gap: 36px; align-items: end; max-width: 1440px; margin: clamp(60px,7vw,92px) auto 22px; }
 .system-benefits-heading .section-kicker { margin-bottom: 12px; }
 .system-benefits-heading h3 { max-width: 720px; margin: 0; font-size: clamp(28px,3vw,42px); letter-spacing: -.035em; line-height: 1.08; }
