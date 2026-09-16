@@ -26,9 +26,15 @@ import { CassaformaVideoCover } from './components/CassaformaVideoCover';
 import { HomeProjectShowcase } from './components/HomeProjectShowcase';
 import { projects } from './data/projects';
 
-const homeProjects = [...projects].sort(
-  (projectA, projectB) => Number(projectB.slug === 'game-over') - Number(projectA.slug === 'game-over'),
-);
+const featuredProjectOrder = ['volar-sin-escalas', 'vivienda-gabriel-ambrozy'];
+const homeProjects = [...projects].sort((projectA, projectB) => {
+  const projectAOrder = featuredProjectOrder.indexOf(projectA.slug);
+  const projectBOrder = featuredProjectOrder.indexOf(projectB.slug);
+  const normalizedAOrder = projectAOrder === -1 ? featuredProjectOrder.length : projectAOrder;
+  const normalizedBOrder = projectBOrder === -1 ? featuredProjectOrder.length : projectBOrder;
+
+  return normalizedAOrder - normalizedBOrder;
+});
 const services = [
   {
     title: 'Viviendas',
