@@ -49,9 +49,9 @@ export const projects: Project[] = [
     slug: 'volar-sin-escalas',
     title: 'Volar Sin Escalas',
     status: 'Proyecto en curso',
-    subtitle: 'Una obra de consultorios médicos que avanza etapa por etapa, desde las fundaciones hasta las instalaciones y terminaciones.',
+    subtitle: 'Consultorios médicos con una ampliación actualmente en curso.',
     heroImage: { src: '/volar-sin-escalas-final.jpg', alt: 'Consultorios terminados de Volar Sin Escalas' },
-    description: 'Proyecto de consultorios médicos desarrollado por etapas, con seguimiento de fundaciones, estructura, instalaciones y terminaciones.',
+    description: 'Seguimiento de fundaciones, estructura, instalaciones y terminaciones desde el inicio.',
     details: {
       workType: 'Consultorios médicos',
       year: '2021',
@@ -236,7 +236,7 @@ export const projects: Project[] = [
     status: 'Proyecto finalizado',
     subtitle: 'Una vivienda familiar resuelta con sistema Cassaforma.',
     heroImage: { src: '/vivienda-gabriel-ambrozy-hero.jpg', alt: 'Frente finalizado de la vivienda familiar de Gabriel Ambrozy' },
-    description: 'Construcción integral de una vivienda unifamiliar, desde el movimiento de suelo y las fundaciones hasta las instalaciones y terminaciones.',
+    description: 'Proyecto integral, desde el movimiento de suelo y las fundaciones hasta las instalaciones y terminaciones.',
     details: {
       workType: 'Vivienda unifamiliar',
       year: '2020',

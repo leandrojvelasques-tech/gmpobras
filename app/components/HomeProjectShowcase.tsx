@@ -95,13 +95,22 @@ export function HomeProjectShowcase({ projects }: HomeProjectShowcaseProps) {
     ) % activeStage.images.length);
   }
 
+  function focusDossier() {
+    document.getElementById('home-project-dossier')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
   return (
     <section className="home-project-showcase" aria-label="Proyectos reales de GMP Obras">
       <div className="home-project-stage">
         <div className="home-project-stage-head">
-          <span>
-            {panel === 'summary' ? 'Presentación' : panel === 'stages' ? 'Fotos de la obra' : activeStage.label}
-          </span>
+          {panel === 'summary' && project.testimonial ? (
+            <button className="home-project-testimonial-advance" type="button" onClick={focusDossier}>
+              Testimonio de {project.testimonial.person}
+              <ArrowRight aria-hidden="true" size={18} />
+            </button>
+          ) : (
+            <span>{panel === 'summary' ? 'Presentación' : panel === 'stages' ? 'Fotos de la obra' : activeStage.label}</span>
+          )}
           <span>{String(activeProjectIndex + 1).padStart(2, '0')} / {String(projects.length).padStart(2, '0')}</span>
         </div>
 
@@ -121,7 +130,7 @@ export function HomeProjectShowcase({ projects }: HomeProjectShowcaseProps) {
               {!project.testimonial && <span className="home-project-media-label">Registro de obra</span>}
             </div>
 
-            <div className="home-project-dossier">
+            <div className="home-project-dossier" id="home-project-dossier">
               <div>
                 <p className="home-project-status">
                   {stages.length > 1 ? 'Proyecto en dos etapas' : 'Proyecto en una etapa'}
