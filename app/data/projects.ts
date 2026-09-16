@@ -4,6 +4,13 @@ export type ProjectImage = {
   sequence?: number;
 };
 
+export type ProjectStage = {
+  id: string;
+  label: string;
+  status: string;
+  images: ProjectImage[];
+};
+
 export type ProjectDetails = {
   workType: string;
   year: string;
@@ -30,6 +37,7 @@ export type Project = {
   subtitle: string;
   description: string;
   images: ProjectImage[];
+  stage2Images?: ProjectImage[];
   heroImage?: ProjectImage;
   provisional?: boolean;
   details?: ProjectDetails;
@@ -107,6 +115,33 @@ export const projects: Project[] = [
       { src: '/volar-sin-escalas-etapa-656.jpg', alt: 'Volar Sin Escalas, foto 656: fachada terminada de la obra', sequence: 656 },
       { src: '/volar-sin-escalas-etapa-667.jpg', alt: 'Volar Sin Escalas, foto 667: fachada terminada de la obra', sequence: 667 },
       { src: '/volar-sin-escalas-etapa-668.jpg', alt: 'Volar Sin Escalas, foto 668: fachada terminada de la obra', sequence: 668 },
+    ],
+    stage2Images: [
+      { src: '/volar-sin-escalas-etapa-2-016.jpg', alt: 'Volar Sin Escalas, etapa 2, foto 16: excavación y nivelación del terreno', sequence: 16 },
+      { src: '/volar-sin-escalas-etapa-2-035.jpg', alt: 'Volar Sin Escalas, etapa 2, foto 35: excavación y nivelación del terreno', sequence: 35 },
+      { src: '/volar-sin-escalas-etapa-2-048.jpg', alt: 'Volar Sin Escalas, etapa 2, foto 48: cañería cloacal y preparación de fundaciones', sequence: 48 },
+      { src: '/volar-sin-escalas-etapa-2-094.jpg', alt: 'Volar Sin Escalas, etapa 2, foto 94: encofrado y armadura de fundación', sequence: 94 },
+      { src: '/volar-sin-escalas-etapa-2-096.jpg', alt: 'Volar Sin Escalas, etapa 2, foto 96: encofrado y armadura de fundación', sequence: 96 },
+      { src: '/volar-sin-escalas-etapa-2-113.jpg', alt: 'Volar Sin Escalas, etapa 2, foto 113: hormigonado de platea', sequence: 113 },
+      { src: '/volar-sin-escalas-etapa-2-118.jpg', alt: 'Volar Sin Escalas, etapa 2, foto 118: hormigonado de platea', sequence: 118 },
+      { src: '/volar-sin-escalas-etapa-2-130.jpg', alt: 'Volar Sin Escalas, etapa 2, foto 130: montaje de paneles de consultorios', sequence: 130 },
+      { src: '/volar-sin-escalas-etapa-2-149.jpg', alt: 'Volar Sin Escalas, etapa 2, foto 149: montaje de paneles de consultorios', sequence: 149 },
+      { src: '/volar-sin-escalas-etapa-2-151.jpg', alt: 'Volar Sin Escalas, etapa 2, foto 151: terminación exterior de paneles', sequence: 151 },
+      { src: '/volar-sin-escalas-etapa-2-177.jpg', alt: 'Volar Sin Escalas, etapa 2, foto 177: cañería cloacal exterior', sequence: 177 },
+      { src: '/volar-sin-escalas-etapa-2-213.jpg', alt: 'Volar Sin Escalas, etapa 2, foto 213: hormigonado de fundación lateral', sequence: 213 },
+      { src: '/volar-sin-escalas-etapa-2-228.jpg', alt: 'Volar Sin Escalas, etapa 2, foto 228: paneles de consultorios y muro lateral', sequence: 228 },
+      { src: '/volar-sin-escalas-etapa-2-185.jpg', alt: 'Volar Sin Escalas, etapa 2, foto 185: losa de paneles', sequence: 185 },
+      { src: '/volar-sin-escalas-etapa-2-234.jpg', alt: 'Volar Sin Escalas, etapa 2, foto 234: llegada de hormigón', sequence: 234 },
+      { src: '/volar-sin-escalas-etapa-2-254.jpg', alt: 'Volar Sin Escalas, etapa 2, foto 254: encofrado y armado de platea exterior', sequence: 254 },
+      { src: '/volar-sin-escalas-etapa-2-258.jpg', alt: 'Volar Sin Escalas, etapa 2, foto 258: encofrado y armado de platea exterior', sequence: 258 },
+      { src: '/volar-sin-escalas-etapa-2-270.jpg', alt: 'Volar Sin Escalas, etapa 2, foto 270: cañería cloacal bajo platea', sequence: 270 },
+      { src: '/volar-sin-escalas-etapa-2-280.jpg', alt: 'Volar Sin Escalas, etapa 2, foto 280: armadura y pases sanitarios de platea', sequence: 280 },
+      { src: '/volar-sin-escalas-etapa-2-302.jpg', alt: 'Volar Sin Escalas, etapa 2, foto 302: hormigonado de platea exterior', sequence: 302 },
+      { src: '/volar-sin-escalas-etapa-2-304.jpg', alt: 'Volar Sin Escalas, etapa 2, foto 304: hormigonado de platea exterior', sequence: 304 },
+      { src: '/volar-sin-escalas-etapa-2-313.jpg', alt: 'Volar Sin Escalas, etapa 2, foto 313: paneles y espacios interiores de consultorios', sequence: 313 },
+      { src: '/volar-sin-escalas-etapa-2-353.jpg', alt: 'Volar Sin Escalas, etapa 2, foto 353: instalaciones de calefacción por piso', sequence: 353 },
+      { src: '/volar-sin-escalas-etapa-2-368.jpg', alt: 'Volar Sin Escalas, etapa 2, foto 368: armadura de vigas y estructura', sequence: 368 },
+      { src: '/volar-sin-escalas-etapa-2-372.jpg', alt: 'Volar Sin Escalas, etapa 2, foto 372: armadura de vigas y estructura', sequence: 372 },
     ],
     testimonial: {
       person: 'Nadia Snidersich',

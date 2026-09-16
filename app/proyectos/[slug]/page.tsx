@@ -49,6 +49,10 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         images={project.images}
         projectTitle={project.title}
         heading={project.slug === 'volar-sin-escalas' ? 'Mirá el avance de la obra.' : undefined}
+        stages={project.stage2Images ? [
+          { id: 'etapa-1', label: 'Etapa 1', status: 'Finalizada', images: project.images },
+          { id: 'etapa-2', label: 'Etapa 2', status: 'En curso', images: project.stage2Images },
+        ] : undefined}
       />
 
       {project.details && (

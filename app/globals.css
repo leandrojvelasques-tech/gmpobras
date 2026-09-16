@@ -289,6 +289,11 @@ a:focus-visible, button:focus-visible, video:focus-visible { outline: 3px solid 
 .detail-carousel { overflow: hidden; padding: clamp(72px,9vw,120px) clamp(24px,7.3vw,112px); background: var(--white); }
 .detail-carousel-heading { display: flex; align-items: end; justify-content: space-between; gap: 30px; margin-bottom: 34px; }
 .detail-carousel-heading h2 { max-width: 760px; margin: 0; font-size: clamp(38px,5vw,68px); letter-spacing: -.055em; line-height: 1; }
+.detail-carousel-stages { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 24px; }
+.detail-carousel-stages button { display: flex; flex-direction: column; align-items: flex-start; gap: 3px; padding: 10px 14px; border: 1px solid #c6c9cf; background: transparent; color: var(--blue-deep); cursor: pointer; text-align: left; transition: background 180ms ease, border-color 180ms ease, color 180ms ease; }
+.detail-carousel-stages button:hover, .detail-carousel-stages button.is-active { border-color: var(--blue); background: var(--blue); color: var(--white); }
+.detail-carousel-stages button span { font-size: 14px; font-weight: 650; }
+.detail-carousel-stages button small { font-family: var(--font-plex-mono), monospace; font-size: 10px; letter-spacing: .06em; text-transform: uppercase; }
 .detail-carousel-heading > p { margin: 0; color: var(--blue); font-family: var(--font-plex-mono), monospace; font-size: 12px; letter-spacing: .08em; white-space: nowrap; }
 .detail-carousel-frame { position: relative; width: min(80vw,960px); aspect-ratio: 4 / 3; margin-inline: auto; overflow: hidden; background: var(--panel); user-select: none; }
 .detail-carousel-frame img { object-fit: contain; }
