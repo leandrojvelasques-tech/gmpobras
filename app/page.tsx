@@ -294,20 +294,37 @@ export default function Home() {
       <section className="system-section" id="sistema" aria-labelledby="system-title">
         <div className="system-content">
           <div className="system-media">
-            <div className="system-visual">
-              <CassaformaVideoCover />
+            <div className="system-video-stack">
+              <div className="system-video-item">
+                <div className="system-visual">
+                  <CassaformaVideoCover
+                    variant="gustavo"
+                    videoSrc="/gustavo-sistema-cassaforma.mp4"
+                    posterSrc="/cassaforma-video-cover-gustavo-clean.png"
+                  />
+                </div>
+                <p className="system-video-credit">
+                  <strong>¿Qué es el sistema Cassaforma?</strong>
+                  <span>Gustavo Pinto presenta cómo se combinan paneles, acero y hormigón en una obra.</span>
+                </p>
+              </div>
+              <div className="system-video-item">
+                <div className="system-visual">
+                  <CassaformaVideoCover variant="marcelo" />
+                </div>
+                <p className="system-video-credit">
+                  <strong>Opinión experta.</strong>
+                  <span>
+                    Video del <a href="https://www.youtube.com/@arquitectomarceloseia8716" target="_blank" rel="noreferrer"><strong>Arquitecto Marcelo Seia</strong></a>, quien explica con claridad
+                    los conceptos generales del sistema Cassaforma.
+                  </span>
+                </p>
+              </div>
             </div>
-            <p className="system-video-credit">
-              <strong>Opinión experta.</strong>
-              <span>
-                Video del <a href="https://www.youtube.com/@arquitectomarceloseia8716" target="_blank" rel="noreferrer"><strong>Arquitecto Marcelo Seia</strong></a>, quien explica con claridad
-                los conceptos generales del sistema Cassaforma.
-              </span>
-            </p>
           </div>
 
           <div className="system-copy">
-            <p className="section-kicker section-kicker-light">Sistema Cassaforma</p>
+            <p className="section-kicker section-kicker-light system-section-kicker">Sistema Cassaforma</p>
             <h2 id="system-title">Paneles, acero y hormigón que trabajan como un conjunto.</h2>
             <p className="system-lead">
               GMP Obras utiliza el sistema Cassaforma para resolver estructura y cerramientos
@@ -317,6 +334,14 @@ export default function Home() {
               Conocer más información del sistema
               <ArrowUpRight aria-hidden="true" size={18} />
             </span>
+            <div className="system-copy-panel">
+              <p className="section-kicker section-kicker-light">Una segunda mirada</p>
+              <h3>La explicación técnica, con ejemplos concretos.</h3>
+              <p>
+                Después de la introducción de Gustavo, Marcelo Seia amplía los conceptos del sistema,
+                sus posibilidades y los puntos que conviene evaluar antes de llevarlo a un proyecto.
+              </p>
+            </div>
           </div>
         </div>
 
