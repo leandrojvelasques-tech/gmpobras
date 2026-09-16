@@ -68,6 +68,7 @@ export const projects: Project[] = [
     },
     images: [
       { src: '/volar-sin-escalas-etapa-012.jpg', alt: 'Volar Sin Escalas, foto 12: inicio de la obra y demolición del inmueble existente', sequence: 12 },
+      // Fotos 02, 09 y 27: copias web corregidas para conservar los originales sin modificar.
       { src: '/volar-sin-escalas-etapa-030-rotated.jpg', alt: 'Volar Sin Escalas, foto 30: movimiento y nivelación del terreno', sequence: 30 },
       { src: '/volar-sin-escalas-etapa-031.jpg', alt: 'Volar Sin Escalas, foto 31: preparación inicial del terreno', sequence: 31 },
       { src: '/volar-sin-escalas-etapa-045.jpg', alt: 'Volar Sin Escalas, foto 45: avance de la preparación de fundaciones', sequence: 45 },
