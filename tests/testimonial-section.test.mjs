@@ -57,27 +57,25 @@ test('models Nadia testimonial in the Volar Sin Escalas project', () => {
   assert.match(source, /sequence: 668/);
 });
 
-test('renders the Home testimonial and project media components', () => {
+test('renders the integrated Home project showcase', () => {
   const home = readFileSync(join(root, 'app/page.tsx'), 'utf8');
+  const showcase = readFileSync(join(root, 'app/components/HomeProjectShowcase.tsx'), 'utf8');
   const detail = readFileSync(join(root, 'app/proyectos/[slug]/page.tsx'), 'utf8');
 
-  assert.match(home, /home-testimonial/);
-  assert.match(home, /testimonialProjects/);
-  assert.match(home, /Ver testimonio anterior/);
-  assert.match(home, /Ver testimonio siguiente/);
+  assert.match(home, /HomeProjectShowcase/);
+  assert.doesNotMatch(home, /home-testimonial/);
   assert.match(home, /ProfileVideo/);
-  assert.match(home, /Testimonio de \{testimonialProject\.testimonial\.person\}/);
-  assert.doesNotMatch(home, /home-testimonial-person/);
-  assert.doesNotMatch(home, /home-testimonial-project/);
-  assert.match(home, /Conocer el proyecto/);
-  assert.match(home, /testimonialProject\.details\.workType/);
-  assert.match(home, /testimonialProject\.details\.area/);
-  assert.match(home, /testimonialProject\.details\.floors/);
-  assert.match(home, /testimonialProject\.details\.delivery/);
-  assert.ok(
-    home.indexOf('className="home-testimonial"') < home.indexOf('className="works"'),
-    'the testimonial should appear before Proyectos reales',
-  );
+  assert.doesNotMatch(home, /Conocer el proyecto/);
+  assert.match(showcase, /VideoTestimonial/);
+  assert.match(showcase, /Proyecto en dos etapas/);
+  assert.match(showcase, /Proyecto en una etapa/);
+  assert.match(showcase, /Ver fotos de la obra/);
+  assert.match(showcase, /Etapa 1/);
+  assert.match(showcase, /Etapa 2/);
+  assert.match(showcase, /Etapa única/);
+  assert.match(showcase, /type="range"/);
+  assert.match(showcase, /Ir a una foto/);
+  assert.match(showcase, /stage2Images/);
   assert.match(detail, /ProjectImageCarousel/);
   assert.doesNotMatch(detail, /Texto provisorio/);
   assert.match(detail, /VideoTestimonial/);
@@ -124,11 +122,11 @@ test('supports photo sequence navigation beyond the arrow controls', () => {
 });
 
 test('uses the finished Volar facade as the Home opening image without replacing the stage sequence', () => {
-  const home = readFileSync(join(root, 'app/page.tsx'), 'utf8');
+  const showcase = readFileSync(join(root, 'app/components/HomeProjectShowcase.tsx'), 'utf8');
   const data = readFileSync(join(root, 'app/data/projects.ts'), 'utf8');
 
-  assert.match(home, /activeImage === 0 && project\.heroImage/);
-  assert.match(home, /project\.images\[activeImage % project\.images\.length\]/);
+  assert.match(showcase, /project\.heroImage \?\? project\.images\.at\(-1\)/);
+  assert.match(showcase, /stage2Images/);
   assert.match(data, /heroImage: \{ src: '\/volar-sin-escalas-final\.jpg'/);
 
   const stageAssets = readdirSync(join(root, 'public'))

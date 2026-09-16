@@ -22,15 +22,13 @@ import {
 } from 'lucide-react';
 import Image from 'next/image';
 import { ProfileVideo } from './components/ProfileVideo';
-import { VideoTestimonial } from './components/VideoTestimonial';
 import { CassaformaVideoCover } from './components/CassaformaVideoCover';
+import { HomeProjectShowcase } from './components/HomeProjectShowcase';
 import { projects } from './data/projects';
 
 const homeProjects = [...projects].sort(
   (projectA, projectB) => Number(projectB.slug === 'game-over') - Number(projectA.slug === 'game-over'),
 );
-const testimonialProjects = projects.filter((project) => project.testimonial);
-
 const services = [
   {
     title: 'Viviendas',
@@ -130,40 +128,8 @@ const faqs = [
 ];
 
 export default function Home() {
-  const [activeProject, setActiveProject] = useState(0);
-  const [activeImage, setActiveImage] = useState(0);
-  const [activeTestimonial, setActiveTestimonial] = useState(0);
   const [activeBenefit, setActiveBenefit] = useState(0);
   const benefitTrackRef = useRef<HTMLDivElement>(null);
-  const project = homeProjects[activeProject];
-  const currentImage =
-    activeImage === 0 && project.heroImage
-      ? project.heroImage
-      : project.images[activeImage % project.images.length];
-  const testimonialProject = testimonialProjects[activeTestimonial];
-  const testimonialFacts = testimonialProject?.details
-    ? [
-        { label: 'Tipo de obra', value: testimonialProject.details.workType },
-        { label: 'Superficie', value: testimonialProject.details.area },
-        { label: 'Escala', value: testimonialProject.details.floors },
-        { label: 'Modalidad', value: testimonialProject.details.delivery },
-      ]
-    : [];
-
-  function selectProject(index: number) {
-    setActiveProject(index);
-    setActiveImage(0);
-  }
-
-  function moveImage(direction: number) {
-    setActiveImage((activeImage + direction + project.images.length) % project.images.length);
-  }
-
-  function moveTestimonial(direction: number) {
-    setActiveTestimonial(
-      (activeTestimonial + direction + testimonialProjects.length) % testimonialProjects.length,
-    );
-  }
 
   function moveBenefitCarousel(direction: number) {
     const track = benefitTrackRef.current;
@@ -304,42 +270,6 @@ export default function Home() {
         </div>
       </section>
 
-      {testimonialProject?.testimonial && (
-        <section className="home-testimonial" id="testimonios" aria-labelledby="testimonio-activo-title">
-          <VideoTestimonial key={testimonialProject.slug} testimonial={testimonialProject.testimonial} compact />
-          <div className="home-testimonial-copy">
-            <div className="home-testimonial-heading">
-              <p className="section-kicker">Testimonio de {testimonialProject.testimonial.person}</p>
-              <div className="home-testimonial-controls" aria-label="Cambiar testimonio">
-                <button type="button" onClick={() => moveTestimonial(-1)} aria-label="Ver testimonio anterior">
-                  <ChevronLeft aria-hidden="true" size={22} />
-                </button>
-                <span aria-live="polite">
-                  {String(activeTestimonial + 1).padStart(2, '0')} / {String(testimonialProjects.length).padStart(2, '0')}
-                </span>
-                <button type="button" onClick={() => moveTestimonial(1)} aria-label="Ver testimonio siguiente">
-                  <ChevronRight aria-hidden="true" size={22} />
-                </button>
-              </div>
-            </div>
-            <h2 id="testimonio-activo-title">{testimonialProject.testimonial.title}</h2>
-            <p>{testimonialProject.testimonial.description}</p>
-            <dl className="home-testimonial-facts" aria-label={`Ficha de la obra ${testimonialProject.title}`}>
-              {testimonialFacts.map((fact) => (
-                <div key={fact.label}>
-                  <dt>{fact.label}</dt>
-                  <dd>{fact.value}</dd>
-                </div>
-              ))}
-            </dl>
-            <a className="button button-primary" href={`/proyectos/${testimonialProject.slug}`}>
-              Conocer el proyecto
-              <ArrowRight aria-hidden="true" size={19} />
-            </a>
-          </div>
-        </section>
-      )}
-
       <section className="works" id="obras">
         <div className="section-heading">
           <div>
@@ -352,62 +282,7 @@ export default function Home() {
           </a>
         </div>
 
-        <section className="project-carousel" aria-label="Carrusel de proyectos reales">
-          <div className="project-gallery">
-            <Image
-              key={currentImage.src}
-              src={currentImage.src}
-              alt={currentImage.alt}
-              fill
-              sizes="(max-width: 760px) 100vw, 62vw"
-            />
-            <div className="gallery-shade" />
-            <div className="gallery-topline">
-              <span className={`status-badge ${project.status === 'Proyecto en curso' ? 'is-current' : 'is-finished'}`}>
-                {project.status}
-              </span>
-              <span>{String(activeImage + 1).padStart(2, '0')} / {String(project.images.length).padStart(2, '0')}</span>
-            </div>
-            <div className="gallery-controls">
-              <button type="button" onClick={() => moveImage(-1)} aria-label="Foto anterior del proyecto">
-                <ChevronLeft aria-hidden="true" size={20} />
-              </button>
-              <button type="button" onClick={() => moveImage(1)} aria-label="Foto siguiente del proyecto">
-                <ChevronRight aria-hidden="true" size={20} />
-              </button>
-            </div>
-          </div>
-
-          <div className="project-info">
-            <p className="project-index">{String(activeProject + 1).padStart(2, '0')} / {String(homeProjects.length).padStart(2, '0')}</p>
-            <h3>{project.title}</h3>
-            <p className="project-subtitle">{project.subtitle}</p>
-            <p className="project-description">{project.description}</p>
-            {project.provisional && <p className="project-note">Galería provisional: faltan las fotos oficiales de este proyecto.</p>}
-
-            <div className="project-selector">
-              {homeProjects.map((item, index) => (
-                <div className={`project-selector-row ${index === activeProject ? 'is-active' : ''}`} key={item.slug}>
-                  <button
-                    type="button"
-                    onClick={() => selectProject(index)}
-                    aria-label={`Seleccionar proyecto ${item.title}`}
-                    aria-pressed={index === activeProject}
-                  >
-                    <span>{String(index + 1).padStart(2, '0')}</span>
-                    <span>{item.title}</span>
-                  </button>
-                  {index === activeProject && (
-                    <a className="project-selector-link" href={`/proyectos/${item.slug}`} aria-label={`Ver proyecto ${item.title}`}>
-                      Ver proyecto
-                      <ArrowRight aria-hidden="true" size={17} />
-                    </a>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+        <HomeProjectShowcase projects={homeProjects} />
       </section>
 
       <section className="system-section" id="sistema" aria-labelledby="system-title">
