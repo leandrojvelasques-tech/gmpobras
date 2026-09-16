@@ -141,7 +141,7 @@ export const projects: Project[] = [
       { src: '/volar-sin-escalas-etapa-2-313.jpg', alt: 'Volar Sin Escalas, etapa 2, foto 313: paneles y espacios interiores de consultorios', sequence: 313 },
       { src: '/volar-sin-escalas-etapa-2-353.jpg', alt: 'Volar Sin Escalas, etapa 2, foto 353: instalaciones de calefacción por piso', sequence: 353 },
       { src: '/volar-sin-escalas-etapa-2-368.jpg', alt: 'Volar Sin Escalas, etapa 2, foto 368: armadura de vigas y estructura', sequence: 368 },
-      { src: '/volar-sin-escalas-etapa-2-372.jpg', alt: 'Volar Sin Escalas, etapa 2, foto 372: armadura de vigas y estructura', sequence: 372 },
+      { src: '/volar-sin-escalas-etapa-2-372.jpg', alt: 'Volar Sin Escalas, etapa 2, foto 372: armadura de vigas y estructura en obra', sequence: 372 },
     ],
     testimonial: {
       person: 'Nadia Snidersich',
