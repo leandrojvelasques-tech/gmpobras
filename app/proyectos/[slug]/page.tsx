@@ -1,4 +1,6 @@
 import { notFound } from 'next/navigation';
+import Image from 'next/image';
+import Link from 'next/link';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { ProjectImageCarousel } from '../../components/ProjectImageCarousel';
 import { VideoTestimonial } from '../../components/VideoTestimonial';
@@ -17,10 +19,10 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   return (
     <main className="project-detail">
       <header className="detail-header">
-        <a href="/" className="detail-back">
+        <Link href="/" className="detail-back">
           <ArrowLeft aria-hidden="true" size={18} />
           Volver a proyectos
-        </a>
+        </Link>
         <span>GMP Obras</span>
       </header>
 
@@ -32,10 +34,29 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         </div>
         {project.heroImage && (
           <div className="detail-intro-media">
-            <img src={project.heroImage.src} alt={project.heroImage.alt} />
+            <Image
+              src={project.heroImage.src}
+              alt={project.heroImage.alt}
+              fill
+              sizes="(max-width: 980px) 100vw, 42vw"
+              priority
+            />
           </div>
         )}
       </section>
+
+      <ProjectImageCarousel images={project.images} projectTitle={project.title} />
+
+      {project.testimonial && (
+        <section className="detail-testimonial-section" aria-labelledby="testimonio-title">
+          <VideoTestimonial testimonial={project.testimonial} />
+          <div className="detail-testimonial-copy">
+            <p className="section-kicker">La experiencia de {project.testimonial.person}</p>
+            <h2 id="testimonio-title">{project.testimonial.title}</h2>
+            <p>{project.testimonial.description}</p>
+          </div>
+        </section>
+      )}
 
       {project.details && (
         <section className="detail-facts" aria-labelledby="ficha-de-obra">
@@ -62,26 +83,13 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         </section>
       )}
 
-      {project.testimonial && (
-        <section className="detail-testimonial-section" aria-labelledby="testimonio-title">
-          <VideoTestimonial testimonial={project.testimonial} />
-          <div className="detail-testimonial-copy">
-            <p className="section-kicker">La experiencia de {project.testimonial.person}</p>
-            <h2 id="testimonio-title">{project.testimonial.title}</h2>
-            <p>{project.testimonial.description}</p>
-          </div>
-        </section>
-      )}
-
-      <ProjectImageCarousel images={project.images} projectTitle={project.title} />
-
       <section className="detail-copy">
         <p>{project.description}</p>
         {project.provisional && <small>Las imágenes de este proyecto son provisionales hasta incorporar el material oficial.</small>}
-        <a className="button button-primary" href="/agendar">
+        <Link className="button button-primary" href="/agendar">
           Consultar sobre una obra
           <ArrowRight aria-hidden="true" size={19} />
-        </a>
+        </Link>
       </section>
     </main>
   );

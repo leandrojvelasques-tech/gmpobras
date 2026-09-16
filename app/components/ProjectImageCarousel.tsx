@@ -23,20 +23,22 @@ export function ProjectImageCarousel({ images, projectTitle }: ProjectImageCarou
       <div className="detail-carousel-heading">
         <div>
           <p className="section-kicker">Avance de obra</p>
-          <h2 id="avance-de-obra">Volar Sin Escalas, etapa por etapa.</h2>
+          <h2 id="avance-de-obra">{projectTitle}, etapa por etapa.</h2>
         </div>
-        <p aria-live="polite">
-          {String(activeImage + 1).padStart(2, '0')} / {String(images.length).padStart(2, '0')}
+        <p className="detail-carousel-count" aria-live="polite">
+          Foto {currentImage.sequence ?? activeImage + 1} · {String(activeImage + 1).padStart(2, '0')} / {String(images.length).padStart(2, '0')}
         </p>
       </div>
 
-      <div className="detail-carousel-frame">
+      <div
+        className="detail-carousel-frame"
+      >
         <Image
           key={currentImage.src}
           src={currentImage.src}
           alt={currentImage.alt}
           fill
-          sizes="(max-width: 760px) 100vw, 86vw"
+          sizes="(max-width: 760px) 100vw, min(80vw, 960px)"
         />
         <div className="detail-carousel-controls">
           <button type="button" onClick={() => move(-1)} aria-label={`Foto anterior de ${projectTitle}`}>
@@ -46,6 +48,20 @@ export function ProjectImageCarousel({ images, projectTitle }: ProjectImageCarou
             <ChevronRight aria-hidden="true" size={22} />
           </button>
         </div>
+      </div>
+
+      <div className="detail-carousel-scrubber">
+        <label htmlFor="avance-slider">Recorrer la obra</label>
+        <input
+          id="avance-slider"
+          type="range"
+          min="0"
+          max={images.length - 1}
+          value={activeImage}
+          onChange={(event) => setActiveImage(Number(event.target.value))}
+          aria-valuetext={`Foto ${currentImage.sequence ?? activeImage + 1} de ${images.length}`}
+        />
+        <span>{currentImage.sequence ?? activeImage + 1}</span>
       </div>
     </section>
   );

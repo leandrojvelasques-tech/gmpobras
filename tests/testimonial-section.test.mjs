@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { existsSync, readFileSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import test from 'node:test';
 
@@ -14,7 +14,7 @@ const requiredAssets = [
   'public/testimonio-gabriel-ambrozy-poster.jpg',
   'public/vivienda-gabriel-ambrozy.jpg',
   'public/vivienda-gabriel-ambrozy-hero.jpg',
-  'public/volar-sin-escalas-hero.jpg',
+  'public/volar-sin-escalas-final.jpg',
   'public/volar-sin-escalas-platea.jpg',
   'public/volar-sin-escalas-montaje-paneles.jpg',
   'public/volar-sin-escalas-calefaccion-piso.jpg',
@@ -25,6 +25,13 @@ test('includes the local testimonial assets', () => {
   for (const relativePath of requiredAssets) {
     assert.equal(existsSync(join(root, relativePath)), true, `${relativePath} is missing`);
   }
+
+  const stageAssets = readdirSync(join(root, 'public'))
+    .filter((name) => /^volar-sin-escalas-etapa-\d{3}\.jpg$/.test(name))
+    .sort();
+  assert.equal(stageAssets.length, 39, 'the complete first-stage photo sequence should be present');
+  assert.equal(stageAssets[0], 'volar-sin-escalas-etapa-012.jpg');
+  assert.equal(stageAssets.at(-1), 'volar-sin-escalas-etapa-668.jpg');
 });
 
 test('models Gabriel Ambrozy testimonial and its project facts', () => {
@@ -43,7 +50,11 @@ test('models Nadia testimonial in the Volar Sin Escalas project', () => {
   assert.match(source, /Nadia Snidersich/);
   assert.match(source, /Así fue construir Volar Sin Escalas\./);
   assert.match(source, /testimonio-nadia-web\.mp4/);
-  assert.match(source, /volar-sin-escalas-montaje-paneles\.jpg/);
+  assert.match(source, /volar-sin-escalas-final\.jpg/);
+  assert.match(source, /volar-sin-escalas-etapa-012\.jpg/);
+  assert.match(source, /sequence: 12/);
+  assert.match(source, /volar-sin-escalas-etapa-668\.jpg/);
+  assert.match(source, /sequence: 668/);
 });
 
 test('renders the Home testimonial and project media components', () => {
@@ -70,6 +81,14 @@ test('renders the Home testimonial and project media components', () => {
   assert.match(detail, /ProjectImageCarousel/);
   assert.doesNotMatch(detail, /Texto provisorio/);
   assert.match(detail, /VideoTestimonial/);
+  assert.ok(
+    detail.indexOf('ProjectImageCarousel') < detail.indexOf('detail-testimonial-section'),
+    'the photo sequence should appear before Nadia video on the project page',
+  );
+  assert.ok(
+    detail.indexOf('detail-testimonial-section') < detail.indexOf('detail-facts'),
+    'the technical facts should follow the media sequence',
+  );
 });
 
 test('uses local Sansation as the primary site typeface', () => {
@@ -89,6 +108,14 @@ test('uses the approved Nadia frame as the video poster', () => {
   assert.match(component, /videoRef\.current\?\.play\(\)/);
   assert.match(component, /Reproducir testimonio de/);
   assert.match(component, /video-testimonial-play/);
+});
+
+test('supports photo sequence navigation beyond the arrow controls', () => {
+  const carousel = readFileSync(join(root, 'app/components/ProjectImageCarousel.tsx'), 'utf8');
+
+  assert.match(carousel, /type="range"/);
+  assert.match(carousel, /aria-valuetext/);
+  assert.match(carousel, /aria-label=\{`Foto anterior de \$\{projectTitle\}`\}/);
 });
 
 test('Gustavo poster has a central play control that starts the video', () => {
