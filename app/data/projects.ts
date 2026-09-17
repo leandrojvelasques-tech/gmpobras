@@ -152,44 +152,6 @@ const projectCatalog: Project[] = [
     },
   },
   {
-    slug: 'game-over',
-    title: 'Bar Game Over',
-    status: 'Proyecto finalizado',
-    subtitle: 'Un restobar temático para viajar al pasado.',
-    description: 'Obra para un restobar inspirado en el universo arcade y retro, con una identidad espacial propia.',
-    details: {
-      workType: 'Resto bar “Game Over”',
-      year: '2022',
-      duration: '14 meses',
-      area: '288 m²',
-      floors: '2 plantas',
-      delivery: 'Obra gris',
-      tasksLabel: 'Tareas realizadas',
-      tasks: [
-        'Movimiento de suelo',
-        'Fundaciones con pilotes, cabezales, vigas de fundación y platea',
-        'Tabiques y losa de paneles Cassaforma',
-        'Instalaciones de cloaca, gas, electricidad, agua y desagües pluviales',
-        'Revestimiento texturado exterior',
-      ],
-    },
-    images: [
-      { src: '/game-over-fachada.png', alt: 'Fachada temática del restobar Game Over' },
-    ],
-  },
-  {
-    slug: 'cristian-paez',
-    title: 'Cristian Páez',
-    status: 'Proyecto finalizado',
-    subtitle: 'Vivienda particular construida con sistema Cassaforma.',
-    description: 'Vivienda particular con ambientes terminados, espacios exteriores y una resolución integral del proyecto.',
-    images: [
-      { src: '/cristian-421.jpg', alt: 'Vista exterior de la vivienda de Cristian Páez' },
-      { src: '/cristian-422.jpg', alt: 'Ambiente interior terminado de la vivienda de Cristian Páez' },
-      { src: '/cristian-423.jpg', alt: 'Interior de la vivienda de Cristian Páez con escalera' },
-    ],
-  },
-  {
     slug: 'javier-aguila',
     title: 'Javier Águila',
     status: 'Proyecto finalizado',
@@ -337,7 +299,7 @@ const projectCatalog: Project[] = [
   },
 ];
 
-const projectOrder = ['volar-sin-escalas', 'vivienda-gabriel-ambrozy', 'javier-aguila', 'game-over', 'cristian-paez'];
+const projectOrder = ['volar-sin-escalas', 'vivienda-gabriel-ambrozy', 'javier-aguila'];
 
 export const projects: Project[] = projectOrder.map((slug) => {
   const project = projectCatalog.find((item) => item.slug === slug);
