@@ -265,7 +265,7 @@ const projectCatalog: Project[] = [
     ],
     testimonial: {
       person: 'Javier Águila',
-      videoSrc: '/testimonio-javier-aguila.mp4',
+      videoSrc: '/testimonio-javier-aguila-web.mp4',
       posterSrc: '/testimonio-javier-aguila-poster.jfif',
       title: 'La experiencia de Javier Águila.',
       description: 'Javier comparte su experiencia durante el desarrollo de su vivienda y el acompañamiento de GMP Obras.',
