@@ -5,16 +5,17 @@ import test from 'node:test';
 
 const root = process.cwd();
 
-test('home sends technical system information to the GMP landing', () => {
+test('home presents Gustavo and Marcelo as complementary Cassaforma voices', () => {
   const home = readFileSync(join(root, 'app/page.tsx'), 'utf8');
 
   assert.doesNotMatch(home, /href="\/sistema-cassaforma"/);
-  assert.match(home, /Conocer más información del sistema/);
+  assert.match(home, /Sistema Cassaforma/);
+  assert.match(home, /La opinión de Gustavo/);
+  assert.match(home, /La mirada de un especialista/);
   assert.doesNotMatch(home, /href="https:\/\/cassaforma\.com\/sistema-constructivo"/);
-  assert.match(home, /Arquitecto Marcelo Seia/);
+  assert.match(home, /arquitecto Marcelo Seia/);
   assert.doesNotMatch(home, /https:\/\/marceloseia\.com\//);
-  assert.match(home, /href="https:\/\/www\.youtube\.com\/@arquitectomarceloseia8716"[^>]*><strong>Arquitecto Marcelo Seia<\/strong>/);
-  assert.match(home, /Opinión experta\./);
+  assert.match(home, /href="https:\/\/www\.youtube\.com\/@arquitectomarceloseia8716"/);
 });
 
 test('Cassaforma landing includes the comparison, process and component assets', () => {

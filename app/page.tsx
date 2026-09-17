@@ -292,57 +292,53 @@ export default function Home() {
       </section>
 
       <section className="system-section" id="sistema" aria-labelledby="system-title">
-        <div className="system-content">
-          <div className="system-media">
-            <div className="system-video-stack">
-              <div className="system-video-item">
-                <div className="system-visual">
-                  <CassaformaVideoCover
-                    variant="gustavo"
-                    videoSrc="/gustavo-sistema-cassaforma.mp4"
-                    posterSrc="/cassaforma-video-cover-gustavo-clean.png"
-                  />
-                </div>
-                <p className="system-video-credit">
-                  <strong>¿Qué es el sistema Cassaforma?</strong>
-                  <span>Gustavo Pinto presenta cómo se combinan paneles, acero y hormigón en una obra.</span>
-                </p>
-              </div>
-              <div className="system-video-item">
-                <div className="system-visual">
-                  <CassaformaVideoCover variant="marcelo" />
-                </div>
-                <p className="system-video-credit">
-                  <strong>Opinión experta.</strong>
-                  <span>
-                    Video del <a href="https://www.youtube.com/@arquitectomarceloseia8716" target="_blank" rel="noreferrer"><strong>Arquitecto Marcelo Seia</strong></a>, quien explica con claridad
-                    los conceptos generales del sistema Cassaforma.
-                  </span>
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="system-copy">
-            <p className="section-kicker section-kicker-light system-section-kicker">Sistema Cassaforma</p>
-            <h2 id="system-title">Paneles, acero y hormigón que trabajan como un conjunto.</h2>
-            <p className="system-lead">
-              GMP Obras utiliza el sistema Cassaforma para resolver estructura y cerramientos
-              desde el proyecto, con una ejecución organizada por etapas.
+        <div className="system-section-heading">
+          <p className="section-kicker section-kicker-light">Sistema Cassaforma</p>
+          <div>
+            <h2 id="system-title">Dos miradas para entender cómo funciona.</h2>
+            <p className="system-section-heading-copy">
+              Gustavo lo explica desde la experiencia de GMP Obras. Marcelo Seia amplía la mirada
+              técnica sobre un sistema que combina paneles, acero y hormigón.
             </p>
-            <span className="system-copy-link is-disabled" aria-disabled="true">
-              Conocer más información del sistema
-              <ArrowUpRight aria-hidden="true" size={18} />
-            </span>
-            <div className="system-copy-panel">
-              <p className="section-kicker section-kicker-light">Una segunda mirada</p>
-              <h3>La explicación técnica, con ejemplos concretos.</h3>
+          </div>
+        </div>
+
+        <div className="system-video-feature-list">
+          <article className="system-video-feature">
+            <div className="system-visual">
+              <CassaformaVideoCover
+                variant="gustavo"
+                videoSrc="/gustavo-sistema-cassaforma.mp4"
+                posterSrc="/cassaforma-video-cover-gustavo-clean.png"
+              />
+            </div>
+            <div className="system-video-feature-copy">
+              <p className="section-kicker section-kicker-light">La opinión de Gustavo</p>
+              <h3>Cómo se aplica Cassaforma en una obra.</h3>
               <p>
-                Después de la introducción de Gustavo, Marcelo Seia amplía los conceptos del sistema,
-                sus posibilidades y los puntos que conviene evaluar antes de llevarlo a un proyecto.
+                Gustavo Pinto presenta el sistema con una explicación directa: qué elementos lo
+                componen, cómo trabajan juntos y por qué GMP Obras lo utiliza en sus proyectos.
               </p>
             </div>
-          </div>
+          </article>
+
+          <article className="system-video-feature">
+            <div className="system-visual">
+              <CassaformaVideoCover variant="marcelo" />
+            </div>
+            <div className="system-video-feature-copy">
+              <p className="section-kicker section-kicker-light">La mirada de un especialista</p>
+              <h3>Una explicación técnica, con ejemplos concretos.</h3>
+              <p>
+                El arquitecto Marcelo Seia profundiza en las características del sistema, sus
+                posibilidades y los aspectos que conviene evaluar antes de incorporarlo a un proyecto.
+              </p>
+              <a href="https://www.youtube.com/@arquitectomarceloseia8716" target="_blank" rel="noreferrer">
+                Conocer al arquitecto Marcelo Seia
+                <ArrowUpRight aria-hidden="true" size={17} />
+              </a>
+            </div>
+          </article>
         </div>
 
         <div className="system-benefits-heading">
