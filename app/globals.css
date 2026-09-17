@@ -201,8 +201,11 @@ h1, h2, h3, .button, .header-cta { font-family: var(--font-sansation), Arial, sa
 .home-project-gallery-shade { position: absolute; inset: auto 0 0; height: 32%; background: linear-gradient(transparent,rgba(14,18,28,.68)); pointer-events: none; }
 .home-project-gallery-count { position: absolute; top: 18px; right: 18px; margin: 0; color: var(--white); font-family: var(--font-plex-mono), monospace; font-size: 11px; letter-spacing: .08em; }
 .home-project-gallery-controls { position: absolute; inset: 50% 16px auto; display: flex; justify-content: space-between; transform: translateY(-50%); }
-.home-project-gallery-controls button { display: grid; place-items: center; width: 42px; height: 42px; border: 1px solid rgba(255,255,255,.7); background: rgba(15,18,25,.56); color: var(--white); cursor: pointer; transition: background 180ms ease, transform 180ms ease; }
+.home-project-gallery-controls button { display: grid; place-items: center; width: 48px; height: 48px; border: 1px solid rgba(255,255,255,.82); background: rgba(15,18,25,.68); color: var(--white); cursor: pointer; transition: background 180ms ease, transform 180ms ease; }
 .home-project-gallery-controls button:hover { background: var(--blue); transform: translateY(-2px); }
+.home-project-gallery-intro { position: absolute; right: 24px; bottom: 22px; left: 24px; display: grid; gap: 5px; color: var(--white); pointer-events: none; }
+.home-project-gallery-intro span { color: #b9c9ed; font-family: var(--font-plex-mono), monospace; font-size: 10px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
+.home-project-gallery-intro strong { font-size: clamp(25px, 3vw, 38px); font-weight: 700; letter-spacing: -.045em; line-height: 1; }
 .home-project-scrubber { display: grid; grid-template-columns: auto minmax(0,1fr) auto; align-items: center; gap: 14px; margin-top: 18px; color: #ccd4e5; font-family: var(--font-plex-mono), monospace; font-size: 11px; }
 .home-project-scrubber input { width: 100%; accent-color: #a6bee9; }
 

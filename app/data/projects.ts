@@ -44,7 +44,7 @@ export type Project = {
   testimonial?: ProjectTestimonial;
 };
 
-export const projects: Project[] = [
+const projectCatalog: Project[] = [
   {
     slug: 'volar-sin-escalas',
     title: 'Volar Sin Escalas',
@@ -215,20 +215,61 @@ export const projects: Project[] = [
       ],
     },
     images: [
-      { src: '/javier-033.jpeg', alt: 'Vista de la vivienda de Javier Águila' },
-      { src: '/javier-048.jpeg', alt: 'Avance de obra de la vivienda de Javier Águila' },
-      { src: '/javier-057.jpeg', alt: 'Detalle constructivo de la vivienda de Javier Águila' },
-      { src: '/javier-068.jpeg', alt: 'Espacio exterior de la vivienda de Javier Águila' },
-      { src: '/javier-084.jpeg', alt: 'Proceso de ejecución de la vivienda de Javier Águila' },
-      { src: '/javier-100.jpeg', alt: 'Vista general de la vivienda de Javier Águila' },
-      { src: '/javier-126.jpeg', alt: 'Detalle de la obra de Javier Águila' },
-      { src: '/javier-137.jpeg', alt: 'Instalaciones de la vivienda de Javier Águila' },
-      { src: '/javier-167.jpeg', alt: 'Terminaciones de la vivienda de Javier Águila' },
-      { src: '/javier-290.jpg', alt: 'Vista de la vivienda de Javier Águila en Rada Tilly' },
-      { src: '/javier-600.jpeg', alt: 'Detalle exterior de la vivienda de Javier Águila' },
-      { src: '/javier-627.jpeg', alt: 'Vista final de la vivienda de Javier Águila' },
-      { src: '/javier-629.jpeg', alt: 'Fachada de la vivienda de Javier Águila' },
+      { src: '/javier-aguila-001.jfif', alt: 'Foto 1 de la obra de Javier Águila' },
+      { src: '/javier-aguila-002.jpeg', alt: 'Foto 2 de la obra de Javier Águila' },
+      { src: '/javier-aguila-003.jpeg', alt: 'Foto 3 de la obra de Javier Águila' },
+      { src: '/javier-aguila-004.jpeg', alt: 'Foto 4 de la obra de Javier Águila' },
+      { src: '/javier-aguila-005.jpeg', alt: 'Foto 5 de la obra de Javier Águila' },
+      { src: '/javier-aguila-006.jpeg', alt: 'Foto 6 de la obra de Javier Águila' },
+      { src: '/javier-aguila-007.jpeg', alt: 'Foto 7 de la obra de Javier Águila' },
+      { src: '/javier-aguila-008.jpeg', alt: 'Foto 8 de la obra de Javier Águila' },
+      { src: '/javier-aguila-009.jpeg', alt: 'Foto 9 de la obra de Javier Águila' },
+      { src: '/javier-aguila-010.jpg', alt: 'Foto 10 de la obra de Javier Águila' },
+      { src: '/javier-aguila-011.jpeg', alt: 'Foto 11 de la obra de Javier Águila' },
+      { src: '/javier-aguila-012.jpeg', alt: 'Foto 12 de la obra de Javier Águila' },
+      { src: '/javier-aguila-013.jpeg', alt: 'Foto 13 de la obra de Javier Águila' },
+      { src: '/javier-aguila-014.jpeg', alt: 'Foto 14 de la obra de Javier Águila' },
+      { src: '/javier-aguila-015.jpeg', alt: 'Foto 15 de la obra de Javier Águila' },
+      { src: '/javier-aguila-016.jpeg', alt: 'Foto 16 de la obra de Javier Águila' },
+      { src: '/javier-aguila-017.jpeg', alt: 'Foto 17 de la obra de Javier Águila' },
+      { src: '/javier-aguila-018.jpeg', alt: 'Foto 18 de la obra de Javier Águila' },
+      { src: '/javier-aguila-019.jpeg', alt: 'Foto 19 de la obra de Javier Águila' },
+      { src: '/javier-aguila-020.jpeg', alt: 'Foto 20 de la obra de Javier Águila' },
+      { src: '/javier-aguila-021.jpeg', alt: 'Foto 21 de la obra de Javier Águila' },
+      { src: '/javier-aguila-022.jpeg', alt: 'Foto 22 de la obra de Javier Águila' },
+      { src: '/javier-aguila-023.jpeg', alt: 'Foto 23 de la obra de Javier Águila' },
+      { src: '/javier-aguila-024.jpeg', alt: 'Foto 24 de la obra de Javier Águila' },
+      { src: '/javier-aguila-025.jpg', alt: 'Foto 25 de la obra de Javier Águila' },
+      { src: '/javier-aguila-026.jpeg', alt: 'Foto 26 de la obra de Javier Águila' },
+      { src: '/javier-aguila-027.jpeg', alt: 'Foto 27 de la obra de Javier Águila' },
+      { src: '/javier-aguila-028.jpeg', alt: 'Foto 28 de la obra de Javier Águila' },
+      { src: '/javier-aguila-029.jpeg', alt: 'Foto 29 de la obra de Javier Águila' },
+      { src: '/javier-aguila-030.jpeg', alt: 'Foto 30 de la obra de Javier Águila' },
+      { src: '/javier-aguila-031.jpg', alt: 'Foto 31 de la obra de Javier Águila' },
+      { src: '/javier-aguila-032.jpeg', alt: 'Foto 32 de la obra de Javier Águila' },
+      { src: '/javier-aguila-033.jpeg', alt: 'Foto 33 de la obra de Javier Águila' },
+      { src: '/javier-aguila-034.jpeg', alt: 'Foto 34 de la obra de Javier Águila' },
+      { src: '/javier-aguila-035.jpeg', alt: 'Foto 35 de la obra de Javier Águila' },
+      { src: '/javier-aguila-036.jpeg', alt: 'Foto 36 de la obra de Javier Águila' },
+      { src: '/javier-aguila-037.jpeg', alt: 'Foto 37 de la obra de Javier Águila' },
+      { src: '/javier-aguila-038.jpeg', alt: 'Foto 38 de la obra de Javier Águila' },
+      { src: '/javier-aguila-039.jpeg', alt: 'Foto 39 de la obra de Javier Águila' },
+      { src: '/javier-aguila-040.jpeg', alt: 'Foto 40 de la obra de Javier Águila' },
+      { src: '/javier-aguila-041.jpeg', alt: 'Foto 41 de la obra de Javier Águila' },
+      { src: '/javier-aguila-042.jpeg', alt: 'Foto 42 de la obra de Javier Águila' },
+      { src: '/javier-aguila-043.jpeg', alt: 'Foto 43 de la obra de Javier Águila' },
+      { src: '/javier-aguila-044.jpeg', alt: 'Foto 44 de la obra de Javier Águila' },
+      { src: '/javier-aguila-045.jpeg', alt: 'Foto 45 de la obra de Javier Águila' },
+      { src: '/javier-aguila-046.jpeg', alt: 'Foto 46 de la obra de Javier Águila' },
+      { src: '/javier-aguila-047.jpeg', alt: 'Foto 47 de la obra de Javier Águila' },
     ],
+    testimonial: {
+      person: 'Javier Águila',
+      videoSrc: '/testimonio-javier-aguila.mp4',
+      posterSrc: '/testimonio-javier-aguila-poster.jfif',
+      title: 'La experiencia de Javier Águila.',
+      description: 'Javier comparte su experiencia durante el desarrollo de su vivienda y el acompañamiento de GMP Obras.',
+    },
   },
   {
     slug: 'vivienda-gabriel-ambrozy',
@@ -295,3 +336,11 @@ export const projects: Project[] = [
     },
   },
 ];
+
+const projectOrder = ['volar-sin-escalas', 'vivienda-gabriel-ambrozy', 'javier-aguila', 'game-over', 'cristian-paez'];
+
+export const projects: Project[] = projectOrder.map((slug) => {
+  const project = projectCatalog.find((item) => item.slug === slug);
+  if (!project) throw new Error(`Missing project: ${slug}`);
+  return project;
+});

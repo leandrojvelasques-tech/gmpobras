@@ -129,7 +129,11 @@ export function HomeProjectShowcase({ projects }: HomeProjectShowcaseProps) {
               </div>
 
               <div className="home-project-dossier-bottom">
-                <button className="home-project-photos-cta" type="button" onClick={() => setPanel('stages')}>
+                <button
+                  className="home-project-photos-cta"
+                  type="button"
+                  onClick={() => stages.length === 1 ? openStage(stages[0].id) : setPanel('stages')}
+                >
                   Ver fotos de la obra
                   <ArrowRight aria-hidden="true" size={22} />
                 </button>
@@ -203,6 +207,12 @@ export function HomeProjectShowcase({ projects }: HomeProjectShowcaseProps) {
                 sizes="(max-width: 980px) 100vw, 64vw"
               />
               <div className="home-project-gallery-shade" />
+              {stages.length === 1 && activeImageIndex === 0 && (
+                <div className="home-project-gallery-intro">
+                  <span>Etapa única</span>
+                  <strong>Recorrido de la obra</strong>
+                </div>
+              )}
               <p className="home-project-gallery-count" aria-live="polite">
                 Foto {String(activeImageIndex + 1).padStart(2, '0')} / {String(activeStage.images.length).padStart(2, '0')}
               </p>
