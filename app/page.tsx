@@ -226,7 +226,7 @@ export default function Home() {
       <header className="site-header">
         <a className="brand" href="#inicio" aria-label="GMP Obras, inicio">
           <span className="official-logo" aria-hidden="true">
-            <Image src="/logo-gmp-web.png" alt="" width={190} height={58} />
+            <Image src="/logo-gmp-horizontal-3-capas.png" alt="" width={1258} height={343} />
           </span>
         </a>
 
@@ -527,8 +527,8 @@ export default function Home() {
       <footer className="site-footer">
         <div className="footer-brand">
           <a className="brand brand-footer" href="#inicio" aria-label="GMP Obras, inicio">
-            <span className="official-logo" aria-hidden="true">
-              <Image src="/logo-gmp-web.png" alt="" width={190} height={58} />
+            <span className="official-logo footer-logo" aria-hidden="true">
+              <Image src="/logo-gmp-completo-vertical.png" alt="" width={1834} height={1503} />
             </span>
           </a>
           <p>Gustavo Pinto Caetano · Maestro mayor de obras</p>

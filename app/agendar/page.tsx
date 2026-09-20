@@ -58,7 +58,10 @@ export default function AppointmentPage() {
   const [answers, setAnswers] = useState(initialAnswers);
   const [reviewing, setReviewing] = useState(false);
   const [prepared, setPrepared] = useState(false);
-  const [materialCount, setMaterialCount] = useState(0);
+  const [acceptedPrivacy, setAcceptedPrivacy] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
+  const [confirmationId, setConfirmationId] = useState<number | null>(null);
   const totalSteps = 5;
 
   const canContinue = useMemo(() => {
@@ -66,8 +69,8 @@ export default function AppointmentPage() {
     if (step === 1) return Boolean(answers.projectDetail.trim() && answers.projectStages.length);
     if (step === 2) return Boolean(answers.budget);
     if (step === 3) return Boolean(answers.meetingMode && answers.preferredDay && answers.preferredTime);
-    return Boolean(answers.name.trim() && answers.phone.trim() && answers.email.trim());
-  }, [answers, step]);
+    return Boolean(answers.name.trim() && answers.phone.trim() && answers.email.trim() && acceptedPrivacy);
+  }, [acceptedPrivacy, answers, step]);
 
   function update<K extends keyof Answers>(field: K, value: Answers[K]) {
     setAnswers((current) => ({ ...current, [field]: value }));
@@ -88,11 +91,36 @@ export default function AppointmentPage() {
     else setReviewing(true);
   }
 
+  async function submitAppointment() {
+    setSubmitting(true);
+    setSubmitError('');
+
+    try {
+      const response = await fetch('/api/consultas', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(answers),
+      });
+      const result = (await response.json()) as { consultation?: { id: number }; error?: string };
+
+      if (!response.ok || !result.consultation) {
+        throw new Error(result.error || 'No pudimos guardar la solicitud.');
+      }
+
+      setConfirmationId(result.consultation.id);
+      setPrepared(true);
+    } catch (error) {
+      setSubmitError(error instanceof Error ? error.message : 'No pudimos guardar la solicitud.');
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
   return (
     <main className="booking-page">
       <header className="booking-header">
         <a href="/" className="booking-brand" aria-label="Volver al inicio de GMP Obras">
-          <span className="official-logo" aria-hidden="true"><Image src="/logo-gmp-web.png" alt="" width={190} height={58} /></span>
+          <span className="official-logo" aria-hidden="true"><Image src="/logo-gmp-horizontal-3-capas.png" alt="" width={1258} height={343} /></span>
         </a>
         <a href="/" className="booking-back"><ArrowLeft aria-hidden="true" size={17} /> Volver al sitio</a>
       </header>
@@ -119,11 +147,11 @@ export default function AppointmentPage() {
           {prepared ? (
             <div className="booking-prepared" aria-live="polite">
               <span><Check aria-hidden="true" size={28} /></span>
-              <p className="section-kicker">Solicitud preparada</p>
-              <h2 id="booking-step-title">La solicitud quedó lista para coordinar.</h2>
-              <p>La fecha y el turno elegidos quedan sujetos a confirmación de GMP Obras.</p>
-              <small>Vista previa local: todavía no se enviaron datos ni se confirmó una cita.</small>
-              <button className="button button-primary" type="button" onClick={() => { setPrepared(false); setReviewing(true); }}>Volver a la solicitud</button>
+              <p className="section-kicker">Solicitud registrada</p>
+              <h2 id="booking-step-title">Recibimos tu consulta.</h2>
+              <p>La información quedó guardada con el número <strong>#{confirmationId}</strong>. GMP Obras la revisará para confirmar la disponibilidad y coordinar la reunión.</p>
+              <small>La fecha y el turno elegidos todavía están sujetos a confirmación.</small>
+              <a className="button button-primary" href="/">Volver al sitio</a>
             </div>
           ) : reviewing ? (
             <div className="booking-review">
@@ -143,14 +171,14 @@ export default function AppointmentPage() {
                 <div><dt>Nombre</dt><dd>{answers.name}</dd></div>
                 <div><dt>Teléfono</dt><dd>{answers.phone}</dd></div>
                 <div><dt>Email</dt><dd>{answers.email}</dd></div>
-                <div><dt>Archivos adjuntos</dt><dd>{materialCount > 0 ? `${materialCount} ${materialCount === 1 ? 'archivo' : 'archivos'}` : 'Sin archivos adjuntos'}</dd></div>
                 {answers.materialLink && <div className="is-wide"><dt>Material en Google Drive</dt><dd>{answers.materialLink}</dd></div>}
               </dl>
 
-              <small>Vista previa local: el botón todavía no transmite información.</small>
+              <small>Al enviar, la información quedará registrada en la base de datos de GMP Obras.</small>
+              {submitError && <p className="booking-submit-error" role="alert">{submitError}</p>}
               <div className="booking-actions booking-review-actions">
                 <button type="button" className="booking-prev" onClick={() => setReviewing(false)}><ArrowLeft aria-hidden="true" size={18} /> Volver y editar</button>
-                <button type="button" className="button button-primary" onClick={() => setPrepared(true)}>Enviar solicitud de reunión <ArrowRight aria-hidden="true" size={18} /></button>
+                <button type="button" className="button button-primary" onClick={submitAppointment} disabled={submitting}>{submitting ? 'Guardando solicitud…' : 'Enviar solicitud de reunión'} {!submitting && <ArrowRight aria-hidden="true" size={18} />}</button>
               </div>
             </div>
           ) : (
@@ -197,16 +225,11 @@ export default function AppointmentPage() {
                       <h3>Fotos o videos del lugar</h3>
                       <p>Si ya tenés una casa, terreno o local, podés sumar material para que Gustavo llegue mejor preparado a la cita.</p>
                     </div>
-                    <label className="file-field">
-                      Adjuntar desde el dispositivo
-                      <input type="file" accept="image/*,video/*" multiple onChange={(event) => setMaterialCount(event.target.files?.length ?? 0)} />
-                      {materialCount > 0 && <span>{materialCount} {materialCount === 1 ? 'archivo seleccionado' : 'archivos seleccionados'}</span>}
-                    </label>
                     <label>
-                      Si son muchos archivos, subilos a Google Drive y pegá el enlace
+                      Subí el material a Google Drive y pegá el enlace
                       <input type="url" value={answers.materialLink} onChange={(event) => update('materialLink', event.target.value)} placeholder="https://drive.google.com/..." />
                     </label>
-                    <small>Los archivos no se envían todavía en esta vista previa local.</small>
+                    <small>El enlace es opcional y quedará guardado junto con la consulta.</small>
                   </div>
                 </fieldset>
               )}
@@ -244,6 +267,7 @@ export default function AppointmentPage() {
                   <label>Nombre y apellido<input autoComplete="name" value={answers.name} onChange={(event) => update('name', event.target.value)} /></label>
                   <label>Teléfono<input type="tel" autoComplete="tel" value={answers.phone} onChange={(event) => update('phone', event.target.value)} /></label>
                   <label>Email<input type="email" autoComplete="email" value={answers.email} onChange={(event) => update('email', event.target.value)} /></label>
+                  <label className="booking-consent"><input type="checkbox" checked={acceptedPrivacy} onChange={(event) => setAcceptedPrivacy(event.target.checked)} /><span>Acepto que GMP Obras guarde estos datos y los utilice para contactarme por esta consulta.</span></label>
                 </fieldset>
               )}
 
