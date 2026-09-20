@@ -355,9 +355,10 @@ a:focus-visible, button:focus-visible, video:focus-visible { outline: 3px solid 
 .site-footer { display: grid; grid-template-columns: 1fr 1.4fr; gap: 40px; padding: 42px clamp(24px,7.3vw,112px); background: var(--graphite); color: var(--white); }
 .footer-logo { width: 240px; height: 196px; overflow: visible; }
 .footer-logo img { object-position: left center; }
-.footer-brand p { margin: 16px 0 0; color: rgba(255,255,255,.58); font-size: 13px; }
-.footer-brand .footer-registration { margin-top: 7px; color: rgba(255,255,255,.42); font-family: var(--font-plex-mono), monospace; font-size: 10px; letter-spacing: .06em; }
 .footer-details { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px 30px; align-content: center; color: rgba(255,255,255,.76); font-size: 14px; }
+.footer-identity { grid-column: 1 / -1; margin-bottom: 12px; }
+.footer-identity p { margin: 0; color: rgba(255,255,255,.68); font-size: 15px; font-weight: 700; }
+.footer-identity .footer-registration { margin-top: 7px; color: rgba(255,255,255,.42); font-family: var(--font-plex-mono), monospace; font-size: 10px; font-weight: 400; letter-spacing: .06em; }
 .footer-details a:hover { color: var(--white); }
 
 .project-detail { min-height: 100vh; background: var(--mist); color: var(--ink); }
@@ -661,6 +662,7 @@ a:focus-visible, button:focus-visible, video:focus-visible { outline: 3px solid 
   .home-project-list button { min-height: 60px; }
   .site-footer { grid-template-columns: 1fr; padding-inline: 20px; }
   .footer-details { grid-template-columns: 1fr; }
+  .footer-identity { grid-column: 1; margin-bottom: 10px; }
   .detail-header { padding-inline: 20px; }
   .home-testimonial { grid-template-columns: 1fr; }
   .home-testimonial-heading { align-items: flex-start; flex-direction: column; }
