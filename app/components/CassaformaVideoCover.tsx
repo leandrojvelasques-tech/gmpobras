@@ -19,7 +19,7 @@ export function CassaformaVideoCover({ variant = 'marcelo', videoSrc, posterSrc 
 
   const isGustavo = variant === 'gustavo';
   const title = isGustavo
-    ? 'Qué es el sistema Cassaforma, explicado por Gustavo Pinto'
+    ? 'Qué es el sistema Cassaforma, explicado por Gustavo Pinto Caetano'
     : 'Explicación del sistema constructivo Cassaforma';
 
   if (isPlaying) {
@@ -61,7 +61,7 @@ export function CassaformaVideoCover({ variant = 'marcelo', videoSrc, posterSrc 
       {isGustavo ? (
         <Image
           src={posterSrc ?? OFFICIAL_THUMBNAIL}
-          alt="Qué es el sistema Cassaforma, explicado por Gustavo Pinto"
+          alt="Qué es el sistema Cassaforma, explicado por Gustavo Pinto Caetano"
           fill
           sizes="(max-width: 760px) 100vw, 45vw"
           priority={false}

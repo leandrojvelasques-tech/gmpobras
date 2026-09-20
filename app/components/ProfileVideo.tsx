@@ -18,7 +18,7 @@ export function ProfileVideo() {
       {/* oxlint-disable-next-line jsx-a11y/media-has-caption -- Los subtítulos requieren una transcripción revisada antes de publicar. */}
       <video
         ref={videoRef}
-        aria-label="Presentación en video de Gustavo Pinto"
+        aria-label="Presentación en video de Gustavo Pinto Caetano"
         controls
         onEnded={() => setIsPlaying(false)}
         onPause={() => setIsPlaying(false)}
@@ -37,14 +37,14 @@ export function ProfileVideo() {
         <img
           className="profile-video-cover"
           src="/gustavo-presentacion-frame-04-clean.png"
-          alt="Gustavo Pinto señalando los planos de una obra"
+          alt="Gustavo Pinto Caetano señalando los planos de una obra"
         />
       )}
       {!isPlaying && (
         <button
           className="profile-video-play"
           type="button"
-          aria-label="Reproducir presentación de Gustavo Pinto"
+          aria-label="Reproducir presentación de Gustavo Pinto Caetano"
           onClick={playVideo}
         >
           <Play aria-hidden="true" size={34} fill="currentColor" />

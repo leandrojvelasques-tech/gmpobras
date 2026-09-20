@@ -18,6 +18,12 @@ test('Home includes the system, FAQ, contact form and appointment conversion pat
   assert.match(home, /Beneficios del sistema/);
   assert.match(home, /Resistencia ante vientos fuertes/);
   assert.match(home, /Ver beneficios siguientes/);
+  assert.match(home, /Comparación orientativa/);
+  assert.match(home, /constructionSystems/);
+  assert.match(home, /¿Se puede construir en cualquier terreno\?/);
+  assert.match(home, /¿Entregan con los planos municipales aprobados\?/);
+  assert.match(home, /Gustavo Pinto Caetano/);
+  assert.doesNotMatch(home, /de un profesional\./);
   assert.doesNotMatch(home, /Componentes del sistema/);
 });
 

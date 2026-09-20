@@ -428,7 +428,7 @@ export default function CassaformaSystemPage() {
             <Image src="/logo-gmp-web.png" alt="" width={190} height={58} />
           </span>
         </a>
-        <p>Gustavo Pinto · Maestro mayor de obras · Comodoro Rivadavia</p>
+        <p>Gustavo Pinto Caetano · Maestro mayor de obras · Comodoro Rivadavia</p>
         <div>
           <a href="https://cassaforma.com/sistema-constructivo" target="_blank" rel="noreferrer">Fuente técnica consultada: Cassaforma</a>
           <a href="/#contacto">Contacto GMP Obras</a>

@@ -19,6 +19,9 @@ const requiredAssets = [
   'public/volar-sin-escalas-montaje-paneles.jpg',
   'public/volar-sin-escalas-calefaccion-piso.jpg',
   'public/volar-sin-escalas-interior-consultorio.jpg',
+  'public/volar-sin-escalas-recepcion-sin-personas.jpg',
+  'public/hero-gustavo-obra-segura.jpg',
+  'public/cassaforma-video-cover-gustavo-relajado.jpg',
 ];
 
 test('includes the local testimonial assets', () => {
@@ -139,6 +142,6 @@ test('Gustavo poster has a central play control that starts the video', () => {
 
   assert.match(component, /useRef<HTMLVideoElement>/);
   assert.match(component, /videoRef\.current\?\.play\(\)/);
-  assert.match(component, /aria-label="Reproducir presentación de Gustavo Pinto"/);
+  assert.match(component, /aria-label="Reproducir presentación de Gustavo Pinto Caetano"/);
   assert.match(component, /profile-video-play/);
 });

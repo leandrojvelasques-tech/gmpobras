@@ -7,6 +7,7 @@ import {
   ArrowUpRight,
   BroomSparkles,
   Cable,
+  Check,
   ChevronLeft,
   ChevronRight,
   AtSign,
@@ -18,6 +19,7 @@ import {
   ShieldCheck,
   Thermometer,
   Wind,
+  X,
   Zap,
 } from 'lucide-react';
 import Image from 'next/image';
@@ -51,8 +53,8 @@ const services = [
   {
     title: 'Consultorios',
     description: 'Ambientes funcionales para atender, trabajar y recibir a tus pacientes.',
-    image: '/volar-sin-escalas-interior-consultorio.jpg',
-    imageAlt: 'Interior de un consultorio de Volar Sin Escalas durante su construcción',
+    image: '/volar-sin-escalas-recepcion-sin-personas.jpg',
+    imageAlt: 'Recepción de los consultorios Volar Sin Escalas durante la etapa de terminaciones',
   },
   {
     title: 'Locales comerciales',
@@ -110,6 +112,26 @@ const systemBenefits = [
   },
 ];
 
+const comparisonCriteria = [
+  'Ejecución rápida',
+  'Aislación termoacústica',
+  'Economía',
+  'Obra limpia',
+  'Ahorro energético',
+  'Resistencia a cargas',
+  'Resistencia a vientos fuertes',
+  'Sistema liviano',
+  'Resistencia y durabilidad',
+] as const;
+
+const constructionSystems = [
+  { name: 'Tradicional', values: [false, false, false, false, false, true, true, false, true], featured: false },
+  { name: 'Steel frame', values: [true, false, true, true, false, false, false, true, false], featured: false },
+  { name: 'Panel SIP', values: [true, true, true, true, true, false, false, true, false], featured: false },
+  { name: 'Modular (contenedores)', values: [true, false, false, true, false, true, true, true, true], featured: false },
+  { name: 'Cassaforma', values: [true, true, true, true, true, true, true, true, true], featured: true },
+] as const;
+
 const faqs = [
   {
     question: '¿Qué tipos de obras realiza GMP Obras?',
@@ -130,6 +152,14 @@ const faqs = [
   {
     question: '¿Cuánto demora una obra?',
     answer: 'Depende del tipo de obra, su superficie, el proyecto y las condiciones del lugar. El plazo se analiza para cada caso; no se fija sin revisar esa información.',
+  },
+  {
+    question: '¿Se puede construir en cualquier terreno?',
+    answer: 'Sí, pero siempre es necesario realizar un estudio de suelo. Esa evaluación permite verificar las condiciones del terreno y proyectar la obra con seguridad.',
+  },
+  {
+    question: '¿Entregan con los planos municipales aprobados?',
+    answer: 'Sí. Antes de iniciar la obra se gestiona la aprobación ante la Municipalidad de Comodoro Rivadavia. Al finalizar, cuando la contratación es llave en mano, se presenta el conforme de obra y se actualizan las modificaciones realizadas, si las hubiera.',
   },
 ];
 
@@ -203,8 +233,8 @@ export default function Home() {
       <section className="hero" id="inicio">
         <Image
           className="hero-image"
-          src="/hero-gustavo-obra-activa.jpg"
-          alt="Gustavo Pinto dirige una inspección mientras el equipo trabaja en una obra"
+          src="/hero-gustavo-obra-segura.jpg"
+          alt="Gustavo Pinto Caetano dirige una inspección mientras el equipo trabaja con equipamiento de seguridad en una obra"
           fill
           priority
           sizes="100vw"
@@ -220,7 +250,7 @@ export default function Home() {
           <h1>
             Tu obra,
             <span>en manos</span>
-            de un profesional.
+            de un profesional
           </h1>
           <p className="hero-copy">
             Diseñamos y ejecutamos viviendas, ampliaciones y proyectos con un
@@ -240,7 +270,7 @@ export default function Home() {
       </section>
 
       <section className="intro" id="quien-esta-detras">
-        <p className="section-kicker">Gustavo Pinto</p>
+        <p className="section-kicker">Gustavo Pinto Caetano</p>
 
         <div className="intro-main">
           <div className="intro-profile">
@@ -248,7 +278,7 @@ export default function Home() {
             <div className="profile-copy">
               <h2>Construimos con criterio técnico y presencia en cada etapa.</h2>
               <p>
-                <strong>Gustavo Pinto, maestro mayor de obras,</strong> acompaña tu
+                <strong>Gustavo Pinto Caetano, maestro mayor de obras,</strong> acompaña tu
                 proyecto desde la primera conversación. La propuesta se adapta a la
                 necesidad, al terreno y al momento real de cada cliente.
               </p>
@@ -309,14 +339,14 @@ export default function Home() {
               <CassaformaVideoCover
                 variant="gustavo"
                 videoSrc="/gustavo-sistema-cassaforma.mp4"
-                posterSrc="/cassaforma-video-cover-gustavo-clean.png"
+                posterSrc="/cassaforma-video-cover-gustavo-relajado.jpg"
               />
             </div>
             <div className="system-video-feature-copy">
               <p className="section-kicker section-kicker-light">La opinión de Gustavo</p>
               <h3>Cómo se aplica Cassaforma en una obra.</h3>
               <p>
-                Gustavo Pinto presenta el sistema con una explicación directa: qué elementos lo
+                Gustavo Pinto Caetano presenta el sistema con una explicación directa: qué elementos lo
                 componen, cómo trabajan juntos y por qué GMP Obras lo utiliza en sus proyectos.
               </p>
             </div>
@@ -359,9 +389,13 @@ export default function Home() {
             const Icon = benefit.icon;
             return (
               <article key={benefit.title}>
-                <div className="benefit-icon"><Icon aria-hidden="true" size={28} strokeWidth={1.7} /></div>
-                <span>{String(index + 1).padStart(2, '0')}</span>
-                <h3>{benefit.title}</h3>
+                <div className="benefit-card-head">
+                  <div className="benefit-icon"><Icon aria-hidden="true" size={26} strokeWidth={1.7} /></div>
+                  <div className="benefit-card-title">
+                    <span>{String(index + 1).padStart(2, '0')}</span>
+                    <h3>{benefit.title}</h3>
+                  </div>
+                </div>
                 <p>{benefit.description}</p>
               </article>
             );
@@ -371,6 +405,39 @@ export default function Home() {
           <p>¿Querés saber si este sistema sirve para tu proyecto?</p>
           <a href="/agendar">Agendar cita <ArrowRight aria-hidden="true" size={18} /></a>
         </div>
+
+        <section className="system-comparison" aria-labelledby="comparison-title">
+          <div className="system-comparison-heading">
+            <p className="section-kicker section-kicker-light">Comparación orientativa</p>
+            <h3 id="comparison-title">Cómo se posicionan los principales sistemas constructivos.</h3>
+            <p>Una lectura rápida de propiedades habituales para ordenar la consulta técnica.</p>
+          </div>
+          <div className="comparison-table-wrap" tabIndex={0} aria-label="Tabla comparativa de sistemas constructivos">
+            <table className="comparison-table">
+              <thead>
+                <tr>
+                  <th scope="col">Sistema</th>
+                  {comparisonCriteria.map((criterion) => <th scope="col" key={criterion}>{criterion}</th>)}
+                </tr>
+              </thead>
+              <tbody>
+                {constructionSystems.map((system) => (
+                  <tr className={system.featured ? 'is-featured' : undefined} key={system.name}>
+                    <th scope="row">{system.name}</th>
+                    {system.values.map((meetsCriterion, index) => (
+                      <td key={comparisonCriteria[index]}>
+                        <span className={meetsCriterion ? 'comparison-yes' : 'comparison-no'} aria-label={meetsCriterion ? 'Cumple' : 'No cumple'}>
+                          {meetsCriterion ? <Check aria-hidden="true" size={22} strokeWidth={3} /> : <X aria-hidden="true" size={22} strokeWidth={3} />}
+                        </span>
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="comparison-note">Comparación visual orientativa provista por GMP Obras. El desempeño final depende del proyecto, el cálculo estructural, el terreno, los materiales y la ejecución.</p>
+        </section>
       </section>
 
       <section className="faq-section" id="preguntas-frecuentes" aria-labelledby="faq-title">
@@ -448,7 +515,7 @@ export default function Home() {
               <Image src="/logo-gmp-web.png" alt="" width={190} height={58} />
             </span>
           </a>
-          <p>Gustavo Pinto · Maestro mayor de obras</p>
+          <p>Gustavo Pinto Caetano · Maestro mayor de obras</p>
           <p className="footer-registration">Mat. Mun. 159 · Mat. P. 1206 · Cat. 2°</p>
         </div>
         <div className="footer-details">
