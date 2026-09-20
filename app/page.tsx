@@ -113,14 +113,14 @@ const systemBenefits = [
 ];
 
 const comparisonCriteria = [
-  'Ejecución rápida',
+  'Rapidez',
   'Aislación termoacústica',
   'Economía',
-  'Obra limpia',
+  'Limpieza en obra',
   'Ahorro energético',
   'Resistencia a cargas',
-  'Resistencia a vientos fuertes',
-  'Sistema liviano',
+  'Resistencia al viento',
+  'Liviandad del sistema',
   'Resistencia y durabilidad',
 ] as const;
 
@@ -132,34 +132,47 @@ const constructionSystems = [
   { name: 'Cassaforma', values: [true, true, true, true, true, true, true, true, true], featured: true },
 ] as const;
 
-const faqs = [
+type Faq = {
+  question: string;
+  answer: string;
+  cta?: {
+    href: string;
+    label: string;
+  };
+};
+
+const faqs: Faq[] = [
   {
     question: '¿Qué tipos de obras realiza GMP Obras?',
     answer: 'Viviendas, ampliaciones, consultorios y locales comerciales. Cada consulta se evalúa según su alcance, ubicación y estado actual.',
   },
   {
     question: '¿En qué zonas trabaja?',
-    answer: 'La propuesta actual está orientada a proyectos en Comodoro Rivadavia y Rada Tilly. La ubicación se confirma durante la consulta inicial.',
+    answer: 'Comodoro Rivadavia y Rada Tilly.',
   },
   {
     question: '¿Qué es el sistema Cassaforma?',
-    answer: 'Es un sistema de paneles modulares con núcleo aislante y mallas de acero. En obra, los paneles se montan, reciben las instalaciones previstas y se completan con hormigón proyectado.',
+    answer: 'Es un sistema de paneles modulares con núcleo aislante y mallas de acero que se completan con hormigón proyectado. Su combinación aporta rapidez de ejecución, aislación, resistencia, limpieza en obra y un uso eficiente de los materiales frente a otros métodos constructivos.',
   },
   {
     question: '¿Puedo consultar si todavía no tengo el proyecto definido?',
-    answer: 'Sí. La primera conversación sirve para entender qué querés construir, dónde y en qué etapa estás antes de definir los próximos pasos.',
+    answer: 'Sí. De hecho, recomendamos hacer la consulta antes de definir el proyecto. La primera reunión es gratuita y sirve para analizar qué querés construir, conocer el terreno y ordenar los próximos pasos con criterio técnico.',
+    cta: {
+      href: '/agendar',
+      label: 'Agendar una consulta gratuita',
+    },
   },
   {
     question: '¿Cuánto demora una obra?',
-    answer: 'Depende del tipo de obra, su superficie, el proyecto y las condiciones del lugar. El plazo se analiza para cada caso; no se fija sin revisar esa información.',
+    answer: 'El plazo depende del tipo de obra, la superficie, el proyecto y las condiciones del terreno. Antes de darte una fecha, revisamos esa información y armamos un plazo de trabajo realista para tu caso.',
   },
   {
     question: '¿Se puede construir en cualquier terreno?',
-    answer: 'Sí, pero siempre es necesario realizar un estudio de suelo. Esa evaluación permite verificar las condiciones del terreno y proyectar la obra con seguridad.',
+    answer: 'Sí, siempre que las condiciones del terreno lo permitan. Para tu tranquilidad, antes de proyectar la obra realizamos un estudio de suelo que permite definir la solución adecuada y prevenir inconvenientes durante la construcción.',
   },
   {
     question: '¿Entregan con los planos municipales aprobados?',
-    answer: 'Sí. Antes de iniciar la obra se gestiona la aprobación ante la Municipalidad de Comodoro Rivadavia. Al finalizar, cuando la contratación es llave en mano, se presenta el conforme de obra y se actualizan las modificaciones realizadas, si las hubiera.',
+    answer: 'Sí. Una de las ventajas de trabajar con GMP Obras es el acompañamiento para que la obra cumpla con la normativa local y quede en regla. No iniciamos la construcción sin la aprobación del municipio correspondiente. En obras llave en mano, al finalizar se presenta el conforme de obra y se actualizan las modificaciones realizadas, si las hubiera.',
   },
 ];
 
@@ -233,7 +246,7 @@ export default function Home() {
       <section className="hero" id="inicio">
         <Image
           className="hero-image"
-          src="/hero-gustavo-obra-segura.jpg"
+          src="/hero-gustavo-obra-segura-v2.png"
           alt="Gustavo Pinto Caetano dirige una inspección mientras el equipo trabaja con equipamiento de seguridad en una obra"
           fill
           priority
@@ -453,7 +466,10 @@ export default function Home() {
                 <span>{faq.question}</span>
                 <span aria-hidden="true">+</span>
               </summary>
-              <p>{faq.answer}</p>
+              <div className="faq-answer">
+                <p>{faq.answer}</p>
+                {faq.cta && <a href={faq.cta.href}>{faq.cta.label}<ArrowRight aria-hidden="true" size={16} /></a>}
+              </div>
             </details>
           ))}
         </div>
