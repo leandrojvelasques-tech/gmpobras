@@ -304,11 +304,10 @@ h1, h2, h3, .button, .header-cta { font-family: var(--font-sansation), Arial, sa
 .comparison-table th:last-child, .comparison-table td:last-child { border-right: 0; }
 .comparison-table thead th { height: 82px; padding: 14px 10px; background: #172d4a; color: rgba(255,255,255,.88); font-size: 11px; font-weight: 700; line-height: 1.28; text-align: center; vertical-align: middle; }
 .comparison-table thead th:first-child { width: 210px; padding: 14px 24px; color: var(--white); font-size: 14px; text-align: left; }
-.comparison-table tbody th { padding: 20px 24px; background: #f8f9fb; color: #26364f; font-size: 14px; line-height: 1.3; text-align: left; }
+.comparison-table tbody th { padding: 20px 24px; background: #fff; color: #26364f; font-size: 14px; line-height: 1.3; text-align: left; }
 .comparison-table td { height: 72px; background: #fff; text-align: center; }
-.comparison-table tr:nth-child(even):not(.is-featured) th, .comparison-table tr:nth-child(even):not(.is-featured) td { background: #eef2f6; }
-.comparison-table tr.is-featured th, .comparison-table tr.is-featured td { background: #e4f3ec; font-weight: 750; }
-.comparison-table tr.is-featured th { color: #173d33; }
+.comparison-table tr.is-featured th, .comparison-table tr.is-featured td { border-top: 2px solid #1f9b68; border-bottom: 2px solid #1f9b68; background: #d9eee5; font-weight: 750; }
+.comparison-table tr.is-featured th { color: #123d31; box-shadow: inset 5px 0 0 #1f9b68; }
 .comparison-yes, .comparison-no { display: inline-grid; place-items: center; }
 .comparison-yes { color: #1f9b68; }
 .comparison-no { color: #d54b4b; }
