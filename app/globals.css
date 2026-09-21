@@ -283,9 +283,9 @@ h1, h2, h3, .button, .header-cta { font-family: var(--font-sansation), Arial, sa
 .benefits-track article:hover { border-color: #d4def4; background: #595e67; transform: translateY(-2px); }
 .benefit-card-head { display: grid; grid-template-columns: 52px minmax(0,1fr); gap: 16px; align-items: start; }
 .benefit-icon { display: grid; place-items: center; width: 52px; height: 52px; border: 1px solid rgba(184,201,237,.48); color: #b8c9ed; }
-.benefit-card-title { min-width: 0; }
-.benefit-card-title > span { display: inline; margin-right: 12px; color: #b8c9ed; font-family: var(--font-plex-mono), monospace; font-size: 10px; letter-spacing: .1em; vertical-align: baseline; }
-.benefits-track h3 { display: inline; margin: 0; font-size: clamp(17px,2.1vw,21px); line-height: 1.18; white-space: nowrap; }
+.benefit-card-title { display: flex; min-width: 0; min-height: 52px; flex-direction: column; justify-content: center; }
+.benefit-card-title > span { display: block; margin: 0 0 5px; color: #b8c9ed; font-family: var(--font-plex-mono), monospace; font-size: 10px; line-height: 1; letter-spacing: .1em; }
+.benefits-track h3 { display: block; margin: 0; font-size: clamp(17px,2.1vw,21px); line-height: 1.12; white-space: nowrap; }
 .benefits-track p { margin: 0; color: rgba(255,255,255,.86); font-size: 15px; line-height: 1.58; }
 .system-benefits-cta { display: flex; justify-content: space-between; gap: 30px; align-items: center; max-width: 1440px; margin: 24px auto 0; padding-top: 22px; border-top: 1px solid rgba(255,255,255,.14); }
 .system-benefits-cta p { margin: 0; color: rgba(255,255,255,.65); font-size: 14px; }
