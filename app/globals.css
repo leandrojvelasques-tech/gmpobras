@@ -677,11 +677,11 @@ a:focus-visible, button:focus-visible, video:focus-visible { outline: 3px solid 
   .system-video-feature-copy h3 { font-size: clamp(30px,9vw,42px); }
   .system-benefits-heading { align-items: start; flex-direction: column; gap: 20px; }
   .benefit-carousel-meta { width: 100%; justify-content: space-between; }
-  .benefits-track { grid-auto-columns: 86%; }
-  .benefits-track article { min-height: 238px; }
+  .benefits-track { grid-auto-columns: 100%; }
+  .benefits-track article { min-height: 0; gap: 22px; padding: 24px 22px 28px; }
   .system-benefits-cta { align-items: start; flex-direction: column; gap: 12px; }
-  .system-comparison { margin-top: 72px; }
-  .comparison-table-wrap { margin-inline: -20px; border-inline: 0; }
+  .system-comparison { min-width: 0; margin-top: 72px; overflow: hidden; }
+  .comparison-table-wrap { width: calc(100% + 40px); max-width: none; margin-inline: -20px; border-inline: 0; overscroll-behavior-inline: contain; }
   .comparison-table { min-width: 1080px; }
   .comparison-table thead th:first-child { width: 175px; }
   .system-landing-header { min-height: 74px; padding-inline: 20px; }
