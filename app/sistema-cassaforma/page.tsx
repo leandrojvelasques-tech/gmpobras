@@ -177,7 +177,7 @@ export default function CassaformaSystemPage() {
       <header className="system-landing-header">
         <a className="brand" href="/#inicio" aria-label="GMP Obras, volver al inicio">
           <span className="official-logo" aria-hidden="true">
-            <Image src="/logo-gmp-horizontal-3-capas.png" alt="" width={1258} height={343} />
+            <Image src="/logo-gmp-horizontal-3-capas.png" alt="" width={1258} height={343} unoptimized />
           </span>
         </a>
         <nav aria-label="Navegación de la landing del sistema">
@@ -425,7 +425,7 @@ export default function CassaformaSystemPage() {
       <footer className="system-landing-footer">
         <a className="brand" href="/#inicio" aria-label="GMP Obras, inicio">
           <span className="official-logo footer-logo" aria-hidden="true">
-            <Image src="/logo-gmp-completo-vertical.png" alt="" width={1834} height={1503} />
+            <Image src="/logo-gmp-completo-vertical.png" alt="" width={1834} height={1503} unoptimized />
           </span>
         </a>
         <p>Gustavo Pinto Caetano · Maestro mayor de obras · Comodoro Rivadavia</p>

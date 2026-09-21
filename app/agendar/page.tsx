@@ -120,7 +120,7 @@ export default function AppointmentPage() {
     <main className="booking-page">
       <header className="booking-header">
         <a href="/" className="booking-brand" aria-label="Volver al inicio de GMP Obras">
-          <span className="official-logo" aria-hidden="true"><Image src="/logo-gmp-horizontal-3-capas.png" alt="" width={1258} height={343} /></span>
+          <span className="official-logo" aria-hidden="true"><Image src="/logo-gmp-horizontal-3-capas.png" alt="" width={1258} height={343} unoptimized /></span>
         </a>
         <a href="/" className="booking-back"><ArrowLeft aria-hidden="true" size={17} /> Volver al sitio</a>
       </header>
