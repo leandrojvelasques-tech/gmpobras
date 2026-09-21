@@ -91,12 +91,12 @@ const systemBenefits = [
     icon: BroomSparkles,
   },
   {
-    title: 'Variedad de terminaciones',
+    title: 'Variedad',
     description: 'Admite diferentes acabados interiores y exteriores según el diseño buscado.',
     icon: Paintbrush,
   },
   {
-    title: 'Instalaciones integradas',
+    title: 'Integración',
     description: 'Las instalaciones se prevén dentro del sistema antes del hormigón proyectado.',
     icon: Cable,
   },
@@ -106,8 +106,8 @@ const systemBenefits = [
     icon: ShieldCheck,
   },
   {
-    title: 'Resistencia ante vientos fuertes',
-    description: 'La estructura se define y calcula según el proyecto y las condiciones del lugar.',
+    title: 'Resistencia al viento',
+    description: 'La estructura se define y calcula según el proyecto, contemplando los vientos fuertes de la Patagonia.',
     icon: Wind,
   },
 ];

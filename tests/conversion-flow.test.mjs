@@ -16,7 +16,9 @@ test('Home includes the system, FAQ, contact form and appointment conversion pat
   assert.match(home, /id="contacto"/);
   assert.match(home, /Agendar cita/);
   assert.match(home, /Beneficios del sistema/);
-  assert.match(home, /Resistencia ante vientos fuertes/);
+  assert.match(home, /Resistencia al viento/);
+  assert.match(home, /title: 'Variedad'/);
+  assert.match(home, /title: 'Integración'/);
   assert.match(home, /Ver beneficios siguientes/);
   assert.match(home, /Comparación orientativa/);
   assert.match(home, /constructionSystems/);
