@@ -537,7 +537,7 @@ export default function Home() {
             <p>Gustavo Pinto Caetano · Maestro mayor de obras</p>
             <p className="footer-registration">Mat. Mun. 159 · Mat. P. 1206 · Cat. 2°</p>
           </div>
-          <a href="https://www.gmp-obras.com/" target="_blank" rel="noreferrer">www.gmp-obras.com</a>
+          <a href="https://www.gmpobras.com.ar/" target="_blank" rel="noreferrer">www.gmpobras.com.ar</a>
           <a href="mailto:gpinto@gmpobras.com">gpinto@gmpobras.com</a>
           <span>Ramos Mejía 298 · Comodoro Rivadavia</span>
           <a href="https://www.instagram.com/gmpobras/" target="_blank" rel="noreferrer">Instagram · @gmpobras</a>
