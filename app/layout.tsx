@@ -31,6 +31,22 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
+      <head>
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-L4L8THHBE6"
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){window.dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-L4L8THHBE6');
+            `,
+          }}
+        />
+      </head>
       <body className={`${plexMono.variable} ${sansation.variable}`}>
         {children}
       </body>
