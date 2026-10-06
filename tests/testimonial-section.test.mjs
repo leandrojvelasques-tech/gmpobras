@@ -72,13 +72,12 @@ test('renders the integrated Home project showcase', () => {
   assert.match(showcase, /VideoTestimonial/);
   assert.match(showcase, /Proyecto en dos etapas/);
   assert.match(showcase, /Proyecto en una etapa/);
-  assert.match(showcase, /Ver fotos de la obra/);
-  assert.match(showcase, /Etapa 1/);
-  assert.match(showcase, /Etapa 2/);
-  assert.match(showcase, /Etapa única/);
-  assert.match(showcase, /type="range"/);
-  assert.match(showcase, /Ir a una foto/);
+  assert.match(showcase, /Ver proyecto y fotos/);
+  assert.match(showcase, /href=\{`\/proyectos\/\$\{project\.slug\}`\}/);
+  assert.match(showcase, /href=\{`\/proyectos\/\$\{item\.slug\}`\}/);
+  assert.doesNotMatch(showcase, /setPanel|openStage|type="range"/);
   assert.match(showcase, /stage2Images/);
+  assert.match(detail, /href="\/#obras"/);
   assert.match(detail, /ProjectImageCarousel/);
   assert.doesNotMatch(detail, /Texto provisorio/);
   assert.match(detail, /VideoTestimonial/);

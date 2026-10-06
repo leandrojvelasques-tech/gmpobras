@@ -32,7 +32,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   return (
     <main className="project-detail">
       <header className="detail-header">
-        <Link href="/" className="detail-back">
+        <Link href="/#obras" className="detail-back">
           <ArrowLeft aria-hidden="true" size={18} />
           Volver a proyectos
         </Link>

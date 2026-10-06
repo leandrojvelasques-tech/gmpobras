@@ -211,8 +211,12 @@ h1, h2, h3, .button, .header-cta { font-family: var(--font-sansation), Arial, sa
 
 .home-project-rail { padding: 42px 28px; background: #e2e6ec; color: var(--ink); }
 .home-project-rail-kicker { margin: 0 0 24px; color: var(--blue); font-family: var(--font-plex-mono), monospace; font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; }
+.home-project-list-item { border-bottom: 1px solid #c5cbd4; }
+.home-project-detail-link { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; margin: 0 0 10px 38px; color: var(--blue-deep); font-size: 14px; font-weight: 700; text-decoration: underline; text-underline-offset: 4px; }
+.home-project-detail-link:hover { color: var(--blue); }
+.home-project-detail-link:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
 .home-project-list { border-top: 1px solid #c5cbd4; }
-.home-project-list button { display: grid; grid-template-columns: 30px minmax(0,1fr) auto; align-items: center; gap: 8px; width: 100%; min-height: 66px; border: 0; border-bottom: 1px solid #c5cbd4; background: transparent; color: #69727f; font-family: inherit; font-size: 15px; cursor: pointer; text-align: left; transition: color 180ms ease, padding 180ms ease; }
+.home-project-list button { display: grid; grid-template-columns: 30px minmax(0,1fr) auto; align-items: center; gap: 8px; width: 100%; min-height: 66px; border: 0; background: transparent; color: #69727f; font-family: inherit; font-size: 15px; cursor: pointer; text-align: left; transition: color 180ms ease, padding 180ms ease; }
 .home-project-list button > span:first-child { color: var(--blue); font-family: var(--font-plex-mono), monospace; font-size: 10px; }
 .home-project-list button svg { opacity: 0; transform: translateX(-5px); transition: opacity 180ms ease, transform 180ms ease; }
 .home-project-list button:hover, .home-project-list button.is-active { padding-left: 8px; color: var(--ink); }
