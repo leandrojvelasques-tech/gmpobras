@@ -1,0 +1,752 @@
+[
+  {
+    "source": "/volar-sin-escalas-etapa-012.jpg",
+    "destination": "/volar-sin-escalas-etapa-1-demolicion-012.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/volar-sin-escalas-etapa-030-rotated.jpg",
+    "destination": "/volar-sin-escalas-etapa-1-nivelacion-terreno-030.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/volar-sin-escalas-etapa-031.jpg",
+    "destination": "/volar-sin-escalas-etapa-1-preparacion-terreno-031.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/volar-sin-escalas-etapa-045.jpg",
+    "destination": "/volar-sin-escalas-etapa-1-descarga-paneles-045.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/volar-sin-escalas-etapa-055.jpg",
+    "destination": "/volar-sin-escalas-etapa-1-armadura-platea-055.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/volar-sin-escalas-etapa-080.jpg",
+    "destination": "/volar-sin-escalas-etapa-1-hormigonado-platea-080.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/volar-sin-escalas-etapa-084.jpg",
+    "destination": "/volar-sin-escalas-etapa-1-nivelacion-hormigon-084.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/volar-sin-escalas-etapa-086.jpg",
+    "destination": "/volar-sin-escalas-etapa-1-platea-hormigonada-086.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/volar-sin-escalas-etapa-113-rotated.jpg",
+    "destination": "/volar-sin-escalas-etapa-1-montaje-paneles-fachada-113.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/volar-sin-escalas-etapa-144.jpg",
+    "destination": "/volar-sin-escalas-etapa-1-apuntalamiento-interior-144.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/volar-sin-escalas-etapa-147.jpg",
+    "destination": "/volar-sin-escalas-etapa-1-preparacion-mezcla-147.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/volar-sin-escalas-etapa-148.jpg",
+    "destination": "/volar-sin-escalas-etapa-1-paneles-y-apuntalamiento-148.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/volar-sin-escalas-etapa-195.jpg",
+    "destination": "/volar-sin-escalas-etapa-1-montaje-paneles-losa-195.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/volar-sin-escalas-etapa-212.jpg",
+    "destination": "/volar-sin-escalas-etapa-1-paneles-acceso-212.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/volar-sin-escalas-etapa-216.jpg",
+    "destination": "/volar-sin-escalas-etapa-1-equipo-montaje-paneles-216.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/volar-sin-escalas-etapa-240.jpg",
+    "destination": "/volar-sin-escalas-etapa-1-estructura-fachada-240.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/volar-sin-escalas-etapa-259.jpg",
+    "destination": "/volar-sin-escalas-etapa-1-paneles-interior-259.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/volar-sin-escalas-etapa-330.jpg",
+    "destination": "/volar-sin-escalas-etapa-1-revestimiento-muros-330.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/volar-sin-escalas-etapa-367.jpg",
+    "destination": "/volar-sin-escalas-etapa-1-trabajo-en-andamios-367.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/volar-sin-escalas-etapa-368.jpg",
+    "destination": "/volar-sin-escalas-etapa-1-proyeccion-muros-368.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/volar-sin-escalas-etapa-369.jpg",
+    "destination": "/volar-sin-escalas-etapa-1-revestimiento-exterior-369.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/volar-sin-escalas-etapa-371.jpg",
+    "destination": "/volar-sin-escalas-etapa-1-avance-fachada-371.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/volar-sin-escalas-etapa-392.jpg",
+    "destination": "/volar-sin-escalas-etapa-1-preparacion-mezcla-392.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/volar-sin-escalas-etapa-401.jpg",
+    "destination": "/volar-sin-escalas-etapa-1-nivelacion-piso-401.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/volar-sin-escalas-etapa-452.jpg",
+    "destination": "/volar-sin-escalas-etapa-1-colector-piso-radiante-452.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/volar-sin-escalas-etapa-468.jpg",
+    "destination": "/volar-sin-escalas-etapa-1-instalacion-piso-radiante-468.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/volar-sin-escalas-etapa-491-rotated.jpg",
+    "destination": "/volar-sin-escalas-etapa-1-terminaciones-interiores-491.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/volar-sin-escalas-etapa-514.jpg",
+    "destination": "/volar-sin-escalas-etapa-1-colocacion-aberturas-514.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/volar-sin-escalas-etapa-518.jpg",
+    "destination": "/volar-sin-escalas-etapa-1-cubierta-518.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/volar-sin-escalas-etapa-540.jpg",
+    "destination": "/volar-sin-escalas-etapa-1-colocacion-piso-540.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/volar-sin-escalas-etapa-553.jpg",
+    "destination": "/volar-sin-escalas-etapa-1-trabajos-vereda-553.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/volar-sin-escalas-etapa-591.jpg",
+    "destination": "/volar-sin-escalas-etapa-1-armadura-vereda-591.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/volar-sin-escalas-etapa-599.jpg",
+    "destination": "/volar-sin-escalas-etapa-1-cielorraso-consultorio-599.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/volar-sin-escalas-etapa-612.jpg",
+    "destination": "/volar-sin-escalas-etapa-1-pasillo-consultorios-612.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/volar-sin-escalas-etapa-615.jpg",
+    "destination": "/volar-sin-escalas-etapa-1-terminaciones-recepcion-615.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/volar-sin-escalas-etapa-640.jpg",
+    "destination": "/volar-sin-escalas-etapa-1-mostrador-recepcion-640.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/volar-sin-escalas-etapa-656.jpg",
+    "destination": "/volar-sin-escalas-etapa-1-fachada-656.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/volar-sin-escalas-etapa-667.jpg",
+    "destination": "/volar-sin-escalas-etapa-1-fachada-frontal-667.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/volar-sin-escalas-etapa-668.jpg",
+    "destination": "/volar-sin-escalas-etapa-1-fachada-con-cartel-668.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/volar-sin-escalas-etapa-2-016.jpg",
+    "destination": "/volar-sin-escalas-etapa-2-excavacion-terreno-016.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/volar-sin-escalas-etapa-2-035.jpg",
+    "destination": "/volar-sin-escalas-etapa-2-nivelacion-terreno-035.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/volar-sin-escalas-etapa-2-048.jpg",
+    "destination": "/volar-sin-escalas-etapa-2-armado-fundacion-048.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/volar-sin-escalas-etapa-2-094.jpg",
+    "destination": "/volar-sin-escalas-etapa-2-armadura-platea-094.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/volar-sin-escalas-etapa-2-096.jpg",
+    "destination": "/volar-sin-escalas-etapa-2-hormigonado-platea-096.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/volar-sin-escalas-etapa-2-113.jpg",
+    "destination": "/volar-sin-escalas-etapa-2-platea-hormigonada-113.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/volar-sin-escalas-etapa-2-118.jpg",
+    "destination": "/volar-sin-escalas-etapa-2-encofrado-fundacion-118.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/volar-sin-escalas-etapa-2-130.jpg",
+    "destination": "/volar-sin-escalas-etapa-2-montaje-paneles-130.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/volar-sin-escalas-etapa-2-149.jpg",
+    "destination": "/volar-sin-escalas-etapa-2-paneles-exteriores-149.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/volar-sin-escalas-etapa-2-151.jpg",
+    "destination": "/volar-sin-escalas-etapa-2-revestimiento-muro-lateral-151.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/volar-sin-escalas-etapa-2-177.jpg",
+    "destination": "/volar-sin-escalas-etapa-2-revestimiento-interior-177.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/volar-sin-escalas-etapa-2-213.jpg",
+    "destination": "/volar-sin-escalas-etapa-2-bombeo-hormigon-213.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/volar-sin-escalas-etapa-2-228.jpg",
+    "destination": "/volar-sin-escalas-etapa-2-paneles-y-andamios-228.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/volar-sin-escalas-etapa-2-185.jpg",
+    "destination": "/volar-sin-escalas-etapa-2-montaje-paneles-losa-185.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/volar-sin-escalas-etapa-2-234.jpg",
+    "destination": "/volar-sin-escalas-etapa-2-camion-bomba-hormigon-234.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/volar-sin-escalas-etapa-2-254.jpg",
+    "destination": "/volar-sin-escalas-etapa-2-encofrado-viga-254.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/volar-sin-escalas-etapa-2-258.jpg",
+    "destination": "/volar-sin-escalas-etapa-2-canerias-exteriores-258.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/volar-sin-escalas-etapa-2-270.jpg",
+    "destination": "/volar-sin-escalas-etapa-2-fundaciones-exteriores-270.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/volar-sin-escalas-etapa-2-280.jpg",
+    "destination": "/volar-sin-escalas-etapa-2-armadura-y-pases-platea-280.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/volar-sin-escalas-etapa-2-302.jpg",
+    "destination": "/volar-sin-escalas-etapa-2-hormigonado-platea-exterior-302.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/volar-sin-escalas-etapa-2-304.jpg",
+    "destination": "/volar-sin-escalas-etapa-2-nivelacion-platea-exterior-304.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/volar-sin-escalas-etapa-2-313.jpg",
+    "destination": "/volar-sin-escalas-etapa-2-paneles-pasillo-313.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/volar-sin-escalas-etapa-2-353.jpg",
+    "destination": "/volar-sin-escalas-etapa-2-piso-radiante-353.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/volar-sin-escalas-etapa-2-368.jpg",
+    "destination": "/volar-sin-escalas-etapa-2-piso-radiante-interior-368.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/volar-sin-escalas-etapa-2-372.jpg",
+    "destination": "/volar-sin-escalas-etapa-2-armadura-viga-372.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/volar-sin-escalas-final.jpg",
+    "destination": "/volar-sin-escalas-fachada-portada.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/javier-aguila-001.jfif",
+    "destination": "/vivienda-javier-aguila-terreno-inicial-001.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/javier-aguila-002.jpeg",
+    "destination": "/vivienda-javier-aguila-movimiento-suelo-002.jpeg",
+    "permanent": true
+  },
+  {
+    "source": "/javier-aguila-003.jpeg",
+    "destination": "/vivienda-javier-aguila-armadura-fundaciones-003.jpeg",
+    "permanent": true
+  },
+  {
+    "source": "/javier-aguila-004.jpeg",
+    "destination": "/vivienda-javier-aguila-armadura-platea-004.jpeg",
+    "permanent": true
+  },
+  {
+    "source": "/javier-aguila-005.jpeg",
+    "destination": "/vivienda-javier-aguila-hormigonado-platea-005.jpeg",
+    "permanent": true
+  },
+  {
+    "source": "/javier-aguila-006.jpeg",
+    "destination": "/vivienda-javier-aguila-montaje-paneles-006.jpeg",
+    "permanent": true
+  },
+  {
+    "source": "/javier-aguila-007.jpeg",
+    "destination": "/vivienda-javier-aguila-revestimiento-muro-lateral-007.jpeg",
+    "permanent": true
+  },
+  {
+    "source": "/javier-aguila-008.jpeg",
+    "destination": "/vivienda-javier-aguila-paneles-y-apuntalamiento-008.jpeg",
+    "permanent": true
+  },
+  {
+    "source": "/javier-aguila-009.jpeg",
+    "destination": "/vivienda-javier-aguila-paneles-planta-baja-009.jpeg",
+    "permanent": true
+  },
+  {
+    "source": "/javier-aguila-010.jpg",
+    "destination": "/vivienda-javier-aguila-estructura-planta-baja-010.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/javier-aguila-011.jpeg",
+    "destination": "/vivienda-javier-aguila-apuntalamiento-losa-011.jpeg",
+    "permanent": true
+  },
+  {
+    "source": "/javier-aguila-012.jpeg",
+    "destination": "/vivienda-javier-aguila-revestimiento-fachada-012.jpeg",
+    "permanent": true
+  },
+  {
+    "source": "/javier-aguila-013.jpeg",
+    "destination": "/vivienda-javier-aguila-montaje-paneles-losa-013.jpeg",
+    "permanent": true
+  },
+  {
+    "source": "/javier-aguila-014.jpeg",
+    "destination": "/vivienda-javier-aguila-paneles-losa-014.jpeg",
+    "permanent": true
+  },
+  {
+    "source": "/javier-aguila-015.jpeg",
+    "destination": "/vivienda-javier-aguila-equipo-montaje-losa-015.jpeg",
+    "permanent": true
+  },
+  {
+    "source": "/javier-aguila-016.jpeg",
+    "destination": "/vivienda-javier-aguila-hormigonado-losa-016.jpeg",
+    "permanent": true
+  },
+  {
+    "source": "/javier-aguila-017.jpeg",
+    "destination": "/vivienda-javier-aguila-losa-hormigonada-017.jpeg",
+    "permanent": true
+  },
+  {
+    "source": "/javier-aguila-018.jpeg",
+    "destination": "/vivienda-javier-aguila-estructura-frontal-018.jpeg",
+    "permanent": true
+  },
+  {
+    "source": "/javier-aguila-019.jpeg",
+    "destination": "/vivienda-javier-aguila-estructura-lateral-019.jpeg",
+    "permanent": true
+  },
+  {
+    "source": "/javier-aguila-020.jpeg",
+    "destination": "/vivienda-javier-aguila-montaje-paneles-planta-alta-020.jpeg",
+    "permanent": true
+  },
+  {
+    "source": "/javier-aguila-021.jpeg",
+    "destination": "/vivienda-javier-aguila-paneles-planta-alta-021.jpeg",
+    "permanent": true
+  },
+  {
+    "source": "/javier-aguila-022.jpeg",
+    "destination": "/vivienda-javier-aguila-estructura-dos-plantas-022.jpeg",
+    "permanent": true
+  },
+  {
+    "source": "/javier-aguila-023.jpeg",
+    "destination": "/vivienda-javier-aguila-paneles-y-apuntalamiento-planta-alta-023.jpeg",
+    "permanent": true
+  },
+  {
+    "source": "/javier-aguila-024.jpeg",
+    "destination": "/vivienda-javier-aguila-paneles-fachada-planta-alta-024.jpeg",
+    "permanent": true
+  },
+  {
+    "source": "/javier-aguila-025.jpg",
+    "destination": "/vivienda-javier-aguila-vista-general-estructura-025.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/javier-aguila-026.jpeg",
+    "destination": "/vivienda-javier-aguila-revestimiento-interior-026.jpeg",
+    "permanent": true
+  },
+  {
+    "source": "/javier-aguila-027.jpeg",
+    "destination": "/vivienda-javier-aguila-revestimiento-muro-exterior-027.jpeg",
+    "permanent": true
+  },
+  {
+    "source": "/javier-aguila-028.jpeg",
+    "destination": "/vivienda-javier-aguila-armadura-escalera-028.jpeg",
+    "permanent": true
+  },
+  {
+    "source": "/javier-aguila-029.jpeg",
+    "destination": "/vivienda-javier-aguila-trabajos-fachada-029.jpeg",
+    "permanent": true
+  },
+  {
+    "source": "/javier-aguila-030.jpeg",
+    "destination": "/vivienda-javier-aguila-bombeo-hormigon-losa-030.jpeg",
+    "permanent": true
+  },
+  {
+    "source": "/javier-aguila-031.jpg",
+    "destination": "/vivienda-javier-aguila-piso-radiante-031.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/javier-aguila-032.jpeg",
+    "destination": "/vivienda-javier-aguila-instalaciones-interiores-032.jpeg",
+    "permanent": true
+  },
+  {
+    "source": "/javier-aguila-033.jpeg",
+    "destination": "/vivienda-javier-aguila-colector-piso-radiante-033.jpeg",
+    "permanent": true
+  },
+  {
+    "source": "/javier-aguila-034.jpeg",
+    "destination": "/vivienda-javier-aguila-piso-radiante-interior-034.jpeg",
+    "permanent": true
+  },
+  {
+    "source": "/javier-aguila-035.jpeg",
+    "destination": "/vivienda-javier-aguila-canerias-interiores-035.jpeg",
+    "permanent": true
+  },
+  {
+    "source": "/javier-aguila-036.jpeg",
+    "destination": "/vivienda-javier-aguila-cubierta-036.jpeg",
+    "permanent": true
+  },
+  {
+    "source": "/javier-aguila-037.jpeg",
+    "destination": "/vivienda-javier-aguila-trabajos-terreno-exterior-037.jpeg",
+    "permanent": true
+  },
+  {
+    "source": "/javier-aguila-038.jpeg",
+    "destination": "/vivienda-javier-aguila-colocacion-aberturas-038.jpeg",
+    "permanent": true
+  },
+  {
+    "source": "/javier-aguila-039.jpeg",
+    "destination": "/vivienda-javier-aguila-aberturas-laterales-039.jpeg",
+    "permanent": true
+  },
+  {
+    "source": "/javier-aguila-040.jpeg",
+    "destination": "/vivienda-javier-aguila-terminaciones-fachada-040.jpeg",
+    "permanent": true
+  },
+  {
+    "source": "/javier-aguila-041.jpeg",
+    "destination": "/vivienda-javier-aguila-estructura-cielorraso-041.jpeg",
+    "permanent": true
+  },
+  {
+    "source": "/javier-aguila-042.jpeg",
+    "destination": "/vivienda-javier-aguila-estructura-cielorraso-interior-042.jpeg",
+    "permanent": true
+  },
+  {
+    "source": "/javier-aguila-043.jpeg",
+    "destination": "/vivienda-javier-aguila-colocacion-piso-043.jpeg",
+    "permanent": true
+  },
+  {
+    "source": "/javier-aguila-044.jpeg",
+    "destination": "/vivienda-javier-aguila-pintura-exterior-044.jpeg",
+    "permanent": true
+  },
+  {
+    "source": "/javier-aguila-045.jpeg",
+    "destination": "/vivienda-javier-aguila-pasillo-planta-alta-045.jpeg",
+    "permanent": true
+  },
+  {
+    "source": "/javier-aguila-046.jpeg",
+    "destination": "/vivienda-javier-aguila-escalera-interior-046.jpeg",
+    "permanent": true
+  },
+  {
+    "source": "/javier-aguila-047.jpeg",
+    "destination": "/vivienda-javier-aguila-fachada-frontal-047.jpeg",
+    "permanent": true
+  },
+  {
+    "source": "/gabriel-ambrozy-01.jpg",
+    "destination": "/vivienda-gabriel-ambrozy-preparacion-terreno-01.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/gabriel-ambrozy-02.jpg",
+    "destination": "/vivienda-gabriel-ambrozy-armadura-platea-02.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/gabriel-ambrozy-03.jpg",
+    "destination": "/vivienda-gabriel-ambrozy-hormigonado-platea-03.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/gabriel-ambrozy-04.jpg",
+    "destination": "/vivienda-gabriel-ambrozy-armadura-fundaciones-04.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/gabriel-ambrozy-05.jpg",
+    "destination": "/vivienda-gabriel-ambrozy-montaje-paneles-05.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/gabriel-ambrozy-06.jpg",
+    "destination": "/vivienda-gabriel-ambrozy-paneles-vista-general-06.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/gabriel-ambrozy-07.jpg",
+    "destination": "/vivienda-gabriel-ambrozy-equipo-montaje-paneles-07.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/gabriel-ambrozy-08.jpg",
+    "destination": "/vivienda-gabriel-ambrozy-revestimiento-muros-08.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/gabriel-ambrozy-09.jpg",
+    "destination": "/vivienda-gabriel-ambrozy-montaje-paneles-losa-09.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/gabriel-ambrozy-10.jpg",
+    "destination": "/vivienda-gabriel-ambrozy-estructura-fachada-10.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/gabriel-ambrozy-11.jpg",
+    "destination": "/vivienda-gabriel-ambrozy-camion-hormigon-11.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/gabriel-ambrozy-12.jpg",
+    "destination": "/vivienda-gabriel-ambrozy-hormigonado-losa-12.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/gabriel-ambrozy-13.jpg",
+    "destination": "/vivienda-gabriel-ambrozy-piso-radiante-13.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/gabriel-ambrozy-14.jpg",
+    "destination": "/vivienda-gabriel-ambrozy-armadura-y-piso-radiante-14.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/gabriel-ambrozy-15.jpg",
+    "destination": "/vivienda-gabriel-ambrozy-interior-en-obra-15.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/gabriel-ambrozy-16.jpg",
+    "destination": "/vivienda-gabriel-ambrozy-patio-interior-en-obra-16.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/gabriel-ambrozy-17.jpg",
+    "destination": "/vivienda-gabriel-ambrozy-vista-patio-interior-17.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/gabriel-ambrozy-18.jpg",
+    "destination": "/vivienda-gabriel-ambrozy-cubierta-18.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/gabriel-ambrozy-19.jpg",
+    "destination": "/vivienda-gabriel-ambrozy-estructura-cielorraso-19.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/gabriel-ambrozy-20.jpg",
+    "destination": "/vivienda-gabriel-ambrozy-banio-en-terminaciones-20.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/gabriel-ambrozy-21.jpg",
+    "destination": "/vivienda-gabriel-ambrozy-terminaciones-interiores-21.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/gabriel-ambrozy-22.jpg",
+    "destination": "/vivienda-gabriel-ambrozy-canerias-exteriores-22.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/gabriel-ambrozy-23.jpg",
+    "destination": "/vivienda-gabriel-ambrozy-terminaciones-fachada-23.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/gabriel-ambrozy-24.jpg",
+    "destination": "/vivienda-gabriel-ambrozy-aberturas-y-fachada-24.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/gabriel-ambrozy-25.jpg",
+    "destination": "/vivienda-gabriel-ambrozy-vista-general-exterior-25.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/gabriel-ambrozy-26.jpg",
+    "destination": "/vivienda-gabriel-ambrozy-pintura-fachada-26.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/gabriel-ambrozy-27.jpg",
+    "destination": "/vivienda-gabriel-ambrozy-fachada-frontal-27.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/vivienda-gabriel-ambrozy-hero.jpg",
+    "destination": "/vivienda-gabriel-ambrozy-fachada-portada.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/javier-629.jpeg",
+    "destination": "/vivienda-javier-aguila-fachada-rada-tilly.jpeg",
+    "permanent": true
+  },
+  {
+    "source": "/cristian-421.jpg",
+    "destination": "/vivienda-cristian-fachada.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/volar-sin-escalas-recepcion-sin-personas.jpg",
+    "destination": "/volar-sin-escalas-recepcion.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/game-over-fachada.png",
+    "destination": "/bar-game-over-fachada.png",
+    "permanent": true
+  },
+  {
+    "source": "/hero-gustavo-obra-segura-v2.png",
+    "destination": "/gustavo-pinto-inspeccion-obra.png",
+    "permanent": true
+  },
+  {
+    "source": "/gustavo-presentacion-frame-04-clean.png",
+    "destination": "/gustavo-pinto-consulta-oficina.png",
+    "permanent": true
+  },
+  {
+    "source": "/cassaforma-video-cover-gustavo-relajado.jpg",
+    "destination": "/gustavo-pinto-explica-cassaforma.jpg",
+    "permanent": true
+  },
+  {
+    "source": "/testimonio-nadia-poster.png",
+    "destination": "/testimonio-nadia-volar-sin-escalas.png",
+    "permanent": true
+  },
+  {
+    "source": "/logo-gmp-completo-vertical.png",
+    "destination": "/logo-gmp-obras-vertical.png",
+    "permanent": true
+  },
+  {
+    "source": "/logo-gmp-horizontal-3-capas.png",
+    "destination": "/logo-gmp-obras-horizontal.png",
+    "permanent": true
+  }
+]

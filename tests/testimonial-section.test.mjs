@@ -8,20 +8,20 @@ const root = process.cwd();
 const requiredAssets = [
   'public/gustavo-presentacion-poster.png',
   'public/testimonio-nadia-web.mp4',
-  'public/testimonio-nadia-poster.png',
+  'public/testimonio-nadia-volar-sin-escalas.png',
   'public/testimonio-gabriel-web.mp4',
   'public/gustavo-presentacion-web.mp4',
   'public/testimonio-gabriel-ambrozy-poster.jpg',
   'public/vivienda-gabriel-ambrozy.jpg',
-  'public/vivienda-gabriel-ambrozy-hero.jpg',
-  'public/volar-sin-escalas-final.jpg',
+  'public/vivienda-gabriel-ambrozy-fachada-portada.jpg',
+  'public/volar-sin-escalas-fachada-portada.jpg',
   'public/volar-sin-escalas-platea.jpg',
   'public/volar-sin-escalas-montaje-paneles.jpg',
   'public/volar-sin-escalas-calefaccion-piso.jpg',
   'public/volar-sin-escalas-interior-consultorio.jpg',
-  'public/volar-sin-escalas-recepcion-sin-personas.jpg',
+  'public/volar-sin-escalas-recepcion.jpg',
   'public/hero-gustavo-obra-segura.jpg',
-  'public/cassaforma-video-cover-gustavo-relajado.jpg',
+  'public/gustavo-pinto-explica-cassaforma.jpg',
 ];
 
 test('includes the local testimonial assets', () => {
@@ -30,11 +30,11 @@ test('includes the local testimonial assets', () => {
   }
 
   const stageAssets = readdirSync(join(root, 'public'))
-    .filter((name) => /^volar-sin-escalas-etapa-\d{3}\.jpg$/.test(name))
-    .sort();
+    .filter((name) => /^volar-sin-escalas-etapa-1-[a-z-]+-\d{3}\.jpg$/.test(name))
+    .sort((a, b) => Number(a.match(/-(\d+)\.jpg$/)[1]) - Number(b.match(/-(\d+)\.jpg$/)[1]));
   assert.equal(stageAssets.length, 39, 'the complete first-stage photo sequence should be present');
-  assert.equal(stageAssets[0], 'volar-sin-escalas-etapa-012.jpg');
-  assert.equal(stageAssets.at(-1), 'volar-sin-escalas-etapa-668.jpg');
+  assert.equal(stageAssets[0], 'volar-sin-escalas-etapa-1-demolicion-012.jpg');
+  assert.equal(stageAssets.at(-1), 'volar-sin-escalas-etapa-1-fachada-con-cartel-668.jpg');
 });
 
 test('models Gabriel Ambrozy testimonial and its project facts', () => {
@@ -44,7 +44,7 @@ test('models Gabriel Ambrozy testimonial and its project facts', () => {
   assert.match(source, /Vivienda unifamiliar/);
   assert.match(source, /188 m²/);
   assert.match(source, /testimonio-gabriel-web\.mp4/);
-  assert.match(source, /vivienda-gabriel-ambrozy-hero\.jpg/);
+  assert.match(source, /vivienda-gabriel-ambrozy-fachada-portada\.jpg/);
 });
 
 test('models Nadia testimonial in the Volar Sin Escalas project', () => {
@@ -53,10 +53,10 @@ test('models Nadia testimonial in the Volar Sin Escalas project', () => {
   assert.match(source, /Nadia Snidersich/);
   assert.match(source, /Así fue construir Volar Sin Escalas\./);
   assert.match(source, /testimonio-nadia-web\.mp4/);
-  assert.match(source, /volar-sin-escalas-final\.jpg/);
-  assert.match(source, /volar-sin-escalas-etapa-012\.jpg/);
+  assert.match(source, /volar-sin-escalas-fachada-portada\.jpg/);
+  assert.match(source, /volar-sin-escalas-etapa-1-demolicion-012\.jpg/);
   assert.match(source, /sequence: 12/);
-  assert.match(source, /volar-sin-escalas-etapa-668\.jpg/);
+  assert.match(source, /volar-sin-escalas-etapa-1-fachada-con-cartel-668\.jpg/);
   assert.match(source, /sequence: 668/);
 });
 
@@ -130,10 +130,10 @@ test('uses the finished Volar facade as the Home opening image without replacing
 
   assert.match(showcase, /project\.heroImage \?\? project\.images\.at\(-1\)/);
   assert.match(showcase, /stage2Images/);
-  assert.match(data, /heroImage: \{ src: '\/volar-sin-escalas-final\.jpg'/);
+  assert.match(data, /heroImage: \{ src: '\/volar-sin-escalas-fachada-portada\.jpg'/);
 
   const stageAssets = readdirSync(join(root, 'public'))
-    .filter((name) => /^volar-sin-escalas-etapa-\d{3}\.jpg$/.test(name));
+    .filter((name) => /^volar-sin-escalas-etapa-1-[a-z-]+-\d{3}\.jpg$/.test(name));
   assert.equal(stageAssets.length, 39, 'the complete stage photo sequence should remain available');
 });
 

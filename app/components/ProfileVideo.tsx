@@ -27,7 +27,7 @@ export function ProfileVideo() {
           setIsPlaying(true);
         }}
         playsInline
-        poster="/gustavo-presentacion-frame-04-clean.png"
+        poster="/gustavo-pinto-consulta-oficina.png"
         preload="none"
       >
         <source src="/gustavo-presentacion-web.mp4" type="video/mp4" />
@@ -36,7 +36,7 @@ export function ProfileVideo() {
       {!hasStarted && (
         <img
           className="profile-video-cover"
-          src="/gustavo-presentacion-frame-04-clean.png"
+          src="/gustavo-pinto-consulta-oficina.png"
           alt="Gustavo Pinto Caetano señalando los planos de una obra"
         />
       )}

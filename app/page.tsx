@@ -41,25 +41,25 @@ const services = [
   {
     title: 'Viviendas',
     description: 'Proyectos pensados para vivirlos, con criterio técnico desde el inicio.',
-    image: '/javier-629.jpeg',
+    image: '/vivienda-javier-aguila-fachada-rada-tilly.jpeg',
     imageAlt: 'Vivienda completa construida por GMP Obras en Rada Tilly',
   },
   {
     title: 'Ampliaciones',
     description: 'Más espacio para tu casa o negocio, integrado a lo que ya existe.',
-    image: '/cristian-421.jpg',
+    image: '/vivienda-cristian-fachada.jpg',
     imageAlt: 'Vivienda particular construida por GMP Obras',
   },
   {
     title: 'Consultorios',
     description: 'Ambientes funcionales para atender, trabajar y recibir a tus pacientes.',
-    image: '/volar-sin-escalas-recepcion-sin-personas.jpg',
+    image: '/volar-sin-escalas-recepcion.jpg',
     imageAlt: 'Recepción de los consultorios Volar Sin Escalas durante la etapa de terminaciones',
   },
   {
     title: 'Locales comerciales',
     description: 'Obras que acompañan la operación y la identidad de cada comercio.',
-    image: '/game-over-fachada.png',
+    image: '/bar-game-over-fachada.png',
     imageAlt: 'Fachada temática del local comercial Bar Game Over',
   },
 ];
@@ -226,7 +226,7 @@ export default function Home() {
       <header className="site-header">
         <a className="brand" href="#inicio" aria-label="GMP Obras, inicio">
           <span className="official-logo" aria-hidden="true">
-            <Image src="/logo-gmp-horizontal-3-capas.png" alt="" width={1258} height={343} unoptimized />
+            <Image src="/logo-gmp-obras-horizontal.png" alt="" width={1258} height={343} unoptimized />
           </span>
         </a>
 
@@ -246,7 +246,7 @@ export default function Home() {
       <section className="hero" id="inicio">
         <Image
           className="hero-image"
-          src="/hero-gustavo-obra-segura-v2.png"
+          src="/gustavo-pinto-inspeccion-obra.png"
           alt="Gustavo Pinto Caetano dirige una inspección mientras el equipo trabaja con equipamiento de seguridad en una obra"
           fill
           priority
@@ -351,7 +351,7 @@ export default function Home() {
               <CassaformaVideoCover
                 variant="gustavo"
                 videoSrc="/gustavo-sistema-cassaforma.mp4"
-                posterSrc="/cassaforma-video-cover-gustavo-relajado.jpg"
+                posterSrc="/gustavo-pinto-explica-cassaforma.jpg"
               />
             </div>
             <div className="system-video-feature-copy">
@@ -527,7 +527,7 @@ export default function Home() {
         <div className="footer-brand">
           <a className="brand brand-footer" href="#inicio" aria-label="GMP Obras, inicio">
             <span className="official-logo footer-logo" aria-hidden="true">
-            <Image src="/logo-gmp-completo-vertical.png" alt="" width={1834} height={1503} unoptimized />
+            <Image src="/logo-gmp-obras-vertical.png" alt="" width={1834} height={1503} unoptimized />
             </span>
           </a>
         </div>
