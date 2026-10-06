@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
 import { VideoTestimonial } from './VideoTestimonial';
@@ -11,10 +10,7 @@ type HomeProjectShowcaseProps = {
 };
 
 export function HomeProjectShowcase({ projects }: HomeProjectShowcaseProps) {
-  const [activeProjectIndex, setActiveProjectIndex] = useState(() => {
-    const featuredProjectIndex = projects.findIndex((project) => project.slug === 'volar-sin-escalas');
-    return featuredProjectIndex >= 0 ? featuredProjectIndex : 0;
-  });
+  const activeProjectIndex = Math.max(0, projects.findIndex((project) => project.slug === 'volar-sin-escalas'));
   const project = projects[activeProjectIndex];
   const preview = project.heroImage ?? project.images.at(-1) ?? project.images[0];
   const facts = project.details
@@ -86,32 +82,18 @@ export function HomeProjectShowcase({ projects }: HomeProjectShowcaseProps) {
         <p className="home-project-rail-kicker">Otros proyectos</p>
         <div className="home-project-list">
           {projects.map((item, index) => (
-            <div className="home-project-list-item" key={item.slug}>
-              <button
-                type="button"
-                className={index === activeProjectIndex ? 'is-active' : ''}
-                onClick={() => setActiveProjectIndex(index)}
-                aria-pressed={index === activeProjectIndex}
-                aria-label={`Ver presentación de ${item.title}`}
-              >
-                <span>{String(index + 1).padStart(2, '0')}</span>
-                <span>{item.title}</span>
-                <ArrowRight aria-hidden="true" size={18} />
-              </button>
-              <a
-                className="home-project-detail-link"
-                href={`/proyectos/${item.slug}`}
-                aria-label={`Ver proyecto de ${item.title}`}
-              >
-                Ver proyecto
-                <ArrowRight aria-hidden="true" size={16} />
-              </a>
-            </div>
+            <a
+              className={`home-project-list-item ${index === activeProjectIndex ? 'is-active' : ''}`}
+              key={item.slug}
+              href={`/proyectos/${item.slug}`}
+              aria-label={`Ver proyecto de ${item.title}`}
+            >
+              <span>{String(index + 1).padStart(2, '0')}</span>
+              <span>{item.title}</span>
+              <ArrowRight aria-hidden="true" size={18} />
+            </a>
           ))}
         </div>
-        <p className="home-project-rail-note">
-          Elegí una obra para ver su presentación. Entrá en “Ver proyecto” para recorrer las fotos y conocer los detalles.
-        </p>
       </aside>
     </section>
   );

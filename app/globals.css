@@ -173,7 +173,7 @@ h1, h2, h3, .button, .header-cta { font-family: var(--font-sansation), Arial, sa
 .home-project-facts dd { margin: 0; color: var(--blue-deep); font-size: 15px; font-weight: 700; }
 .home-project-photos-cta { order: 1; display: flex; align-items: center; justify-content: space-between; width: 100%; margin-top: 0; padding: 14px 0 10px; border: 0; border-bottom: 1px solid var(--blue); background: transparent; color: var(--blue-deep); font-family: inherit; font-size: 15px; font-weight: 700; cursor: pointer; text-align: left; transition: color 180ms ease, border-color 180ms ease; }
 .home-project-photos-cta:hover { border-color: var(--blue-deep); color: var(--blue); }
-.home-project-photos-cta:focus-visible, .home-project-back:focus-visible, .home-project-stage-card button:focus-visible, .home-project-gallery-controls button:focus-visible, .home-project-list button:focus-visible { outline: 3px solid #f0c95c; outline-offset: 3px; }
+.home-project-photos-cta:focus-visible, .home-project-back:focus-visible, .home-project-stage-card button:focus-visible, .home-project-gallery-controls button:focus-visible, .home-project-list-item:focus-visible { outline: 3px solid #f0c95c; outline-offset: 3px; }
 
 .home-project-stages-panel, .home-project-gallery-panel { min-height: 544px; padding: 0 30px 32px; }
 .home-project-panel-heading { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin: 8px 0 22px; }
@@ -211,17 +211,12 @@ h1, h2, h3, .button, .header-cta { font-family: var(--font-sansation), Arial, sa
 
 .home-project-rail { padding: 42px 28px; background: #e2e6ec; color: var(--ink); }
 .home-project-rail-kicker { margin: 0 0 24px; color: var(--blue); font-family: var(--font-plex-mono), monospace; font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; }
-.home-project-list-item { border-bottom: 1px solid #c5cbd4; }
-.home-project-detail-link { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; margin: 0 0 10px 38px; color: var(--blue-deep); font-size: 14px; font-weight: 700; text-decoration: underline; text-underline-offset: 4px; }
-.home-project-detail-link:hover { color: var(--blue); }
-.home-project-detail-link:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
 .home-project-list { border-top: 1px solid #c5cbd4; }
-.home-project-list button { display: grid; grid-template-columns: 30px minmax(0,1fr) auto; align-items: center; gap: 8px; width: 100%; min-height: 66px; border: 0; background: transparent; color: #69727f; font-family: inherit; font-size: 15px; cursor: pointer; text-align: left; transition: color 180ms ease, padding 180ms ease; }
-.home-project-list button > span:first-child { color: var(--blue); font-family: var(--font-plex-mono), monospace; font-size: 10px; }
-.home-project-list button svg { opacity: 0; transform: translateX(-5px); transition: opacity 180ms ease, transform 180ms ease; }
-.home-project-list button:hover, .home-project-list button.is-active { padding-left: 8px; color: var(--ink); }
-.home-project-list button:hover svg, .home-project-list button.is-active svg { opacity: 1; transform: translateX(0); }
-.home-project-rail-note { margin: 30px 0 0; color: #6b7380; font-size: 13px; line-height: 1.55; }
+.home-project-list-item { display: grid; grid-template-columns: 30px minmax(0,1fr) auto; align-items: center; gap: 8px; width: 100%; min-height: 66px; border: 0; border-bottom: 1px solid #c5cbd4; background: transparent; color: #69727f; font-family: inherit; font-size: 15px; cursor: pointer; text-align: left; text-decoration: none; transition: color 180ms ease, padding 180ms ease; }
+.home-project-list-item > span:first-child { color: var(--blue); font-family: var(--font-plex-mono), monospace; font-size: 10px; }
+.home-project-list-item svg { opacity: 1; transform: translateX(0); transition: opacity 180ms ease, transform 180ms ease; }
+.home-project-list-item:hover, .home-project-list-item.is-active { padding-left: 8px; color: var(--ink); }
+.home-project-list-item:hover svg, .home-project-list-item.is-active svg { opacity: 1; transform: translateX(0); }
 
 .home-testimonial { display: grid; grid-template-columns: minmax(260px,.68fr) minmax(0,1.32fr); gap: clamp(38px,7vw,104px); align-items: center; padding: clamp(76px,10vw,132px) clamp(24px,7.3vw,112px); background: var(--mist); }
 .home-testimonial-copy { max-width: 700px; }
@@ -591,7 +586,7 @@ a:focus-visible, button:focus-visible, video:focus-visible { outline: 3px solid 
   .home-project-showcase { grid-template-columns: 1fr; }
   .home-project-rail { padding: 30px; }
   .home-project-list { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); column-gap: 20px; }
-  .home-project-list button { min-height: 60px; }
+  .home-project-list-item { min-height: 60px; }
   .home-testimonial { grid-template-columns: minmax(240px,.72fr) minmax(0,1.28fr); }
   .detail-facts { grid-template-columns: 1fr; }
   .detail-tasks { grid-column: 1 / -1; }
@@ -663,7 +658,7 @@ a:focus-visible, button:focus-visible, video:focus-visible { outline: 3px solid 
   .home-project-gallery-frame { height: 320px; }
   .home-project-rail { padding: 28px 20px; }
   .home-project-list { display: block; }
-  .home-project-list button { min-height: 60px; }
+  .home-project-list-item { min-height: 60px; }
   .site-footer { grid-template-columns: 1fr; padding-inline: 20px; }
   .footer-details { grid-template-columns: 1fr; }
   .footer-identity { grid-column: 1; margin-bottom: 10px; }
