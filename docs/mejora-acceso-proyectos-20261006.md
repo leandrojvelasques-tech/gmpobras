@@ -28,3 +28,7 @@ No se incorporaron activos ni datos nuevos.
 ## Estado
 
 Relevado, diseñado e implementado. Verificado en vista previa local. Publicación y verificación productiva pendientes de autorización explícita, según AGENTS.md.
+
+## Ajuste durante la verificacion productiva
+
+La primera publicacion expuso un error de navegacion del componente Link de Vinext que no se reproducia en desarrollo. Los accesos a las paginas de proyectos y el regreso a la home utilizan enlaces HTML para asegurar la navegacion completa.

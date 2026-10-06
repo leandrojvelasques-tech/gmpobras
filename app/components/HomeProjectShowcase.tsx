@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { VideoTestimonial } from './VideoTestimonial';
 import type { Project } from '../data/projects';
@@ -60,14 +59,14 @@ export function HomeProjectShowcase({ projects }: HomeProjectShowcaseProps) {
             </div>
 
             <div className="home-project-dossier-bottom">
-              <Link
+              <a
                 className="home-project-photos-cta"
                 href={`/proyectos/${project.slug}`}
                 aria-label={`Ver proyecto y fotos de ${project.title}`}
               >
                 Ver proyecto y fotos
                 <ArrowRight aria-hidden="true" size={22} />
-              </Link>
+              </a>
               {facts.length > 0 && (
                 <dl className="home-project-facts" aria-label={`Ficha de obra ${project.title}`}>
                   {facts.map((fact) => (
@@ -99,14 +98,14 @@ export function HomeProjectShowcase({ projects }: HomeProjectShowcaseProps) {
                 <span>{item.title}</span>
                 <ArrowRight aria-hidden="true" size={18} />
               </button>
-              <Link
+              <a
                 className="home-project-detail-link"
                 href={`/proyectos/${item.slug}`}
                 aria-label={`Ver proyecto de ${item.title}`}
               >
                 Ver proyecto
                 <ArrowRight aria-hidden="true" size={16} />
-              </Link>
+              </a>
             </div>
           ))}
         </div>

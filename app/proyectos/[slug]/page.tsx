@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
-import Link from 'next/link';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { ProjectImageCarousel } from '../../components/ProjectImageCarousel';
 import { VideoTestimonial } from '../../components/VideoTestimonial';
@@ -32,10 +31,10 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   return (
     <main className="project-detail">
       <header className="detail-header">
-        <Link href="/#obras" className="detail-back">
+        <a href="/#obras" className="detail-back">
           <ArrowLeft aria-hidden="true" size={18} />
           Volver a proyectos
-        </Link>
+        </a>
         <span>GMP Obras</span>
       </header>
 
