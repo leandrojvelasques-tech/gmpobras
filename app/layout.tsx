@@ -22,6 +22,13 @@ export const metadata: Metadata = {
   title: 'Construcción en Comodoro Rivadavia y Rada Tilly | GMP Obras',
   description:
     'GMP Obras diseña y ejecuta viviendas, ampliaciones, consultorios y locales en Comodoro Rivadavia y Rada Tilly. Conocé sus obras y consultá por tu proyecto.',
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: '16x16 32x32 48x48 64x64', type: 'image/x-icon' },
+      { url: '/favicon-96.png', sizes: '96x96', type: 'image/png' },
+    ],
+    apple: [{ url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }],
+  },
 };
 
 export default function RootLayout({

@@ -1,6 +1,11 @@
-<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M22 19.2727C22 20.779 20.779 22 19.2727 22H14.7273C13.221 22 12 20.779 12 19.2727V12H19.2727C20.779 12 22 13.221 22 14.7273V19.2727Z" fill="#68C4FF"/>
-<path d="M20 2C21.1046 2 22 2.89543 22 4V7C22 8.10457 21.1046 9 20 9H17C15.8954 9 15 8.10457 15 7V4C15 2.89543 15.8954 2 17 2H20Z" fill="#0C79D8"/>
-<path d="M7 15C8.10457 15 9 15.8954 9 17V20C9 21.1046 8.10457 22 7 22H4C2.89543 22 2 21.1046 2 20V17C2 15.8954 2.89543 15 4 15H7Z" fill="#0C79D8"/>
-<path d="M12 12H4.72727C3.22104 12 2 10.779 2 9.27273V4.72727C2 3.22104 3.22104 2 4.72727 2H9.27273C10.779 2 12 3.22104 12 4.72727V12Z" fill="#2E9EFF"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96">
+  <defs>
+    <linearGradient id="top" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d5d5d3"/><stop offset="1" stop-color="#b7b7b5"/></linearGradient>
+    <linearGradient id="left" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#4360a6"/><stop offset="1" stop-color="#243b78"/></linearGradient>
+    <linearGradient id="right" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#3c5598"/><stop offset="1" stop-color="#21366e"/></linearGradient>
+  </defs>
+  <rect width="96" height="96" rx="16" fill="#fff"/>
+  <path d="M13 28 44 10Q48 8 52 10L83 28Q87 30 83 33L52 51Q48 53 44 51L13 33Q9 30 13 28Z" fill="url(#top)"/>
+  <path d="M11 40Q11 36 15 38L43 54Q46 56 46 60V84Q46 89 42 87L14 71Q11 69 11 65Z" fill="url(#left)"/>
+  <path d="M81 38Q85 36 85 40V65Q85 69 82 71L54 87Q50 89 50 84V60Q50 56 53 54Z" fill="url(#right)"/>
 </svg>
