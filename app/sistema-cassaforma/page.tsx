@@ -13,9 +13,9 @@ import {
 } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Sistema Cassaforma | GMP Obras',
+  title: 'Sistema constructivo Cassaforma: cómo funciona | GMP Obras',
   description:
-    'Cómo funciona el sistema Cassaforma, qué componentes lo integran y qué conviene revisar antes de elegirlo para una obra.',
+    'Conocé cómo funciona Cassaforma, sus componentes y las etapas de construcción. Qué revisar antes de elegir este sistema para tu obra.',
 };
 
 const comparisonColumns = [
@@ -196,7 +196,7 @@ export default function CassaformaSystemPage() {
         <div className="system-landing-hero-copy">
           <p className="eyebrow">Sistema constructivo · GMP Obras</p>
           <h1 id="system-landing-title">
-            Una obra se entiende mejor cuando se mira por capas.
+            Cómo funciona el sistema constructivo Cassaforma
           </h1>
           <p>
             Cassaforma combina paneles, mallas de acero y hormigón proyectado. En esta página

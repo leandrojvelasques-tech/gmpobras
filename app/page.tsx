@@ -261,9 +261,8 @@ export default function Home() {
             Comodoro Rivadavia · Rada Tilly
           </p>
           <h1>
-            Tu obra,
-            <span>en manos</span>
-            de un profesional
+            Construcción de viviendas y ampliaciones{' '}
+            <span>en Comodoro Rivadavia y Rada Tilly</span>
           </h1>
           <p className="hero-copy">
             Diseñamos y ejecutamos viviendas, ampliaciones y proyectos con un
@@ -323,7 +322,7 @@ export default function Home() {
         <div className="section-heading">
           <div>
             <p className="section-kicker">Proyectos reales</p>
-            <h2>Obras que se pueden ver, entender y consultar.</h2>
+            <h2>Conocé algunas de nuestras obras.</h2>
           </div>
           <a href="/agendar">
             Agendar cita

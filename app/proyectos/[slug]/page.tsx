@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -8,6 +9,18 @@ import { projects } from '../../data/projects';
 
 export function generateStaticParams() {
   return projects.map((project) => ({ slug: project.slug }));
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const project = projects.find((item) => item.slug === slug);
+
+  if (!project) notFound();
+
+  return {
+    title: project.seoTitle,
+    description: project.seoDescription,
+  };
 }
 
 export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -29,7 +42,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
       <section className="detail-intro">
         <div className="detail-intro-copy">
           <p className="section-kicker">{project.status}</p>
-          <h1>{project.title}</h1>
+          <h1>{project.heading}</h1>
           <p>{project.subtitle}</p>
         </div>
         {project.heroImage && (
@@ -65,7 +78,9 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           <div className="detail-meta">
             <div><span>Tipo de obra</span><strong>{project.details.workType}</strong></div>
             <div><span>Año de construcción</span><strong>{project.details.year}</strong></div>
-            <div><span>Tiempo neto de obra</span><strong>{project.details.duration}</strong></div>
+            {project.details.duration && (
+              <div><span>Tiempo neto de obra</span><strong>{project.details.duration}</strong></div>
+            )}
             <div><span>Metros cuadrados</span><strong>{project.details.area}</strong></div>
             <div><span>Cantidad de plantas</span><strong>{project.details.floors}</strong></div>
             <div><span>Tipo de entrega</span><strong>{project.details.delivery}</strong></div>

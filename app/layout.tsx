@@ -19,9 +19,9 @@ const sansation = localFont({
 });
 
 export const metadata: Metadata = {
-  title: 'GMP Obras | Comodoro Rivadavia',
+  title: 'Construcción en Comodoro Rivadavia y Rada Tilly | GMP Obras',
   description:
-    'Viviendas, ampliaciones y proyectos de obra en Comodoro Rivadavia y Rada Tilly.',
+    'GMP Obras diseña y ejecuta viviendas, ampliaciones, consultorios y locales en Comodoro Rivadavia y Rada Tilly. Conocé sus obras y consultá por tu proyecto.',
 };
 
 export default function RootLayout({

@@ -14,7 +14,7 @@ export type ProjectStage = {
 export type ProjectDetails = {
   workType: string;
   year: string;
-  duration: string;
+  duration?: string;
   area: string;
   floors: string;
   delivery: string;
@@ -33,6 +33,9 @@ export type ProjectTestimonial = {
 export type Project = {
   slug: string;
   title: string;
+  heading: string;
+  seoTitle: string;
+  seoDescription: string;
   status: string;
   subtitle: string;
   description: string;
@@ -48,8 +51,11 @@ const projectCatalog: Project[] = [
   {
     slug: 'volar-sin-escalas',
     title: 'Volar Sin Escalas',
-    status: 'Proyecto en curso',
-    subtitle: 'Consultorios médicos con una ampliación actualmente en curso.',
+    heading: 'Consultorios médicos Volar Sin Escalas',
+    seoTitle: 'Consultorios Volar Sin Escalas | GMP Obras',
+    seoDescription: 'Conocé los consultorios Volar Sin Escalas: primera etapa terminada y segunda etapa en curso, con fotografías del proceso y testimonio de su propietaria.',
+    status: 'Primera etapa terminada · Segunda etapa en curso',
+    subtitle: 'Consultorios médicos: primera etapa terminada y segunda etapa en curso.',
     heroImage: { src: '/volar-sin-escalas-final.jpg', alt: 'Consultorios terminados de Volar Sin Escalas' },
     description: 'Seguimiento de fundaciones, estructura, instalaciones y terminaciones desde el inicio.',
     details: {
@@ -153,14 +159,16 @@ const projectCatalog: Project[] = [
   },
   {
     slug: 'javier-aguila',
-    title: 'Javier Águila',
+    title: 'Vivienda Javier Águila',
+    heading: 'Vivienda en Rada Tilly — Javier Águila',
+    seoTitle: 'Vivienda en Rada Tilly: Javier Águila | GMP Obras',
+    seoDescription: 'Conocé la vivienda terminada de Javier Águila en Rada Tilly, con fotografías de la obra y su experiencia con GMP Obras.',
     status: 'Proyecto finalizado',
     subtitle: 'Vivienda completa en Rada Tilly.',
     description: 'Registro fotográfico de una vivienda completa y de sus instalaciones exteriores en Rada Tilly.',
     details: {
       workType: 'Vivienda unifamiliar',
       year: '2024–2025',
-      duration: 'Actualmente en construcción',
       area: '195 m²',
       floors: '2 plantas',
       delivery: 'Llave en mano',
@@ -236,6 +244,9 @@ const projectCatalog: Project[] = [
   {
     slug: 'vivienda-gabriel-ambrozy',
     title: 'Vivienda Gabriel Ambrozy',
+    heading: 'Vivienda familiar de Gabriel Ambrozy',
+    seoTitle: 'Vivienda con Cassaforma: Gabriel Ambrozy | GMP Obras',
+    seoDescription: 'Conocé la vivienda familiar de Gabriel Ambrozy, construida con Cassaforma: fotos del proyecto, etapas de obra y testimonio del propietario.',
     status: 'Proyecto finalizado',
     subtitle: 'Una vivienda familiar resuelta con sistema Cassaforma.',
     heroImage: { src: '/vivienda-gabriel-ambrozy-hero.jpg', alt: 'Frente finalizado de la vivienda familiar de Gabriel Ambrozy' },

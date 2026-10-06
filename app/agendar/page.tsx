@@ -128,8 +128,8 @@ export default function AppointmentPage() {
       <div className="booking-layout">
         <aside className="booking-intro">
           <p className="section-kicker section-kicker-light">Consulta inicial · Sin costo</p>
-          <h1>30 minutos para entender tu proyecto.</h1>
-          <p>Contanos de qué trata tu proyecto y te ofrecemos una consulta inicial sin costo de 30 minutos, presencial o virtual.</p>
+          <h1>Agendá una consulta sobre tu proyecto de construcción</h1>
+          <p>Conversá con Gustavo sobre la obra que estás evaluando en Comodoro Rivadavia o Rada Tilly. La reunión puede ser presencial o por Google Meet.</p>
           <div className="booking-promises">
             <p><Clock3 aria-hidden="true" size={19} /><span><strong>30 minutos</strong> de conversación enfocada en tu proyecto.</span></p>
             <p><MapPin aria-hidden="true" size={19} /><span><strong>En la oficina de GMP Obras o por Google Meet.</strong></span></p>
