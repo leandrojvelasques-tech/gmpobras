@@ -25,7 +25,7 @@ export default function FrequentlyAskedQuestionsPage() {
       <header className="faq-page-header">
         <a className="brand" href="/" aria-label="GMP Obras, inicio">
           <span className="official-logo" aria-hidden="true">
-            <Image src="/logo-gmp-obras-horizontal-3-piezas.png" alt="" width={2580} height={792} unoptimized />
+            <Image src="/logo-gmp-obras-horizontal-cuadrado-punteado.png" alt="" width={2580} height={888} unoptimized />
           </span>
         </a>
         <nav aria-label="Navegación principal">
