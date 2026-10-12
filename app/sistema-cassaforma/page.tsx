@@ -10,6 +10,10 @@ import {
   Check,
   CircleAlert,
   Layers3,
+  Lightbulb,
+  Timer,
+  House,
+  Leaf,
   Ruler,
   ShieldCheck,
   X,
@@ -141,6 +145,14 @@ export default function CassaformaSystemPage() {
         </nav>
       </header>
 
+      <nav className="system-landing-jump-nav" aria-label="Secciones del sistema Cassaforma">
+        <a href="#que-es">Qué es Cassaforma</a>
+        <a href="#beneficios">Beneficios</a>
+        <a href="#video">Videos explicativos</a>
+        <a href="#comparativa">Comparativa</a>
+        <a href="#sustentabilidad">Construcción sustentable</a>
+      </nav>
+
       <section className="system-landing-hero" aria-labelledby="system-landing-title">
         <div className="system-landing-hero-copy">
           <p className="eyebrow">Sistema constructivo · GMP Obras</p>
@@ -196,13 +208,35 @@ export default function CassaformaSystemPage() {
         </div>
       </section>
 
-      <nav className="system-landing-jump-nav" aria-label="Secciones del sistema Cassaforma">
-        <a href="#que-es">Qué es Cassaforma</a>
-        <a href="#video">Videos explicativos</a>
-        <a href="#beneficios">Beneficios</a>
-        <a href="#comparativa">Comparativa</a>
-        <a href="#sustentabilidad">Construcción sustentable</a>
-      </nav>
+      <section className="system-landing-figures" id="beneficios" aria-labelledby="system-figures-title">
+        <div className="system-landing-section-heading">
+          <p className="section-kicker">Beneficios del sistema</p>
+          <h2 id="system-figures-title">Construir con Cassaforma</h2>
+        </div>
+        <div className="system-landing-figures-grid">
+          <article>
+            <span className="system-landing-figure-icon"><Lightbulb aria-hidden="true" size={36} strokeWidth={1.5} /></span>
+            <strong>70%</strong>
+            <h3>Ahorro energético</h3>
+          </article>
+          <article>
+            <span className="system-landing-figure-icon"><Timer aria-hidden="true" size={36} strokeWidth={1.5} /></span>
+            <strong>50%</strong>
+            <h3>Ahorro de tiempo</h3>
+          </article>
+          <article>
+            <span className="system-landing-figure-icon"><House aria-hidden="true" size={36} strokeWidth={1.5} /></span>
+            <strong>25%</strong>
+            <h3>Ahorro de obra gris</h3>
+          </article>
+        </div>
+        <p className="system-landing-figures-source">
+          Valores de referencia publicados por <a href="https://cassaforma.com/sistema-constructivo" target="_blank" rel="noreferrer">Cassaforma</a>.
+          Los resultados dependen del proyecto y de las condiciones de cada obra.
+        </p>
+      </section>
+
+      <SystemBenefits />
 
       <section className="system-section system-landing-specialist" id="video" aria-label="Explicaciones de Gustavo y Marcelo sobre Cassaforma">
         <div className="system-video-feature-list">
@@ -242,8 +276,6 @@ export default function CassaformaSystemPage() {
           </article>
         </div>
       </section>
-
-      <SystemBenefits />
 
       <section className="system-landing-comparison" id="comparativa" aria-labelledby="comparison-title">
         <div className="system-landing-comparison-heading">
@@ -303,21 +335,20 @@ export default function CassaformaSystemPage() {
 
       <section className="system-landing-sustainability" id="sustentabilidad" aria-labelledby="sustainability-title">
         <div className="system-landing-section-heading">
-          <p className="section-kicker">Certificación LEED</p>
+          <p className="section-kicker">Aislación térmica</p>
           <h2 id="sustainability-title">Construcción sustentable</h2>
+          <span className="system-landing-sustainability-icon" aria-hidden="true"><Leaf size={72} strokeWidth={1.2} /></span>
         </div>
         <div className="system-landing-sustainability-copy">
           <p>
-            El núcleo de EPS de los paneles aporta aislación térmica y ayuda a reducir la
-            demanda de energía para climatizar los ambientes.
+            Los paneles Cassaforma aportan aislación térmica en espesores reducidos.
+            Ese desempeño ayuda a disminuir la energía necesaria para climatizar los
+            ambientes, tanto en verano como en invierno.
           </p>
           <p>
-            Según su sitio oficial, el sistema constructivo Cassaforma cuenta con un
-            Certificado Producto LEED otorgado por Green Group Sustainability Consulting.
-          </p>
-          <p>
-            Esta información corresponde al sistema constructivo. La certificación LEED de
-            una obra se evalúa sobre el proyecto completo.
+            La eficiencia de una vivienda también depende de su diseño, las aberturas,
+            la orientación y la ejecución. El sistema se integra a esas decisiones
+            desde el proyecto.
           </p>
           <a className="system-landing-inline-link" href="https://cassaforma.com/sistema-constructivo" target="_blank" rel="noreferrer">
             Consultar la información oficial de Cassaforma

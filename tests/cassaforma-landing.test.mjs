@@ -34,8 +34,8 @@ test('Cassaforma landing includes the comparison and sustainability information'
   assert.match(landing, /Panel SIP/);
   assert.match(landing, /Modular/);
   assert.match(landing, /Cassaforma/);
-  assert.match(landing, /Certificado Producto LEED/);
-  assert.match(landing, /Green Group Sustainability Consulting/);
+  assert.match(landing, /Aislación térmica/);
+  assert.doesNotMatch(landing, /LEED|Green Group/);
   assert.match(landing, /modelos\/sagitario-casa\.webp/);
   const benefits = readFileSync(join(root, 'app/components/SystemBenefits.tsx'), 'utf8');
   assert.match(benefits, /Beneficios del sistema/);
@@ -45,6 +45,9 @@ test('Cassaforma landing includes the comparison and sustainability information'
   assert.doesNotMatch(landing, /id="proceso"|id="componentes"|Caetano|elaborado manualmente/);
   assert.ok(landing.indexOf('id="que-es"') < landing.indexOf('id="video"'));
   assert.equal((landing.match(/<h1\b/g) ?? []).length, 1);
+  assert.ok(landing.indexOf('system-landing-jump-nav') < landing.indexOf('className="system-landing-hero"'));
+  assert.ok(landing.indexOf('id="beneficios"') < landing.indexOf('<SystemBenefits'));
+  assert.doesNotMatch(landing, /Grandes ahorros|Según su sitio oficial/);
 });
 
 test('Cassaforma video cover uses the official Marcelo Seia thumbnail', () => {

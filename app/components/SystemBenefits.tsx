@@ -85,7 +85,7 @@ export function SystemBenefits() {
   }
 
   return (
-    <section className="system-section system-landing-benefits" id="beneficios" aria-labelledby="system-benefits-title">
+    <section className="system-section system-landing-benefits" id="beneficios-detalle" aria-labelledby="system-benefits-title">
         <div className="system-benefits-heading">
           <div>
             <p className="section-kicker section-kicker-light">Beneficios del sistema</p>
