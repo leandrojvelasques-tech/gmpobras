@@ -98,7 +98,6 @@ export default function AppointmentPage() {
         <a href="/" className="booking-brand" aria-label="Volver al inicio de GMP Obras"><span className="official-logo" aria-hidden="true"><Image src="/logo-gmp-obras-horizontal.png" alt="" width={1258} height={343} unoptimized /></span></a>
         <a href="/" className="booking-back"><ArrowLeft aria-hidden="true" size={17} /> Volver al sitio</a>
       </header>
-      <div className="booking-preview-note" role="note">Elegí un día y un horario para contarme tu idea. Te confirmo la disponibilidad de la consulta.</div>
       <div className="booking-layout">
         <aside className="booking-intro">
           <div className="booking-intro-copy">
