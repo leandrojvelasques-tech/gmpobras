@@ -352,9 +352,14 @@ h1, h2, h3, .button, .header-cta { font-family: var(--font-sansation), Arial, sa
 .faq-page-header { display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 88px; padding: 0 clamp(24px,7.3vw,112px); background: var(--graphite); color: var(--white); border-bottom: 1px solid rgba(255,255,255,.18); }
 .faq-page-header nav { display: flex; align-items: center; gap: 28px; }
 .faq-back { display: inline-flex; align-items: center; gap: 9px; min-height: 44px; font-size: 14px; }
-.faq-page-hero { padding: clamp(58px,7vw,100px) clamp(24px,7.3vw,112px); background: var(--graphite); color: var(--white); }
-.faq-page-hero h1 { max-width: 1000px; margin: 0; font-size: clamp(50px,8vw,112px); letter-spacing: -.055em; line-height: .98; }
-.faq-page-hero > p:not(.section-kicker) { max-width: 640px; margin: 28px 0 0; color: rgba(255,255,255,.76); font-size: 20px; line-height: 1.6; }
+.faq-page-header .official-logo { width: 218px; height: 65px; }
+.faq-page-hero { display: grid; grid-template-columns: 1.05fr .95fr; background: var(--mist); color: var(--ink); }
+.faq-page-hero-copy { display: flex; flex-direction: column; justify-content: center; align-items: flex-start; min-width: 0; padding: 72px clamp(24px,7.3vw,112px); padding-right: clamp(30px,4vw,64px); }
+.faq-page-hero .section-kicker { margin-bottom: 24px; font-size: 11px; font-weight: 700; line-height: 1.7; }
+.faq-page-hero h1 { margin: 0; font-size: clamp(50px,6.1vw,88px); font-weight: 400; letter-spacing: -.055em; line-height: 1.02; }
+.faq-page-hero-intro { max-width: 490px; margin: 28px 0 0; color: #505965; font-size: 20px; line-height: 1.6; }
+.faq-page-hero-image { position: relative; min-height: 540px; overflow: hidden; background: #bdada1; }
+.faq-page-hero-image img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 52%; }
 .faq-page-content { display: grid; grid-template-columns: minmax(220px,.58fr) minmax(0,1.42fr); gap: clamp(40px,7vw,105px); padding: clamp(60px,8vw,112px) clamp(24px,7.3vw,112px); }
 .faq-page-index { position: sticky; top: 32px; align-self: start; }
 .faq-page-index nav { display: flex; flex-direction: column; border-top: 1px solid #c9ccd2; }
@@ -373,6 +378,9 @@ h1, h2, h3, .button, .header-cta { font-family: var(--font-sansation), Arial, sa
 .faq-page-footer a { display: inline-flex; align-items: center; min-height: 44px; }
 
 @media (max-width: 980px) {
+  .faq-page-hero-copy { padding: 54px 30px; }
+  .faq-page-hero-image { min-height: 500px; }
+  .faq-page-hero-intro { font-size: 18px; }
   .faq-page-content { grid-template-columns: 1fr; gap: 48px; }
   .faq-page-index { position: static; }
   .faq-page-index nav { flex-direction: row; flex-wrap: wrap; border: 0; gap: 12px 24px; }
@@ -383,8 +391,15 @@ h1, h2, h3, .button, .header-cta { font-family: var(--font-sansation), Arial, sa
   .faq-page-header { min-height: 74px; padding-inline: 20px; }
   .faq-page-header .faq-back { display: none; }
   .faq-page-header nav { gap: 0; }
-  .faq-page-hero, .faq-page-content, .faq-page-footer { padding-inline: 20px; }
-  .faq-page-hero > p:not(.section-kicker) { font-size: 17px; }
+  .faq-page-header .official-logo { width: 156px; height: 50px; }
+  .faq-page-hero { grid-template-columns: 1fr; }
+  .faq-page-hero-copy { padding: 42px 20px 38px; }
+  .faq-page-hero .section-kicker { font-size: 10px; margin-bottom: 18px; }
+  .faq-page-hero h1 { font-size: 50px; }
+  .faq-page-hero-intro { font-size: 17px; margin-top: 24px; }
+  .faq-page-hero-image { min-height: 0; height: 390px; }
+  .faq-page-hero-image img { object-position: 50% 54%; }
+  .faq-page-content, .faq-page-footer { padding-inline: 20px; }
   .faq-page-index nav { flex-direction: column; gap: 0; border-top: 1px solid #c9ccd2; }
   .faq-page-group + .faq-page-group { margin-top: 44px; }
   .faq-answer { margin-right: 0; }
@@ -393,6 +408,8 @@ h1, h2, h3, .button, .header-cta { font-family: var(--font-sansation), Arial, sa
 @media (max-width: 360px) {
   .faq-page-header { gap: 16px; }
   .faq-page-header .official-logo { width: 130px; }
+  .faq-page-hero h1 { font-size: 44px; }
+  .faq-page-hero-image { height: 350px; }
 }
 
 .contact-section { display: grid; grid-template-columns: minmax(0,.82fr) minmax(0,1.18fr); gap: clamp(50px,8vw,120px); padding: clamp(80px,10vw,140px) clamp(24px,7.3vw,112px); background: var(--mist); }

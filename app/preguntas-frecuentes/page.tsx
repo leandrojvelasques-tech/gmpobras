@@ -35,9 +35,21 @@ export default function FrequentlyAskedQuestionsPage() {
       </header>
 
       <section className="faq-page-hero" aria-labelledby="faq-page-title">
-        <p className="section-kicker section-kicker-light">GMP Obras · Comodoro Rivadavia y Rada Tilly</p>
-        <h1 id="faq-page-title">Preguntas frecuentes.</h1>
-        <p>Respuestas sobre obras, costos, terrenos y el sistema Cassaforma para preparar tu primera consulta.</p>
+        <div className="faq-page-hero-copy">
+          <p className="section-kicker">GMP Obras · Comodoro Rivadavia y Rada Tilly</p>
+          <h1 id="faq-page-title">Preguntas<br />frecuentes.</h1>
+          <p className="faq-page-hero-intro">Respuestas sobre obras, costos, terrenos y el sistema Cassaforma para preparar tu primera consulta.</p>
+        </div>
+        <div className="faq-page-hero-image">
+          <Image
+            src="/gustavo-pinto-explicando-plano-gmp-obras.webp"
+            alt="Gustavo Pinto señala un plano junto a otra persona en la oficina de GMP Obras."
+            width={1200}
+            height={1600}
+            priority
+            unoptimized
+          />
+        </div>
       </section>
 
       <div className="faq-page-content">
