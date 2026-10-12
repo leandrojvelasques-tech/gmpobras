@@ -26,6 +26,7 @@ import Image from 'next/image';
 import { ProfileVideo } from './components/ProfileVideo';
 import { CassaformaVideoCover } from './components/CassaformaVideoCover';
 import { HomeProjectShowcase } from './components/HomeProjectShowcase';
+import { HouseModels } from './components/HouseModels';
 import { FaqList } from './components/FaqList';
 import { homeFaqs } from './data/faqs';
 import { projects } from './data/projects';
@@ -190,6 +191,7 @@ export default function Home() {
 
         <nav className="desktop-nav" aria-label="Navegación principal">
           <a href="#obras">Proyectos</a>
+          <a href="#modelos">Modelos</a>
           <a href="#sistema">Sistema</a>
           <a href="/preguntas-frecuentes">Preguntas frecuentes</a>
           <a href="#contacto">Contacto</a>
@@ -290,6 +292,8 @@ export default function Home() {
 
         <HomeProjectShowcase projects={homeProjects} />
       </section>
+
+      <HouseModels />
 
       <section className="system-section" id="sistema" aria-labelledby="system-title">
         <div className="system-section-heading">
