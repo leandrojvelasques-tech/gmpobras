@@ -98,13 +98,13 @@ export default function AppointmentPage() {
         <a href="/" className="booking-brand" aria-label="Volver al inicio de GMP Obras"><span className="official-logo" aria-hidden="true"><Image src="/logo-gmp-obras-horizontal.png" alt="" width={1258} height={343} unoptimized /></span></a>
         <a href="/" className="booking-back"><ArrowLeft aria-hidden="true" size={17} /> Volver al sitio</a>
       </header>
-      <div className="booking-preview-note" role="note">Solicitá un horario. Gustavo confirmará la disponibilidad de tu consulta.</div>
+      <div className="booking-preview-note" role="note">Elegí un día y un horario para contarme tu idea. Te confirmo la disponibilidad de la consulta.</div>
       <div className="booking-layout">
         <aside className="booking-intro">
           <div className="booking-intro-copy">
             <p className="section-kicker section-kicker-light">Consulta inicial · Sin costo</p>
-            <h1>Hablemos de tu próxima obra.</h1>
-            <p>Elegí un horario para conversar con Gustavo. Los detalles del proyecto podés sumarlos después.</p>
+            <h1>Conversemos sobre tu proyecto.</h1>
+            <p>Contame qué querés hacer y dónde. Podemos reunirnos en mi oficina o por videollamada.</p>
             <div className="booking-facts"><span><Clock3 size={17} aria-hidden="true" />45 minutos</span><span><MapPin size={17} aria-hidden="true" />Comodoro Rivadavia · Rada Tilly</span></div>
             <a className="booking-mobile-link" href="#elegir-turno">Elegir un horario <ArrowRight size={18} aria-hidden="true" /></a>
           </div>
@@ -181,7 +181,7 @@ export default function AppointmentPage() {
                 <label className="booking-consent"><input type="checkbox" required checked={acceptedPrivacy} onChange={(event) => setAcceptedPrivacy(event.target.checked)} /><span>Acepto que GMP Obras guarde estos datos para contactarme y coordinar esta consulta.</span></label>
                 <small>La información del proyecto es opcional y podés agregarla después de enviar la solicitud.</small>
                 <button type="submit" className="button button-primary" disabled={submitting}>{submitting ? 'Guardando solicitud…' : 'Solicitar consulta'}<ArrowRight size={18} aria-hidden="true" /></button>
-              </form> : <p className="booking-bottom-note">Elegí el horario que preferís. Gustavo confirmará la disponibilidad.</p>}
+              </form> : <p className="booking-bottom-note">Elegí el horario que preferís. Te confirmo la disponibilidad.</p>}
             </>
           )}
         </section>
