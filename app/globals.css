@@ -330,7 +330,7 @@ h1, h2, h3, .button, .header-cta { font-family: var(--font-sansation), Arial, sa
 .faq-answer-links a { min-height: 44px; margin-top: 6px; }
 .faq-answer-links svg, .faq-all-link svg { flex-shrink: 0; }
 .faq-list details, .faq-page-group { scroll-margin-top: 28px; }
-.faq-list summary:focus-visible { outline: 3px solid var(--blue); outline-offset: 4px; }
+.faq-list summary:focus-visible { outline: 3px solid var(--blue); outline-offset: -3px; }
 .faq-answer a { display: inline-flex; align-items: center; gap: 8px; margin-top: 15px; color: var(--blue-deep); font-size: 14px; font-weight: 750; text-decoration: underline; text-decoration-color: rgba(38,74,145,.32); text-underline-offset: 4px; }
 .faq-answer a:hover { color: var(--blue); text-decoration-color: currentColor; }
 
