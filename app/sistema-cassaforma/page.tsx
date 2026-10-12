@@ -208,10 +208,11 @@ export default function CassaformaSystemPage() {
         </div>
       </section>
 
-      <section className="system-landing-figures" id="beneficios" aria-labelledby="system-figures-title">
+      <section className="system-landing-benefits-group" id="beneficios" aria-labelledby="system-figures-title">
+        <div className="system-landing-figures">
         <div className="system-landing-section-heading">
-          <p className="section-kicker">Beneficios del sistema</p>
-          <h2 id="system-figures-title">Construir con Cassaforma</h2>
+          <p className="section-kicker">Sistema Cassaforma</p>
+          <h2 id="system-figures-title">Beneficios del sistema</h2>
         </div>
         <div className="system-landing-figures-grid">
           <article>
@@ -234,9 +235,9 @@ export default function CassaformaSystemPage() {
           Valores de referencia publicados por <a href="https://cassaforma.com/sistema-constructivo" target="_blank" rel="noreferrer">Cassaforma</a>.
           Los resultados dependen del proyecto y de las condiciones de cada obra.
         </p>
+        </div>
+        <SystemBenefits />
       </section>
-
-      <SystemBenefits />
 
       <section className="system-section system-landing-specialist" id="video" aria-label="Explicaciones de Gustavo y Marcelo sobre Cassaforma">
         <div className="system-video-feature-list">
