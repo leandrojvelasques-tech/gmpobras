@@ -22,7 +22,7 @@ test('home keeps only Gustavo and links to the full system page', () => {
   assert.match(landing, /<SystemBenefits/);
 });
 
-test('Cassaforma landing includes the comparison, process and component assets', () => {
+test('Cassaforma landing includes the comparison and sustainability information', () => {
   const relativePath = 'app/sistema-cassaforma/page.tsx';
   assert.equal(existsSync(join(root, relativePath)), true, `${relativePath} is missing`);
 
@@ -34,16 +34,17 @@ test('Cassaforma landing includes the comparison, process and component assets',
   assert.match(landing, /Panel SIP/);
   assert.match(landing, /Modular/);
   assert.match(landing, /Cassaforma/);
-  assert.match(landing, /Definir el proyecto/);
-  assert.match(landing, /cassaforma-panel-simple\.png/);
+  assert.match(landing, /Certificado Producto LEED/);
+  assert.match(landing, /Green Group Sustainability Consulting/);
   assert.match(landing, /cassaforma-panel-reforzado\.png/);
-  assert.match(landing, /cassaforma-mallas\.png/);
   const benefits = readFileSync(join(root, 'app/components/SystemBenefits.tsx'), 'utf8');
   assert.match(benefits, /Beneficios del sistema/);
   assert.match(benefits, /Resistencia al viento/);
   assert.match(benefits, /Ver beneficios siguientes/);
-  assert.match(landing, /id="proceso"/);
-  assert.match(landing, /id="componentes"/);
+  assert.match(landing, /id="sustentabilidad"/);
+  assert.doesNotMatch(landing, /id="proceso"|id="componentes"|Caetano|elaborado manualmente/);
+  assert.ok(landing.indexOf('id="que-es"') < landing.indexOf('id="video"'));
+  assert.equal((landing.match(/<h1\b/g) ?? []).length, 1);
 });
 
 test('Cassaforma video cover uses the official Marcelo Seia thumbnail', () => {

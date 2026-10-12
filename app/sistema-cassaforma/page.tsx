@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
+import './landing.css';
 import { CassaformaVideoCover } from '../components/CassaformaVideoCover';
 import { SystemBenefits } from '../components/SystemBenefits';
 import {
@@ -17,7 +18,7 @@ import {
 export const metadata: Metadata = {
   title: 'Sistema constructivo Cassaforma: cómo funciona | GMP Obras',
   description:
-    'Conocé el sistema Cassaforma: video explicativo, beneficios, comparativa, componentes y etapas de construcción con GMP Obras.',
+    'Conocé el sistema Cassaforma: videos explicativos, beneficios, comparativa y construcción sustentable con GMP Obras.',
   alternates: { canonical: 'https://www.gmpobras.com.ar/sistema-cassaforma' },
   openGraph: {
     title: 'Sistema Cassaforma | GMP Obras',
@@ -119,48 +120,6 @@ const comparisonRows: Array<{
   },
 ];
 
-const processSteps = [
-  {
-    number: '01',
-    title: 'Definir el proyecto',
-    description:
-      'Se estudian el terreno, las necesidades y la documentación para definir medidas, paneles y encuentros.',
-  },
-  {
-    number: '02',
-    title: 'Montar paneles y mallas',
-    description:
-      'Los paneles se colocan según el proyecto y las mallas resuelven uniones en ángulo, empalmes y refuerzos locales.',
-  },
-  {
-    number: '03',
-    title: 'Completar y terminar',
-    description:
-      'Se prevén las instalaciones, se completa el conjunto con hormigón proyectado y luego se aplican las terminaciones.',
-  },
-];
-
-const components = [
-  {
-    title: 'Panel simple',
-    description: 'Núcleo de EPS y mallas de acero que forman la base del sistema.',
-    image: '/cassaforma-panel-simple.png',
-    alt: 'Panel simple Cassaforma con núcleo de EPS y mallas de acero',
-  },
-  {
-    title: 'Panel simple reforzado',
-    description: 'Una variante para resolver situaciones particulares definidas por el proyecto.',
-    image: '/cassaforma-panel-reforzado.png',
-    alt: 'Panel simple reforzado Cassaforma con instalaciones y terminación',
-  },
-  {
-    title: 'Mallas accesorias',
-    description: 'Piezas para uniones, refuerzos y continuidad en encuentros y aberturas.',
-    image: '/cassaforma-mallas.png',
-    alt: 'Mallas accesorias Cassaforma para uniones y refuerzos',
-  },
-];
-
 export default function CassaformaSystemPage() {
   return (
     <main className="system-landing">
@@ -189,9 +148,8 @@ export default function CassaformaSystemPage() {
             Sistema constructivo Cassaforma
           </h1>
           <p>
-            Cassaforma combina paneles, mallas de acero y hormigón proyectado. En esta página
-            reunimos una explicación técnica, los beneficios, una comparativa y las etapas
-            de construcción para conocer el sistema antes de consultar.
+            Conocé el sistema que utiliza GMP Obras: paneles con núcleo de EPS, mallas de
+            acero y hormigón proyectado para construir tu proyecto.
           </p>
           <div className="system-landing-actions">
             <a className="button button-primary" href="/agendar">
@@ -219,12 +177,31 @@ export default function CassaformaSystemPage() {
         </div>
       </section>
 
+      <section className="system-landing-intro" id="que-es" aria-labelledby="system-intro-title">
+        <div className="system-landing-section-heading">
+          <p className="section-kicker">El sistema</p>
+          <h2 id="system-intro-title">Qué es Cassaforma</h2>
+        </div>
+        <div className="system-landing-intro-copy">
+          <p>
+            Cassaforma se presenta como un sistema constructivo integral basado en paneles con
+            núcleo de poliestireno expandido (EPS), mallas de acero y hormigón proyectado. El
+            conjunto puede resolver estructura y cerramientos, según el proyecto y su cálculo.
+          </p>
+          <p>
+            Para GMP Obras, el sistema se trabaja desde la definición del proyecto y se ejecuta
+            por etapas: primero se organizan los paneles y sus encuentros, luego las instalaciones
+            y finalmente el hormigón y las terminaciones.
+          </p>
+        </div>
+      </section>
+
       <nav className="system-landing-jump-nav" aria-label="Secciones del sistema Cassaforma">
+        <a href="#que-es">Qué es Cassaforma</a>
         <a href="#video">Videos explicativos</a>
         <a href="#beneficios">Beneficios</a>
         <a href="#comparativa">Comparativa</a>
-        <a href="#proceso">Proceso</a>
-        <a href="#componentes">Componentes</a>
+        <a href="#sustentabilidad">Construcción sustentable</a>
       </nav>
 
       <section className="system-section system-landing-specialist" id="video" aria-label="Explicaciones de Gustavo y Marcelo sobre Cassaforma">
@@ -239,9 +216,9 @@ export default function CassaformaSystemPage() {
             </div>
             <div className="system-video-feature-copy">
               <p className="section-kicker section-kicker-light">La explicación de Gustavo</p>
-              <h2>Cómo se aplica Cassaforma en una obra.</h2>
+              <h2>Cómo se aplica Cassaforma en una obra</h2>
               <p>
-                Gustavo Pinto Caetano explica qué elementos componen el sistema, cómo trabajan
+                El Maestro Mayor de Obras Gustavo Pinto explica qué elementos componen el sistema, cómo trabajan
                 juntos y por qué GMP Obras lo utiliza en sus proyectos.
               </p>
             </div>
@@ -252,7 +229,7 @@ export default function CassaformaSystemPage() {
             </div>
             <div className="system-video-feature-copy">
               <p className="section-kicker section-kicker-light">La mirada de un especialista</p>
-              <h2>Una explicación técnica, con ejemplos concretos.</h2>
+              <h2>Características técnicas de Cassaforma</h2>
               <p>
                 El arquitecto Marcelo Seia profundiza en las características del sistema, sus
                 posibilidades y los aspectos que conviene evaluar antes de incorporarlo a un proyecto.
@@ -277,9 +254,8 @@ export default function CassaformaSystemPage() {
           <p className="system-landing-comparison-index">GMP / 01</p>
         </div>
         <p className="system-landing-comparison-lead">
-          Este cuadro fue elaborado manualmente por Gustavo como una comparación visual entre
-          sistemas. Sirve para ordenar la conversación inicial; no reemplaza el proyecto, el
-          cálculo ni el análisis particular de cada obra.
+          Este cuadro es una comparación visual entre sistemas, basada en la experiencia
+          del Maestro Mayor de Obras Gustavo Pinto.
         </p>
         <div className="system-landing-table-wrap" tabIndex={0} role="region" aria-label="Tabla comparativa de sistemas constructivos">
           <table className="system-landing-table">
@@ -321,82 +297,39 @@ export default function CassaformaSystemPage() {
         </div>
         <div className="system-landing-comparison-note">
           <CircleAlert aria-hidden="true" size={18} />
-          <p>
-            La tabla expresa una opinión comparativa de GMP Obras. Las condiciones reales de una
-            obra dependen del terreno, el proyecto, el cálculo, la ejecución y las terminaciones.
-          </p>
+          <p>Es una valoración propia de GMP Obras, no un estudio científico.</p>
         </div>
       </section>
 
-      <section className="system-landing-intro" aria-labelledby="system-intro-title">
+      <section className="system-landing-sustainability" id="sustentabilidad" aria-labelledby="sustainability-title">
         <div className="system-landing-section-heading">
-          <p className="section-kicker">Qué es Cassaforma</p>
-          <h2 id="system-intro-title">Paneles, mallas de acero y hormigón.</h2>
+          <p className="section-kicker">Certificación LEED</p>
+          <h2 id="sustainability-title">Construcción sustentable</h2>
         </div>
-        <div className="system-landing-intro-copy">
+        <div className="system-landing-sustainability-copy">
           <p>
-            Cassaforma se presenta como un sistema constructivo integral basado en paneles con
-            núcleo de poliestireno expandido (EPS), mallas de acero y hormigón proyectado. El
-            conjunto puede resolver estructura y cerramientos, según el proyecto y su cálculo.
+            El núcleo de EPS de los paneles aporta aislación térmica y ayuda a reducir la
+            demanda de energía para climatizar los ambientes.
           </p>
           <p>
-            Para GMP Obras, el sistema se trabaja desde la definición del proyecto y se ejecuta
-            por etapas: primero se organizan los paneles y sus encuentros, luego las instalaciones
-            y finalmente el hormigón y las terminaciones.
+            Según su sitio oficial, el sistema constructivo Cassaforma cuenta con un
+            Certificado Producto LEED otorgado por Green Group Sustainability Consulting.
           </p>
-        </div>
-      </section>
-
-      <section className="system-landing-process" id="proceso" aria-labelledby="process-title">
-        <div className="system-landing-section-heading">
-          <p className="section-kicker">Cómo funciona</p>
-          <h2 id="process-title">Tres momentos para entender el sistema.</h2>
-        </div>
-        <div className="system-landing-process-grid">
-          {processSteps.map((step) => (
-            <article key={step.number}>
-              <span>{step.number}</span>
-              <h3>{step.title}</h3>
-              <p>{step.description}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="system-landing-components" id="componentes" aria-labelledby="components-title">
-        <div className="system-landing-components-heading">
-          <div className="system-landing-section-heading">
-            <p className="section-kicker">Componentes</p>
-            <h2 id="components-title">Componentes del sistema.</h2>
-          </div>
           <p>
-            Paneles y mallas cumplen funciones distintas. La selección se define según el
-            proyecto y el cálculo de cada obra.
+            Esta información corresponde al sistema constructivo. La certificación LEED de
+            una obra se evalúa sobre el proyecto completo.
           </p>
+          <a className="system-landing-inline-link" href="https://cassaforma.com/sistema-constructivo" target="_blank" rel="noreferrer">
+            Consultar la información oficial de Cassaforma
+            <ArrowUpRight aria-hidden="true" size={17} />
+          </a>
         </div>
-        <div className="system-landing-components-grid">
-          {components.map((component) => (
-            <article className="system-landing-component-card" key={component.title}>
-              <div className="system-landing-component-media">
-                <Image src={component.image} alt={component.alt} fill sizes="(max-width: 780px) 100vw, 33vw" />
-              </div>
-              <div className="system-landing-component-copy">
-                <h3>{component.title}</h3>
-                <p>{component.description}</p>
-              </div>
-            </article>
-          ))}
-        </div>
-        <a className="system-landing-inline-link" href="https://cassaforma.com/sistema-constructivo" target="_blank" rel="noreferrer">
-          Ver los productos en el sitio de Cassaforma
-          <ArrowUpRight aria-hidden="true" size={17} />
-        </a>
       </section>
 
       <section className="system-landing-boundaries" aria-labelledby="boundaries-title">
         <div className="system-landing-boundaries-heading">
           <p className="section-kicker section-kicker-light">Qué conviene validar</p>
-          <h2 id="boundaries-title">La decisión se toma con el proyecto arriba de la mesa.</h2>
+          <h2 id="boundaries-title">Qué evaluar antes de construir con Cassaforma</h2>
         </div>
         <div className="system-landing-boundaries-content">
           <p>
@@ -415,7 +348,7 @@ export default function CassaformaSystemPage() {
       <section className="system-landing-cta" aria-labelledby="system-cta-title">
         <div>
           <p className="section-kicker section-kicker-light">¿Tenés un proyecto?</p>
-          <h2 id="system-cta-title">Lo vemos con tus medidas, tu terreno y tu etapa.</h2>
+          <h2 id="system-cta-title">Consultá por tu proyecto con Cassaforma</h2>
         </div>
         <a className="button button-light" href="/agendar">
           Agendar una consulta
@@ -429,7 +362,7 @@ export default function CassaformaSystemPage() {
             <Image src="/logo-gmp-obras-vertical.png" alt="" width={1834} height={1503} unoptimized />
           </span>
         </a>
-        <p>Gustavo Pinto Caetano · Maestro mayor de obras · Comodoro Rivadavia</p>
+        <p>MMO Gustavo Pinto · Comodoro Rivadavia</p>
         <div>
           <a href="https://cassaforma.com/sistema-constructivo" target="_blank" rel="noreferrer">Fuente técnica consultada: Cassaforma</a>
           <a href="/#contacto">Contacto GMP Obras</a>
