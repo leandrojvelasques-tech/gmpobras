@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { ArrowLeft, ArrowRight, CalendarDays, Check, ChevronLeft, ChevronRight, Clock3, MapPin, Video } from 'lucide-react';
 import Image from 'next/image';
-import { appointmentSchedule, argentinaDate, firstProposedDate, proposedTimes, formatAppointmentDate } from '../../lib/appointment-schedule.mjs';
+import { argentinaDate, firstProposedDate, proposedTimes, formatAppointmentDate } from '../../lib/appointment-schedule.mjs';
 
 const projectTypes = ['Vivienda nueva', 'Ampliación', 'Consultorio', 'Local comercial', 'Otro proyecto'];
 const projectStages = ['Todavía es una idea inicial', 'Ya tengo terreno o inmueble', 'Ya tengo anteproyecto o planos', 'La obra ya está iniciada'];
@@ -19,6 +19,12 @@ export default function AppointmentPage() {
   const [contact, setContact] = useState({ firstName: '', lastName: '', email: '', phone: '' });
   const [meetingMode, setMeetingMode] = useState<'presencial' | 'virtual' | ''>('');
   const [confirmed, setConfirmed] = useState(false);
+  const [confirmationId, setConfirmationId] = useState<number | null>(null);
+  const [detailsToken, setDetailsToken] = useState('');
+  const [acceptedPrivacy, setAcceptedPrivacy] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [savingDetails, setSavingDetails] = useState(false);
+  const [detailsError, setDetailsError] = useState('');
   const [detailsOpen, setDetailsOpen] = useState(false);
   const [details, setDetails] = useState(initialDetails);
   const [detailsSaved, setDetailsSaved] = useState(false);
@@ -54,11 +60,36 @@ export default function AppointmentPage() {
   function updateDetail(field: keyof typeof details, value: string) {
     setDetails((current) => ({ ...current, [field]: value })); setDetailsSaved(false);
   }
-  function previewReservation(event: React.FormEvent<HTMLFormElement>) {
+  async function submitRequest(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (!meetingMode) { setError('Elegí si preferís la consulta presencial o virtual.'); return; }
-    if (!proposedTimes(selectedDate).includes(selectedTime)) { setSelectedTime(''); setError('Elegí un horario futuro para probar la reserva.'); return; }
-    setError(''); setConfirmed(true);
+    if (!meetingMode || !acceptedPrivacy || submitting) return;
+    if (!proposedTimes(selectedDate).includes(selectedTime)) { setSelectedTime(''); setError('Elegí un horario futuro para solicitar la consulta.'); return; }
+    setError(''); setSubmitting(true);
+    try {
+      const response = await fetch('/api/consultas', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({
+        name: `${contact.firstName.trim()} ${contact.lastName.trim()}`, email: contact.email, phone: contact.phone,
+        meetingMode: meetingMode === 'presencial' ? 'Presencial en la oficina' : 'Virtual por Google Meet',
+        preferredDay: selectedDate, preferredTime: selectedTime, acceptedPrivacy,
+      }) });
+      const result = await response.json() as { consultation?: { id: number }; detailsToken?: string; error?: string };
+      if (!response.ok || !result.consultation?.id || !result.detailsToken) throw new Error(result.error || 'No pudimos guardar la solicitud.');
+      setConfirmationId(result.consultation.id); setDetailsToken(result.detailsToken); setConfirmed(true);
+    } catch (error) { setError(error instanceof Error ? error.message : 'No pudimos guardar la solicitud. Tus datos siguen en pantalla.'); }
+    finally { setSubmitting(false); }
+  }
+  async function saveDetails(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (savingDetails) return;
+    setSavingDetails(true); setDetailsError(''); setDetailsSaved(false);
+    try {
+      const response = await fetch('/api/consultas', { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({
+        ...details, projectStages: details.stage ? [details.stage] : [], id: confirmationId, detailsToken,
+      }) });
+      const result = await response.json() as { consultation?: { id: number }; detailsToken?: string; error?: string };
+      if (!response.ok || !result.consultation) throw new Error(result.error || 'No pudimos guardar los detalles.');
+      setDetailsSaved(true);
+    } catch (error) { setDetailsError(error instanceof Error ? error.message : 'No pudimos guardar los detalles.'); }
+    finally { setSavingDetails(false); }
   }
 
   return (
@@ -67,7 +98,7 @@ export default function AppointmentPage() {
         <a href="/" className="booking-brand" aria-label="Volver al inicio de GMP Obras"><span className="official-logo" aria-hidden="true"><Image src="/logo-gmp-obras-horizontal.png" alt="" width={1258} height={343} unoptimized /></span></a>
         <a href="/" className="booking-back"><ArrowLeft aria-hidden="true" size={17} /> Volver al sitio</a>
       </header>
-      <div className="booking-preview-note" role="note">Vista previa · Horarios propuestos. Esta prueba no reserva turnos ni envía correos.</div>
+      <div className="booking-preview-note" role="note">Solicitá un horario. Gustavo confirmará la disponibilidad de tu consulta.</div>
       <div className="booking-layout">
         <aside className="booking-intro">
           <div className="booking-intro-copy">
@@ -86,29 +117,30 @@ export default function AppointmentPage() {
           {confirmed ? (
             <div className="booking-prepared">
               <span><Check size={28} aria-hidden="true" /></span>
-              <p className="section-kicker">Prueba de reserva</p>
-              <h2 id="booking-title" ref={confirmationHeading} tabIndex={-1}>Así queda tu consulta.</h2>
+              <p className="section-kicker">Solicitud registrada</p>
+              <h2 id="booking-title" ref={confirmationHeading} tabIndex={-1}>Recibimos tu solicitud.</h2>
               <p className="booking-date-summary"><CalendarDays size={20} aria-hidden="true" /><strong>{formatAppointmentDate(selectedDate)}<br />{selectedTime} · 45 minutos</strong></p>
               <div className="booking-meeting-summary">
-                {meetingMode === 'presencial' ? <><MapPin size={20} aria-hidden="true" /><div><strong>Presencial en la oficina</strong><p>{officeAddress}</p><a href={officeMapUrl} target="_blank" rel="noreferrer">Cómo llegar</a></div></> : <><Video size={20} aria-hidden="true" /><div><strong>Virtual por Google Meet</strong><p>En la reserva real, el enlace se incluirá en la confirmación.</p></div></>}
+                {meetingMode === 'presencial' ? <><MapPin size={20} aria-hidden="true" /><div><strong>Presencial en la oficina</strong><p>{officeAddress}</p><a href={officeMapUrl} target="_blank" rel="noreferrer">Cómo llegar</a></div></> : <><Video size={20} aria-hidden="true" /><div><strong>Virtual por Google Meet</strong><p>El enlace se coordina cuando Gustavo confirme la consulta.</p></div></>}
               </div>
-              <p>En la agenda real, vos y Gustavo recibirán un correo con la confirmación y la invitación al calendario.</p>
-              <p className="booking-demo-confirmation">Esta es una simulación. No se creó una cita ni se enviaron correos.</p>
+              <p>Tu solicitud quedó guardada con el número <strong>#{confirmationId}</strong>. GMP Obras revisará el horario elegido y te contactará para coordinar la consulta.</p>
+              <p className="booking-demo-confirmation">El horario queda sujeto a confirmación. Todavía no se creó una cita en Google Calendar ni se enviaron correos automáticos.</p>
               <div className="booking-optional-invitation">
                 <h3>¿Querés contarle algo de la obra?</h3>
                 <p>Podés sumar una idea, la ubicación o un enlace a tus planos. Es opcional.</p>
                 <button type="button" className="booking-text-button" aria-expanded={detailsOpen} onClick={() => setDetailsOpen(!detailsOpen)}>{detailsOpen ? 'Ocultar detalles' : 'Agregar información del proyecto'}<ArrowRight size={17} aria-hidden="true" /></button>
               </div>
-              {detailsOpen && <form className="booking-step booking-optional-form" onSubmit={(event) => { event.preventDefault(); setDetailsSaved(true); }}>
+              {detailsOpen && <form className="booking-step booking-optional-form" onSubmit={saveDetails}>
                 <div className="field-row"><label>Tipo de proyecto (opcional)<select value={details.projectType} onChange={(event) => updateDetail('projectType', event.target.value)}><option value="">Sin definir</option>{projectTypes.map((type) => <option key={type}>{type}</option>)}</select></label><label>Ciudad (opcional)<select value={details.city} onChange={(event) => updateDetail('city', event.target.value)}><option value="">Sin definir</option><option>Comodoro Rivadavia</option><option>Rada Tilly</option><option>Otra localidad</option></select></label></div>
                 <label>Dirección de la obra (opcional)<input autoComplete="street-address" value={details.address} onChange={(event) => updateDetail('address', event.target.value)} /></label>
                 <label>¿Qué querés construir o resolver? (opcional)<textarea rows={4} maxLength={4000} value={details.projectDetail} onChange={(event) => updateDetail('projectDetail', event.target.value)} placeholder="Contanos lo que tengas definido hasta ahora." /></label>
                 <div className="field-row"><label>Estado del proyecto (opcional)<select value={details.stage} onChange={(event) => updateDetail('stage', event.target.value)}><option value="">Sin definir</option>{projectStages.map((stage) => <option key={stage}>{stage}</option>)}</select></label><label>Presupuesto aproximado (opcional)<input value={details.budget} onChange={(event) => updateDetail('budget', event.target.value)} placeholder="Si ya tenés una idea" /></label></div>
                 <label>Enlace a fotos o planos (opcional)<input type="url" value={details.materialLink} onChange={(event) => updateDetail('materialLink', event.target.value)} placeholder="Enlace de Google Drive u otro servicio" /></label>
-                <button className="button button-primary" type="submit">Probar guardado de detalles<ArrowRight size={18} aria-hidden="true" /></button>
-                {detailsSaved && <p className="booking-details-feedback" role="status">Detalles incorporados a esta vista previa. Todavía no se enviaron ni se guardaron en la agenda real.</p>}
+                <button className="button button-primary" type="submit" disabled={savingDetails}>{savingDetails ? 'Guardando detalles…' : 'Guardar detalles'}<ArrowRight size={18} aria-hidden="true" /></button>
+                {detailsError && <p className="booking-submit-error" role="alert">{detailsError}</p>}
+                {detailsSaved && <p className="booking-details-feedback" role="status">Los detalles quedaron guardados junto con tu solicitud.</p>}
               </form>}
-              <div className="booking-end-actions"><a href="/">Volver al sitio</a><button type="button" onClick={() => { setConfirmed(false); setSelectedTime(''); setDetailsOpen(false); setDetailsSaved(false); }}>Probar otro horario</button></div>
+              <div className="booking-end-actions"><a href="/">Volver al sitio</a><button type="button" onClick={() => { setConfirmed(false); setSelectedTime(''); setDetailsOpen(false); setDetailsSaved(false); setDetailsError(''); setConfirmationId(null); setDetailsToken(''); }}>Solicitar otra consulta</button></div>
             </div>
           ) : (
             <>
@@ -126,8 +158,8 @@ export default function AppointmentPage() {
                 <div className="booking-times"><h3>{selectedDate ? formatAppointmentDate(selectedDate) : month ? 'Elegí un día' : 'Cargando fechas…'}</h3><p>Horarios propuestos</p>{times.map((time) => <button key={time} type="button" aria-pressed={selectedTime === time} className={selectedTime === time ? 'is-selected' : ''} onClick={() => { setSelectedTime(time); setError(''); }}><Clock3 size={16} aria-hidden="true" />{time}<ArrowRight size={16} aria-hidden="true" /></button>)}<small>45 minutos por consulta</small></div>
               </div>
               {error && <p role="alert" className="booking-submit-error">{error}</p>}
-              {selectedTime ? <form className="booking-contact-form booking-step" onSubmit={previewReservation}>
-                <h3 ref={contactHeading} tabIndex={-1}>Tus datos para la reserva</h3>
+              {selectedTime ? <form className="booking-contact-form booking-step" onSubmit={submitRequest}>
+                <h3 ref={contactHeading} tabIndex={-1}>Tus datos para la consulta</h3>
                 <p className="booking-selection">{formatAppointmentDate(selectedDate)} · {selectedTime}<button type="button" onClick={() => setSelectedTime('')}>Cambiar</button></p>
                 <fieldset className="booking-meeting-mode">
                   <legend>¿Cómo preferís la consulta?</legend>
@@ -144,11 +176,12 @@ export default function AppointmentPage() {
                   {meetingMode === 'presencial' && <a className="booking-office-map" href={officeMapUrl} target="_blank" rel="noreferrer">Ver cómo llegar a la oficina<ArrowRight size={15} aria-hidden="true" /></a>}
                 </fieldset>
                 <div className="field-row"><label>Nombre<input required autoComplete="given-name" maxLength={80} value={contact.firstName} onChange={(event) => setContact({ ...contact, firstName: event.target.value })} /></label><label>Apellido<input required autoComplete="family-name" maxLength={80} value={contact.lastName} onChange={(event) => setContact({ ...contact, lastName: event.target.value })} /></label></div>
-                <label>Email<input type="email" required autoComplete="email" maxLength={254} value={contact.email} onChange={(event) => setContact({ ...contact, email: event.target.value })} placeholder="Para recibir la confirmación" /></label>
+                <label>Email<input type="email" required autoComplete="email" maxLength={254} value={contact.email} onChange={(event) => setContact({ ...contact, email: event.target.value })} placeholder="Para coordinar la consulta" /></label>
                 <label>WhatsApp (opcional)<input type="tel" autoComplete="tel" maxLength={80} value={contact.phone} onChange={(event) => setContact({ ...contact, phone: event.target.value })} /></label>
-                <small>Los datos del proyecto se pueden agregar después. En esta prueba, los datos se conservan sólo mientras esta página esté abierta.</small>
-                <button type="submit" className="button button-primary">Probar reserva<ArrowRight size={18} aria-hidden="true" /></button>
-              </form> : <p className="booking-bottom-note">Primero elegís el horario. Después, tu nombre y email.</p>}
+                <label className="booking-consent"><input type="checkbox" required checked={acceptedPrivacy} onChange={(event) => setAcceptedPrivacy(event.target.checked)} /><span>Acepto que GMP Obras guarde estos datos para contactarme y coordinar esta consulta.</span></label>
+                <small>La información del proyecto es opcional y podés agregarla después de enviar la solicitud.</small>
+                <button type="submit" className="button button-primary" disabled={submitting}>{submitting ? 'Guardando solicitud…' : 'Solicitar consulta'}<ArrowRight size={18} aria-hidden="true" /></button>
+              </form> : <p className="booking-bottom-note">Elegí el horario que preferís. Gustavo confirmará la disponibilidad.</p>}
             </>
           )}
         </section>

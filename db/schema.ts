@@ -18,5 +18,7 @@ export const consultations = sqliteTable('consultations', {
   name: text('name').notNull(),
   phone: text('phone').notNull(),
   email: text('email').notNull(),
+  detailsTokenHash: text('details_token_hash'),
+  detailsTokenExpiresAt: text('details_token_expires_at'),
   createdAt: text('created_at').notNull().default(sql`CURRENT_TIMESTAMP`),
 });

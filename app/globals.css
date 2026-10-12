@@ -924,3 +924,6 @@ a:focus-visible, button:focus-visible, video:focus-visible { outline: 3px solid 
 .booking-direct .booking-meeting-summary p { margin: 6px 0; color: #626873; font-size: 14px; line-height: 1.5; }
 .booking-direct .booking-meeting-summary a { display: inline-flex; align-items: center; min-height: 44px; color: var(--blue); font-size: 13px; text-decoration: underline; }
 @media (max-width: 520px) { .booking-direct .booking-meeting-options { grid-template-columns: 1fr; } }
+.booking-direct .booking-step > .button:disabled { cursor: wait; opacity: .6; }
+.booking-direct .booking-step .booking-consent { grid-template-columns: 18px minmax(0,1fr); align-items: start; font-size: 12px; line-height: 1.5; }
+.booking-direct .booking-step .booking-consent input { width: 18px; height: 18px; min-height: 18px; margin: 2px 0 0; padding: 0; }

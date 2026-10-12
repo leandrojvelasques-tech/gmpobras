@@ -1,0 +1,16 @@
+import { readFileSync, writeFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+import { spawnSync, spawn } from 'node:child_process';
+const config = JSON.parse(readFileSync('dist/server/wrangler.json', 'utf8'));
+for (const database of config.d1_databases ?? []) database.migrations_dir = resolve('drizzle');
+const runtimeConfig = 'dist/server/wrangler.runtime.json';
+writeFileSync(runtimeConfig, JSON.stringify(config));
+const wrangler = resolve('node_modules/wrangler/bin/wrangler.js');
+const statePath = resolve('.wrangler/state');
+const env = { ...process.env, CI: 'true', WRANGLER_SEND_METRICS: 'false' };
+const result = spawnSync(process.execPath, [wrangler, 'd1', 'migrations', 'apply', 'DB', '--local', '--config', runtimeConfig, '--persist-to', statePath], { stdio: 'inherit', env });
+if (result.status !== 0) process.exit(result.status ?? 1);
+if (process.argv.includes('--migrate-only')) process.exit(0);
+const server = spawn(process.execPath, [wrangler, 'dev', '--config', runtimeConfig, '--persist-to', statePath, ...process.argv.slice(2)], { stdio: 'inherit', env });
+for (const signal of ['SIGTERM', 'SIGINT']) process.on(signal, () => server.kill(signal));
+server.on('exit', code => process.exit(code ?? 1));
