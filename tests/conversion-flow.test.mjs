@@ -22,8 +22,11 @@ test('Home includes the system, FAQ, contact form and appointment conversion pat
   assert.match(home, /Ver beneficios siguientes/);
   assert.match(home, /Comparación orientativa/);
   assert.match(home, /constructionSystems/);
-  assert.match(home, /¿Se puede construir en cualquier terreno\?/);
-  assert.match(home, /¿Entregan con los planos municipales aprobados\?/);
+  const faqCatalog = readFileSync(join(root, 'app/data/faqs.ts'), 'utf8');
+  assert.match(home, /<FaqList items=\{homeFaqs\}/);
+  assert.match(home, /href="\/preguntas-frecuentes"/);
+  assert.match(faqCatalog, /¿Se puede construir en cualquier terreno\?/);
+  assert.match(faqCatalog, /¿Entregan con los planos municipales aprobados\?/);
   assert.match(home, /Gustavo Pinto Caetano/);
   assert.doesNotMatch(home, /de un profesional\./);
   assert.doesNotMatch(home, /Componentes del sistema/);

@@ -26,6 +26,8 @@ import Image from 'next/image';
 import { ProfileVideo } from './components/ProfileVideo';
 import { CassaformaVideoCover } from './components/CassaformaVideoCover';
 import { HomeProjectShowcase } from './components/HomeProjectShowcase';
+import { FaqList } from './components/FaqList';
+import { homeFaqs } from './data/faqs';
 import { projects } from './data/projects';
 
 const featuredProjectOrder = ['volar-sin-escalas', 'vivienda-gabriel-ambrozy'];
@@ -132,50 +134,6 @@ const constructionSystems = [
   { name: 'Cassaforma', values: [true, true, true, true, true, true, true, true, true], featured: true },
 ] as const;
 
-type Faq = {
-  question: string;
-  answer: string;
-  cta?: {
-    href: string;
-    label: string;
-  };
-};
-
-const faqs: Faq[] = [
-  {
-    question: '¿Qué tipos de obras realiza GMP Obras?',
-    answer: 'Viviendas, ampliaciones, consultorios y locales comerciales. Cada consulta se evalúa según su alcance, ubicación y estado actual.',
-  },
-  {
-    question: '¿En qué zonas trabaja?',
-    answer: 'Comodoro Rivadavia y Rada Tilly.',
-  },
-  {
-    question: '¿Qué es el sistema Cassaforma?',
-    answer: 'Es un sistema de paneles modulares con núcleo aislante y mallas de acero que se completan con hormigón proyectado. Su combinación aporta rapidez de ejecución, aislación, resistencia, limpieza en obra y un uso eficiente de los materiales frente a otros métodos constructivos.',
-  },
-  {
-    question: '¿Puedo consultar si todavía no tengo el proyecto definido?',
-    answer: 'Sí. De hecho, recomendamos hacer la consulta antes de definir el proyecto. La primera reunión es gratuita y sirve para analizar qué querés construir, conocer el terreno y ordenar los próximos pasos con criterio técnico.',
-    cta: {
-      href: '/agendar',
-      label: 'Agendar una consulta gratuita',
-    },
-  },
-  {
-    question: '¿Cuánto demora una obra?',
-    answer: 'El plazo depende del tipo de obra, la superficie, el proyecto y las condiciones del terreno. Antes de darte una fecha, revisamos esa información y armamos un plazo de trabajo realista para tu caso.',
-  },
-  {
-    question: '¿Se puede construir en cualquier terreno?',
-    answer: 'Sí, siempre que las condiciones del terreno lo permitan. Para tu tranquilidad, antes de proyectar la obra realizamos un estudio de suelo que permite definir la solución adecuada y prevenir inconvenientes durante la construcción.',
-  },
-  {
-    question: '¿Entregan con los planos municipales aprobados?',
-    answer: 'Sí. Una de las ventajas de trabajar con GMP Obras es el acompañamiento para que la obra cumpla con la normativa local y quede en regla. No iniciamos la construcción sin la aprobación del municipio correspondiente. En obras llave en mano, al finalizar se presenta el conforme de obra y se actualizan las modificaciones realizadas, si las hubiera.',
-  },
-];
-
 export default function Home() {
   const [activeBenefit, setActiveBenefit] = useState(0);
   const benefitTrackRef = useRef<HTMLDivElement>(null);
@@ -233,7 +191,7 @@ export default function Home() {
         <nav className="desktop-nav" aria-label="Navegación principal">
           <a href="#obras">Proyectos</a>
           <a href="#sistema">Sistema</a>
-          <a href="#preguntas-frecuentes">Preguntas</a>
+          <a href="/preguntas-frecuentes">Preguntas frecuentes</a>
           <a href="#contacto">Contacto</a>
         </nav>
 
@@ -456,22 +414,12 @@ export default function Home() {
         <div className="faq-heading">
           <p className="section-kicker">Preguntas frecuentes</p>
           <h2 id="faq-title">Lo que conviene saber antes de consultar.</h2>
-          <p>Respuestas iniciales para ordenar la decisión. Los detalles técnicos y el alcance se revisan para cada obra.</p>
+          <p className="faq-intro">Una primera orientación sobre nuestras obras, los costos, las zonas donde trabajamos y el sistema Cassaforma.</p>
+          <a className="button button-primary faq-all-link" href="/preguntas-frecuentes">
+            Ver todas las preguntas frecuentes <ArrowRight aria-hidden="true" size={19} />
+          </a>
         </div>
-        <div className="faq-list">
-          {faqs.map((faq, index) => (
-            <details key={faq.question} open={index === 0}>
-              <summary>
-                <span>{faq.question}</span>
-                <span aria-hidden="true">+</span>
-              </summary>
-              <div className="faq-answer">
-                <p>{faq.answer}</p>
-                {faq.cta && <a href={faq.cta.href}>{faq.cta.label}<ArrowRight aria-hidden="true" size={16} /></a>}
-              </div>
-            </details>
-          ))}
-        </div>
+        <FaqList items={homeFaqs} openFirst />
       </section>
 
       <section className="consultation" id="consulta">
@@ -540,6 +488,7 @@ export default function Home() {
           <a href="mailto:gpinto@gmpobras.com">gpinto@gmpobras.com</a>
           <span>Ramos Mejía 298 · Comodoro Rivadavia</span>
           <a href="https://www.instagram.com/gmpobras/" target="_blank" rel="noreferrer">Instagram · @gmpobras</a>
+          <a href="/preguntas-frecuentes">Preguntas frecuentes</a>
         </div>
       </footer>
     </main>

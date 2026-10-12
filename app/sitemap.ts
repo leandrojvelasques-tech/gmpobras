@@ -2,7 +2,7 @@ import type { MetadataRoute } from 'next';
 import { projects } from './data/projects';
 
 const siteUrl = 'https://www.gmpobras.com.ar';
-const publicPages = ['/', '/agendar', '/sistema-cassaforma'];
+const publicPages = ['/', '/agendar', '/sistema-cassaforma', '/preguntas-frecuentes'];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
