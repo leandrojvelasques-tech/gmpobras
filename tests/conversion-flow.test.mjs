@@ -27,33 +27,16 @@ test('Home includes the system, FAQ, contact form and appointment conversion pat
   assert.doesNotMatch(home, /Componentes del sistema/);
 });
 
-test('appointment landing is a multi-step flow backed by persistent storage', () => {
-  const relativePath = 'app/agendar/page.tsx';
-  assert.equal(existsSync(join(root, relativePath)), true, `${relativePath} is missing`);
-
-  const source = readFileSync(join(root, relativePath), 'utf8');
-  assert.match(source, /30 minutos/);
-  assert.match(source, /72 horas/);
-  assert.match(source, /Presupuesto aproximado/);
-  assert.match(source, /Entre 25\.000 y 50\.000 dólares/);
-  assert.match(source, /Más de 500\.000 dólares/);
-  assert.match(source, /Disponés de aproximadamente el siguiente dinero/);
-  assert.match(source, /Día preferido/);
-  assert.match(source, /sujet(?:a|os) a confirmación/);
-  assert.match(source, /Sin costo/);
-  assert.match(source, /Google Drive/);
-  assert.match(source, /materialLink/);
-  assert.match(source, /Comodoro Rivadavia/);
-  assert.match(source, /Rada Tilly/);
-  assert.match(source, /Dirección de la obra/);
-  assert.match(source, /type="checkbox"/);
-  assert.match(source, /Google Meet/);
-  assert.match(source, /Revisá los datos de tu solicitud/);
-  assert.match(source, /Volver y editar/);
-  assert.match(source, /Enviar solicitud de reunión/);
-  assert.match(source, /fetch\('\/api\/consultas'/);
-  assert.match(source, /Solicitud registrada/);
-  assert.match(source, /guarde estos datos/);
+test('appointment preview starts with calendar selection and collects project details afterward', () => {
+  const source = readFileSync(join(root, 'app/agendar/page.tsx'), 'utf8');
+  assert.match(source, /45 minutos/);
+  assert.match(source, /Lunes, miércoles y viernes/);
+  assert.match(source, /10:00 o 15:00/);
+  assert.match(source, /booking-calendar-grid/);
+  assert.match(source, /Tus datos para la reserva/);
+  assert.match(source, /WhatsApp \(opcional\)/);
+  assert.match(source, /Agregar información del proyecto/);
+  assert.match(source, /Esta prueba no reserva turnos ni envía correos/);
+  assert.doesNotMatch(source, /fetch\(|totalSteps|setStep|72 horas/);
   assert.equal(existsSync(join(root, 'app/api/consultas/route.ts')), true);
-  assert.equal(existsSync(join(root, 'db/schema.ts')), true);
 });

@@ -1,280 +1,133 @@
 'use client';
 
-import { useMemo, useState } from 'react';
-import { ArrowLeft, ArrowRight, Check, Clock3, MapPin } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { ArrowLeft, ArrowRight, CalendarDays, Check, ChevronLeft, ChevronRight, Clock3, MapPin } from 'lucide-react';
 import Image from 'next/image';
-
-type Answers = {
-  projectType: string;
-  city: string;
-  address: string;
-  projectDetail: string;
-  projectStages: string[];
-  stageDetail: string;
-  materialLink: string;
-  budget: string;
-  meetingMode: string;
-  preferredDay: string;
-  preferredTime: string;
-  name: string;
-  phone: string;
-  email: string;
-};
-
-const initialAnswers: Answers = {
-  projectType: '',
-  city: '',
-  address: '',
-  projectDetail: '',
-  projectStages: [],
-  stageDetail: '',
-  materialLink: '',
-  budget: '',
-  meetingMode: '',
-  preferredDay: '',
-  preferredTime: '',
-  name: '',
-  phone: '',
-  email: '',
-};
+import { appointmentSchedule, argentinaDate, firstProposedDate, proposedTimes, formatAppointmentDate } from '../../lib/appointment-schedule.mjs';
 
 const projectTypes = ['Vivienda nueva', 'Ampliación', 'Consultorio', 'Local comercial', 'Otro proyecto'];
-const projectStages = [
-  'Todavía es una idea inicial',
-  'Ya tengo terreno o inmueble',
-  'Ya tengo anteproyecto o planos',
-  'La obra ya está iniciada',
-  'Necesito continuar o revisar una obra existente',
-];
-const budgetRanges = [
-  'Entre 25.000 y 50.000 dólares',
-  'Entre 50.000 y 100.000 dólares',
-  'Entre 100.000 y 200.000 dólares',
-  'Entre 200.000 y 500.000 dólares',
-  'Más de 500.000 dólares',
-];
+const projectStages = ['Todavía es una idea inicial', 'Ya tengo terreno o inmueble', 'Ya tengo anteproyecto o planos', 'La obra ya está iniciada'];
+const initialDetails = { projectType: '', city: '', address: '', projectDetail: '', stage: '', budget: '', materialLink: '' };
+
 export default function AppointmentPage() {
-  const [step, setStep] = useState(0);
-  const [answers, setAnswers] = useState(initialAnswers);
-  const [reviewing, setReviewing] = useState(false);
-  const [prepared, setPrepared] = useState(false);
-  const [acceptedPrivacy, setAcceptedPrivacy] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
-  const [submitError, setSubmitError] = useState('');
-  const [confirmationId, setConfirmationId] = useState<number | null>(null);
-  const totalSteps = 5;
+  const [selectedDate, setSelectedDate] = useState('');
+  const [selectedTime, setSelectedTime] = useState('');
+  const [month, setMonth] = useState('');
+  const [today, setToday] = useState('');
+  const [contact, setContact] = useState({ firstName: '', lastName: '', email: '', phone: '' });
+  const [confirmed, setConfirmed] = useState(false);
+  const [detailsOpen, setDetailsOpen] = useState(false);
+  const [details, setDetails] = useState(initialDetails);
+  const [detailsSaved, setDetailsSaved] = useState(false);
+  const [error, setError] = useState('');
+  const confirmationHeading = useRef<HTMLHeadingElement>(null);
+  const contactHeading = useRef<HTMLHeadingElement>(null);
 
-  const canContinue = useMemo(() => {
-    if (step === 0) return Boolean(answers.projectType && answers.city && answers.address.trim());
-    if (step === 1) return Boolean(answers.projectDetail.trim() && answers.projectStages.length);
-    if (step === 2) return Boolean(answers.budget);
-    if (step === 3) return Boolean(answers.meetingMode && answers.preferredDay && answers.preferredTime);
-    return Boolean(answers.name.trim() && answers.phone.trim() && answers.email.trim() && acceptedPrivacy);
-  }, [acceptedPrivacy, answers, step]);
+  useEffect(() => {
+    const date = firstProposedDate();
+    setToday(argentinaDate()); setSelectedDate(date); setMonth(date.slice(0, 7));
+    const model = new URLSearchParams(window.location.search).get('modelo');
+    if (model) setDetails((current) => ({ ...current, projectType: 'Vivienda nueva', projectDetail: `Me interesa el modelo ${model}.` }));
+  }, []);
+  useEffect(() => { if (confirmed) confirmationHeading.current?.focus(); }, [confirmed]);
+  useEffect(() => { if (selectedTime) contactHeading.current?.focus(); }, [selectedTime]);
 
-  function update<K extends keyof Answers>(field: K, value: Answers[K]) {
-    setAnswers((current) => ({ ...current, [field]: value }));
+  const dates: (string | null)[] = [];
+  if (month) {
+    const [year, monthNumber] = month.split('-').map(Number);
+    const firstDay = new Date(Date.UTC(year, monthNumber - 1, 1));
+    for (let i = 0; i < (firstDay.getUTCDay() + 6) % 7; i++) dates.push(null);
+    const days = new Date(Date.UTC(year, monthNumber, 0)).getUTCDate();
+    for (let day = 1; day <= days; day++) dates.push(`${month}-${String(day).padStart(2, '0')}`);
   }
-
-  function toggleProjectStage(option: string) {
-    setAnswers((current) => ({
-      ...current,
-      projectStages: current.projectStages.includes(option)
-        ? current.projectStages.filter((item) => item !== option)
-        : [...current.projectStages, option],
-    }));
+  const monthLabel = month ? new Intl.DateTimeFormat('es-AR', { month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${month}-01T12:00:00Z`)) : '';
+  const times = selectedDate ? proposedTimes(selectedDate) : [];
+  function changeMonth(offset: number) {
+    const [year, monthNumber] = month.split('-').map(Number);
+    const date = new Date(Date.UTC(year, monthNumber - 1 + offset, 1));
+    setMonth(date.toISOString().slice(0, 7));
+    setSelectedDate(''); setSelectedTime(''); setError('');
   }
-
-  function next() {
-    if (!canContinue) return;
-    if (step < totalSteps - 1) setStep((current) => current + 1);
-    else setReviewing(true);
+  function updateDetail(field: keyof typeof details, value: string) {
+    setDetails((current) => ({ ...current, [field]: value })); setDetailsSaved(false);
   }
-
-  async function submitAppointment() {
-    setSubmitting(true);
-    setSubmitError('');
-
-    try {
-      const response = await fetch('/api/consultas', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(answers),
-      });
-      const result = (await response.json()) as { consultation?: { id: number }; error?: string };
-
-      if (!response.ok || !result.consultation) {
-        throw new Error(result.error || 'No pudimos guardar la solicitud.');
-      }
-
-      setConfirmationId(result.consultation.id);
-      setPrepared(true);
-    } catch (error) {
-      setSubmitError(error instanceof Error ? error.message : 'No pudimos guardar la solicitud.');
-    } finally {
-      setSubmitting(false);
-    }
+  function previewReservation(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (!proposedTimes(selectedDate).includes(selectedTime)) { setSelectedTime(''); setError('Elegí un horario futuro para probar la reserva.'); return; }
+    setError(''); setConfirmed(true);
   }
 
   return (
-    <main className="booking-page">
+    <main className="booking-page booking-direct">
       <header className="booking-header">
-        <a href="/" className="booking-brand" aria-label="Volver al inicio de GMP Obras">
-          <span className="official-logo" aria-hidden="true"><Image src="/logo-gmp-obras-horizontal.png" alt="" width={1258} height={343} unoptimized /></span>
-        </a>
+        <a href="/" className="booking-brand" aria-label="Volver al inicio de GMP Obras"><span className="official-logo" aria-hidden="true"><Image src="/logo-gmp-obras-horizontal.png" alt="" width={1258} height={343} unoptimized /></span></a>
         <a href="/" className="booking-back"><ArrowLeft aria-hidden="true" size={17} /> Volver al sitio</a>
       </header>
-
+      <div className="booking-preview-note" role="note">Vista previa · Horarios propuestos. Esta prueba no reserva turnos ni envía correos.</div>
       <div className="booking-layout">
         <aside className="booking-intro">
-          <p className="section-kicker section-kicker-light">Consulta inicial · Sin costo</p>
-          <h1>Agendá una consulta sobre tu proyecto de construcción</h1>
-          <p>Conversá con Gustavo sobre la obra que estás evaluando en Comodoro Rivadavia o Rada Tilly. La reunión puede ser presencial o por Google Meet.</p>
-          <div className="booking-promises">
-            <p><Clock3 aria-hidden="true" size={19} /><span><strong>30 minutos</strong> de conversación enfocada en tu proyecto.</span></p>
-            <p><MapPin aria-hidden="true" size={19} /><span><strong>En la oficina de GMP Obras o por Google Meet.</strong></span></p>
-            <p><Check aria-hidden="true" size={19} /><span>Si corresponde, luego de la reunión recibís el <strong>presupuesto dentro de las siguientes 72 horas.</strong></span></p>
+          <div className="booking-intro-copy">
+            <p className="section-kicker section-kicker-light">Consulta inicial · Sin costo</p>
+            <h1>Hablemos de tu próxima obra.</h1>
+            <p>Elegí un horario para conversar con Gustavo. Los detalles del proyecto podés sumarlos después.</p>
+            <div className="booking-facts"><span><Clock3 size={17} aria-hidden="true" />45 minutos</span><span><MapPin size={17} aria-hidden="true" />Comodoro Rivadavia · Rada Tilly</span></div>
+            <a className="booking-mobile-link" href="#elegir-turno">Elegir un horario <ArrowRight size={18} aria-hidden="true" /></a>
           </div>
-          <small>Esta primera versión de la consulta es gratuita.</small>
+          <figure className="booking-photo">
+            <Image src="/gustavo-pinto-atendiendo-consulta.webp" alt="Gustavo Pinto atiende una consulta por teléfono mientras revisa planos en su oficina." width={1000} height={1333} unoptimized priority />
+            <figcaption><strong>Gustavo Pinto</strong><span>Maestro mayor de obras · GMP Obras</span></figcaption>
+          </figure>
         </aside>
-
-        <section className="booking-card" aria-labelledby="booking-step-title">
-          <div className="booking-progress">
-            <progress max={totalSteps} value={reviewing || prepared ? totalSteps : step + 1} aria-label={reviewing ? 'Revisión final' : `Paso ${step + 1} de ${totalSteps}`} />
-            <p>{reviewing ? 'Revisión final' : prepared ? 'Solicitud preparada' : `Paso ${step + 1} de ${totalSteps}`}</p>
-          </div>
-
-          {prepared ? (
-            <div className="booking-prepared" aria-live="polite">
-              <span><Check aria-hidden="true" size={28} /></span>
-              <p className="section-kicker">Solicitud registrada</p>
-              <h2 id="booking-step-title">Recibimos tu consulta.</h2>
-              <p>La información quedó guardada con el número <strong>#{confirmationId}</strong>. GMP Obras la revisará para confirmar la disponibilidad y coordinar la reunión.</p>
-              <small>La fecha y el turno elegidos todavía están sujetos a confirmación.</small>
-              <a className="button button-primary" href="/">Volver al sitio</a>
-            </div>
-          ) : reviewing ? (
-            <div className="booking-review">
-              <p className="section-kicker">Antes de enviar</p>
-              <h2 id="booking-step-title">Revisá los datos de tu solicitud.</h2>
-              <p>Podés volver para corregir cualquier respuesta o enviar la solicitud de reunión.</p>
-
-              <dl className="booking-review-list">
-                <div><dt>Tipo de proyecto</dt><dd>{answers.projectType}</dd></div>
-                <div><dt>Ubicación de la obra</dt><dd>{answers.address}, {answers.city}</dd></div>
-                <div className="is-wide"><dt>Detalle de la obra</dt><dd>{answers.projectDetail}</dd></div>
-                <div className="is-wide"><dt>Estado actual</dt><dd>{answers.projectStages.join(' · ')}</dd></div>
-                {answers.stageDetail && <div className="is-wide"><dt>Información adicional</dt><dd>{answers.stageDetail}</dd></div>}
-                <div><dt>Presupuesto aproximado</dt><dd>{answers.budget}</dd></div>
-                <div><dt>Modalidad</dt><dd>{answers.meetingMode}</dd></div>
-                <div><dt>Preferencia</dt><dd>{answers.preferredDay} · {answers.preferredTime}</dd></div>
-                <div><dt>Nombre</dt><dd>{answers.name}</dd></div>
-                <div><dt>Teléfono</dt><dd>{answers.phone}</dd></div>
-                <div><dt>Email</dt><dd>{answers.email}</dd></div>
-                {answers.materialLink && <div className="is-wide"><dt>Material en Google Drive</dt><dd>{answers.materialLink}</dd></div>}
-              </dl>
-
-              <small>Al enviar, la información quedará registrada en la base de datos de GMP Obras.</small>
-              {submitError && <p className="booking-submit-error" role="alert">{submitError}</p>}
-              <div className="booking-actions booking-review-actions">
-                <button type="button" className="booking-prev" onClick={() => setReviewing(false)}><ArrowLeft aria-hidden="true" size={18} /> Volver y editar</button>
-                <button type="button" className="button button-primary" onClick={submitAppointment} disabled={submitting}>{submitting ? 'Guardando solicitud…' : 'Enviar solicitud de reunión'} {!submitting && <ArrowRight aria-hidden="true" size={18} />}</button>
+        <section className="booking-card" id="elegir-turno" aria-labelledby="booking-title">
+          {confirmed ? (
+            <div className="booking-prepared">
+              <span><Check size={28} aria-hidden="true" /></span>
+              <p className="section-kicker">Prueba de reserva</p>
+              <h2 id="booking-title" ref={confirmationHeading} tabIndex={-1}>Así queda tu consulta.</h2>
+              <p className="booking-date-summary"><CalendarDays size={20} aria-hidden="true" /><strong>{formatAppointmentDate(selectedDate)}<br />{selectedTime} · 45 minutos</strong></p>
+              <p>En la agenda real, vos y Gustavo recibirán un correo con la confirmación y la invitación al calendario.</p>
+              <p className="booking-demo-confirmation">Esta es una simulación. No se creó una cita ni se enviaron correos.</p>
+              <div className="booking-optional-invitation">
+                <h3>¿Querés contarle algo de la obra?</h3>
+                <p>Podés sumar una idea, la ubicación o un enlace a tus planos. Es opcional.</p>
+                <button type="button" className="booking-text-button" aria-expanded={detailsOpen} onClick={() => setDetailsOpen(!detailsOpen)}>{detailsOpen ? 'Ocultar detalles' : 'Agregar información del proyecto'}<ArrowRight size={17} aria-hidden="true" /></button>
               </div>
+              {detailsOpen && <form className="booking-step booking-optional-form" onSubmit={(event) => { event.preventDefault(); setDetailsSaved(true); }}>
+                <div className="field-row"><label>Tipo de proyecto (opcional)<select value={details.projectType} onChange={(event) => updateDetail('projectType', event.target.value)}><option value="">Sin definir</option>{projectTypes.map((type) => <option key={type}>{type}</option>)}</select></label><label>Ciudad (opcional)<select value={details.city} onChange={(event) => updateDetail('city', event.target.value)}><option value="">Sin definir</option><option>Comodoro Rivadavia</option><option>Rada Tilly</option><option>Otra localidad</option></select></label></div>
+                <label>Dirección de la obra (opcional)<input autoComplete="street-address" value={details.address} onChange={(event) => updateDetail('address', event.target.value)} /></label>
+                <label>¿Qué querés construir o resolver? (opcional)<textarea rows={4} maxLength={4000} value={details.projectDetail} onChange={(event) => updateDetail('projectDetail', event.target.value)} placeholder="Contanos lo que tengas definido hasta ahora." /></label>
+                <div className="field-row"><label>Estado del proyecto (opcional)<select value={details.stage} onChange={(event) => updateDetail('stage', event.target.value)}><option value="">Sin definir</option>{projectStages.map((stage) => <option key={stage}>{stage}</option>)}</select></label><label>Presupuesto aproximado (opcional)<input value={details.budget} onChange={(event) => updateDetail('budget', event.target.value)} placeholder="Si ya tenés una idea" /></label></div>
+                <label>Enlace a fotos o planos (opcional)<input type="url" value={details.materialLink} onChange={(event) => updateDetail('materialLink', event.target.value)} placeholder="Enlace de Google Drive u otro servicio" /></label>
+                <button className="button button-primary" type="submit">Probar guardado de detalles<ArrowRight size={18} aria-hidden="true" /></button>
+                {detailsSaved && <p className="booking-details-feedback" role="status">Detalles incorporados a esta vista previa. Todavía no se enviaron ni se guardaron en la agenda real.</p>}
+              </form>}
+              <div className="booking-end-actions"><a href="/">Volver al sitio</a><button type="button" onClick={() => { setConfirmed(false); setSelectedTime(''); setDetailsOpen(false); setDetailsSaved(false); }}>Probar otro horario</button></div>
             </div>
           ) : (
             <>
-              {step === 0 && (
-                <fieldset className="booking-step">
-                  <legend id="booking-step-title">¿Qué querés construir?</legend>
-                  <p>Elegí la opción que más se aproxima. Después vas a poder contarnos el detalle.</p>
-                  <div className="choice-grid">
-                    {projectTypes.map((option) => (
-                      <label key={option} className={answers.projectType === option ? 'is-selected' : ''}>
-                        <input type="radio" name="projectType" value={option} checked={answers.projectType === option} onChange={() => update('projectType', option)} />
-                        <span>{option}</span>
-                      </label>
-                    ))}
+              <p className="section-kicker">Con Gustavo Pinto</p>
+              <h2 id="booking-title">Elegí el día y la hora.</h2>
+              <p className="booking-lead">Lunes, miércoles y viernes · 10:00 o 15:00</p>
+              <div className="booking-calendar-layout">
+                <div className="booking-calendar">
+                  <div className="booking-month"><h3 aria-live="polite">{monthLabel}</h3><div><button type="button" aria-label="Mes anterior" disabled={!month || month <= today.slice(0, 7)} onClick={() => changeMonth(-1)}><ChevronLeft size={20} /></button><button type="button" aria-label="Mes siguiente" disabled={!month} onClick={() => changeMonth(1)}><ChevronRight size={20} /></button></div></div>
+                  <div className="booking-calendar-grid"><span aria-label="Lunes">L</span><span aria-label="Martes">M</span><span aria-label="Miércoles">M</span><span aria-label="Jueves">J</span><span aria-label="Viernes">V</span><span aria-label="Sábado">S</span><span aria-label="Domingo">D</span>
+                    {dates.map((date, index) => date ? <button type="button" key={date} disabled={!proposedTimes(date).length} aria-label={formatAppointmentDate(date)} aria-pressed={selectedDate === date} className={selectedDate === date ? 'is-selected' : ''} onClick={() => { setSelectedDate(date); setSelectedTime(''); setError(''); }}>{Number(date.slice(-2))}</button> : <span key={`empty-${index}`} />)}
                   </div>
-                  <div className="field-row">
-                    <label>Ciudad<select value={answers.city} onChange={(event) => update('city', event.target.value)} autoComplete="address-level2"><option value="" disabled>Seleccioná una ciudad</option><option>Comodoro Rivadavia</option><option>Rada Tilly</option></select></label>
-                    <label>Dirección de la obra<input value={answers.address} onChange={(event) => update('address', event.target.value)} placeholder="Calle y altura" autoComplete="street-address" /></label>
-                  </div>
-                </fieldset>
-              )}
-
-              {step === 1 && (
-                <fieldset className="booking-step">
-                  <legend id="booking-step-title">Contanos sobre la obra</legend>
-                  <p>Cuanto más detalle tengamos, mejor podemos aprovechar la primera conversación.</p>
-                  <label>Detallanos la obra que querés hacer de la manera más precisa posible<textarea rows={6} value={answers.projectDetail} onChange={(event) => update('projectDetail', event.target.value)} placeholder="Qué querés construir, ampliar o modificar; para qué uso y qué necesitás resolver." /></label>
-                  <fieldset className="stage-fieldset">
-                    <legend>¿Cuál es el estado actual?</legend>
-                    <p>Marcá todas las opciones que correspondan.</p>
-                    <div className="choice-grid choice-grid-single">
-                      {projectStages.map((option) => (
-                        <label key={option} className={answers.projectStages.includes(option) ? 'is-selected' : ''}>
-                          <input type="checkbox" checked={answers.projectStages.includes(option)} onChange={() => toggleProjectStage(option)} />
-                          <span>{option}</span>
-                        </label>
-                      ))}
-                    </div>
-                  </fieldset>
-                  <label>¿Hay algo más que necesitemos saber sobre el estado actual?<textarea rows={3} value={answers.stageDetail} onChange={(event) => update('stageDetail', event.target.value)} placeholder="Opcional: contanos avances, dificultades o decisiones ya tomadas." /></label>
-                  <div className="booking-material">
-                    <div>
-                      <h3>Fotos o videos del lugar</h3>
-                      <p>Si ya tenés una casa, terreno o local, podés sumar material para que Gustavo llegue mejor preparado a la cita.</p>
-                    </div>
-                    <label>
-                      Subí el material a Google Drive y pegá el enlace
-                      <input type="url" value={answers.materialLink} onChange={(event) => update('materialLink', event.target.value)} placeholder="https://drive.google.com/..." />
-                    </label>
-                    <small>El enlace es opcional y quedará guardado junto con la consulta.</small>
-                  </div>
-                </fieldset>
-              )}
-
-              {step === 2 && (
-                <fieldset className="booking-step">
-                  <legend id="booking-step-title">Presupuesto aproximado</legend>
-                  <p>Disponés de aproximadamente el siguiente dinero para afrontar o realizar la obra.</p>
-                  <div className="choice-grid choice-grid-single">
-                    {budgetRanges.map((option) => (
-                      <label key={option} className={answers.budget === option ? 'is-selected' : ''}>
-                        <input type="radio" name="budget" value={option} checked={answers.budget === option} onChange={() => update('budget', option)} />
-                        <span>{option}</span>
-                      </label>
-                    ))}
-                  </div>
-                  <small>Elegí el rango más cercano. No hace falta que sea un cálculo cerrado.</small>
-                </fieldset>
-              )}
-
-              {step === 3 && (
-                <fieldset className="booking-step">
-                  <legend id="booking-step-title">Elegí una preferencia para la cita</legend>
-                  <p>Puede ser presencial o por Google Meet. La fecha y el turno quedan sujetos a confirmación de GMP Obras.</p>
-                  <label>Modalidad<select value={answers.meetingMode} onChange={(event) => update('meetingMode', event.target.value)}><option value="" disabled>Seleccioná una modalidad</option><option>Presencial en la oficina</option><option>Virtual por Google Meet</option></select></label>
-                  <label>Día preferido<input type="date" value={answers.preferredDay} onChange={(event) => update('preferredDay', event.target.value)} /></label>
-                  <label>Turno preferido<select value={answers.preferredTime} onChange={(event) => update('preferredTime', event.target.value)}><option value="" disabled>Seleccioná un turno</option><option value="mañana">Mañana</option><option value="mediodía">Mediodía</option><option value="tarde">Tarde</option></select></label>
-                </fieldset>
-              )}
-
-              {step === 4 && (
-                <fieldset className="booking-step">
-                  <legend id="booking-step-title">¿Cómo nos comunicamos con vos?</legend>
-                  <p>Estos datos se usarán para confirmar la disponibilidad y coordinar la reunión.</p>
-                  <label>Nombre y apellido<input autoComplete="name" value={answers.name} onChange={(event) => update('name', event.target.value)} /></label>
-                  <label>Teléfono<input type="tel" autoComplete="tel" value={answers.phone} onChange={(event) => update('phone', event.target.value)} /></label>
-                  <label>Email<input type="email" autoComplete="email" value={answers.email} onChange={(event) => update('email', event.target.value)} /></label>
-                  <label className="booking-consent"><input type="checkbox" checked={acceptedPrivacy} onChange={(event) => setAcceptedPrivacy(event.target.checked)} /><span>Acepto que GMP Obras guarde estos datos y los utilice para contactarme por esta consulta.</span></label>
-                </fieldset>
-              )}
-
-              <div className="booking-actions">
-                <button type="button" className="booking-prev" onClick={() => setStep((current) => Math.max(0, current - 1))} disabled={step === 0}><ArrowLeft aria-hidden="true" size={18} /> Anterior</button>
-                <button type="button" className="button button-primary" onClick={next} disabled={!canContinue}>{step === totalSteps - 1 ? 'Revisar solicitud' : 'Continuar'} <ArrowRight aria-hidden="true" size={18} /></button>
+                  <small className="booking-zone">Hora de Argentina (UTC−3)</small>
+                </div>
+                <div className="booking-times"><h3>{selectedDate ? formatAppointmentDate(selectedDate) : month ? 'Elegí un día' : 'Cargando fechas…'}</h3><p>Horarios propuestos</p>{times.map((time) => <button key={time} type="button" aria-pressed={selectedTime === time} className={selectedTime === time ? 'is-selected' : ''} onClick={() => { setSelectedTime(time); setError(''); }}><Clock3 size={16} aria-hidden="true" />{time}<ArrowRight size={16} aria-hidden="true" /></button>)}<small>45 minutos por consulta</small></div>
               </div>
+              {error && <p role="alert" className="booking-submit-error">{error}</p>}
+              {selectedTime ? <form className="booking-contact-form booking-step" onSubmit={previewReservation}>
+                <h3 ref={contactHeading} tabIndex={-1}>Tus datos para la reserva</h3>
+                <p className="booking-selection">{formatAppointmentDate(selectedDate)} · {selectedTime}<button type="button" onClick={() => setSelectedTime('')}>Cambiar</button></p>
+                <div className="field-row"><label>Nombre<input required autoComplete="given-name" maxLength={80} value={contact.firstName} onChange={(event) => setContact({ ...contact, firstName: event.target.value })} /></label><label>Apellido<input required autoComplete="family-name" maxLength={80} value={contact.lastName} onChange={(event) => setContact({ ...contact, lastName: event.target.value })} /></label></div>
+                <label>Email<input type="email" required autoComplete="email" maxLength={254} value={contact.email} onChange={(event) => setContact({ ...contact, email: event.target.value })} placeholder="Para recibir la confirmación" /></label>
+                <label>WhatsApp (opcional)<input type="tel" autoComplete="tel" maxLength={80} value={contact.phone} onChange={(event) => setContact({ ...contact, phone: event.target.value })} /></label>
+                <small>Los datos del proyecto se pueden agregar después. En esta prueba, los datos se conservan sólo mientras esta página esté abierta.</small>
+                <button type="submit" className="button button-primary">Probar reserva<ArrowRight size={18} aria-hidden="true" /></button>
+              </form> : <p className="booking-bottom-note">Primero elegís el horario. Después, tu nombre y email.</p>}
             </>
           )}
         </section>
