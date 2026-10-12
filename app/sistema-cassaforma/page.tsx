@@ -164,15 +164,15 @@ export default function CassaformaSystemPage() {
         </div>
         <div className="system-landing-hero-media">
           <Image
-            src="/cassaforma-panel-reforzado.png"
-            alt="Detalle de un panel Cassaforma con mallas, instalaciones y terminación"
+            src="/modelos/sagitario-casa.webp"
+            alt="Visualización exterior del modelo Sagitario: vivienda de dos plantas con grandes aberturas y detalles de madera"
             fill
             priority
-            sizes="(max-width: 780px) 100vw, 47vw"
+            sizes="(max-width: 780px) 100vw, 43vw"
           />
           <div className="system-landing-hero-label">
-            <span>Componentes del sistema</span>
-            <strong>Panel + mallas + terminación</strong>
+            <span>Modelo Sagitario</span>
+            <strong>Visualización exterior</strong>
           </div>
         </div>
       </section>

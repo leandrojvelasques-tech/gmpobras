@@ -36,7 +36,7 @@ test('Cassaforma landing includes the comparison and sustainability information'
   assert.match(landing, /Cassaforma/);
   assert.match(landing, /Certificado Producto LEED/);
   assert.match(landing, /Green Group Sustainability Consulting/);
-  assert.match(landing, /cassaforma-panel-reforzado\.png/);
+  assert.match(landing, /modelos\/sagitario-casa\.webp/);
   const benefits = readFileSync(join(root, 'app/components/SystemBenefits.tsx'), 'utf8');
   assert.match(benefits, /Beneficios del sistema/);
   assert.match(benefits, /Resistencia al viento/);
