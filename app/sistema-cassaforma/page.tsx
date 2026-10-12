@@ -213,6 +213,7 @@ export default function CassaformaSystemPage() {
         <div className="system-landing-section-heading">
           <p className="section-kicker">Sistema Cassaforma</p>
           <h2 id="system-figures-title">Beneficios del sistema</h2>
+          <p className="system-landing-figures-subtitle">Ventajas que se traducen en una obra mejor organizada.</p>
         </div>
         <div className="system-landing-figures-grid">
           <article>

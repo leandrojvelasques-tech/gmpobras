@@ -85,12 +85,8 @@ export function SystemBenefits() {
   }
 
   return (
-    <section className="system-section system-landing-benefits" id="beneficios-detalle" aria-labelledby="system-benefits-title">
+    <section className="system-section system-landing-benefits" id="beneficios-detalle" aria-label="Nueve ventajas del sistema Cassaforma">
         <div className="system-benefits-heading">
-          <div>
-            <p className="section-kicker section-kicker-light">Beneficios del sistema</p>
-            <h2 id="system-benefits-title">Ventajas que se traducen en una obra mejor organizada.</h2>
-          </div>
           <div className="benefit-carousel-meta">
             <span aria-live="polite">{String(activeBenefit + 1).padStart(2, '0')} / {String(systemBenefits.length).padStart(2, '0')}</span>
             <div className="benefit-carousel-controls">
@@ -120,7 +116,6 @@ export function SystemBenefits() {
           <p>¿Querés saber si este sistema sirve para tu proyecto?</p>
           <a href="/agendar">Agendar cita <ArrowRight aria-hidden="true" size={18} /></a>
         </div>
-
     </section>
   );
 }

@@ -76,6 +76,7 @@
 .system-landing-figures .system-landing-section-heading { text-align: center; }
 .system-landing-figures .section-kicker { justify-content: center; color: #b8c9ed; }
 .system-landing-figures .system-landing-section-heading h2 { max-width: none; }
+.system-landing-figures-subtitle { margin: 12px 0 0; color: #fff; font-size: clamp(18px, 2vw, 24px); line-height: 1.35; }
 .system-landing-figures-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; max-width: 1200px; margin: 42px auto 32px; }
 .system-landing-figures-grid article { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 18px; }
 .system-landing-figure-icon { display: grid; place-items: center; width: 88px; height: 88px; border: 2px solid #b8c9ed; border-radius: 50%; color: var(--white); }
@@ -84,17 +85,20 @@
 .system-landing-figures-source { max-width: 850px; margin: 0 auto; color: #c5c8cf; font-size: 13px; line-height: 1.6; text-align: center; }
 .system-landing-figures-source a { text-decoration: underline; text-underline-offset: 3px; }
 .system-landing .system-landing-benefits { padding-top: 32px; }
+.system-landing .system-landing-benefits .system-benefits-heading { justify-content: flex-end; margin: 0 auto 18px; }
 .system-landing-sustainability-icon { display: grid; place-items: center; width: 130px; height: 130px; margin-top: 32px; border-radius: 50%; background: #edf3e8; color: #638441; }
 @media (max-width: 640px) {
   .system-landing .system-landing-jump-nav { justify-content: flex-start; flex-wrap: nowrap; overflow-x: auto; gap: 22px; padding: 8px 20px; }
   .system-landing-jump-nav a { flex-shrink: 0; }
   .system-landing-figures { padding: 48px 20px; }
+  .system-landing-figures-subtitle { margin-top: 10px; }
   .system-landing-figures-grid { grid-template-columns: 1fr; gap: 32px; margin-top: 32px; }
   .system-landing-figures-grid article { display: grid; grid-template-columns: 70px 1fr; gap: 8px 24px; align-items: center; text-align: left; }
   .system-landing-figure-icon { grid-row: span 2; width: 70px; height: 70px; }
   .system-landing-figures-grid strong { font-size: 56px; }
   .system-landing-figures-grid h3 { font-size: 20px; }
   .system-landing .system-landing-benefits { padding-top: 24px; }
+  .system-landing .system-landing-benefits .system-benefits-heading { margin-bottom: 14px; }
   .system-landing-sustainability-icon { width: 100px; height: 100px; margin-top: 24px; }
 }
 
