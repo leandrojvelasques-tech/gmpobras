@@ -5,17 +5,21 @@ import test from 'node:test';
 
 const root = process.cwd();
 
-test('home presents Gustavo and Marcelo as complementary Cassaforma voices', () => {
+test('home keeps only Gustavo and links to the full system page', () => {
   const home = readFileSync(join(root, 'app/page.tsx'), 'utf8');
 
-  assert.doesNotMatch(home, /href="\/sistema-cassaforma"/);
+  assert.match(home, /href="\/sistema-cassaforma"/);
   assert.match(home, /Sistema Cassaforma/);
-  assert.match(home, /La opinión de Gustavo/);
-  assert.match(home, /La mirada de un especialista/);
+  assert.match(home, /variant="gustavo"/);
+  assert.match(home, /gustavo-sistema-cassaforma\.mp4/);
+  assert.match(home, /Ver más sobre el sistema Cassaforma/);
+  assert.doesNotMatch(home, /variant="marcelo"|<SystemBenefits|comparison-table/);
   assert.doesNotMatch(home, /href="https:\/\/cassaforma\.com\/sistema-constructivo"/);
-  assert.match(home, /arquitecto Marcelo Seia/);
-  assert.doesNotMatch(home, /https:\/\/marceloseia\.com\//);
-  assert.match(home, /href="https:\/\/www\.youtube\.com\/@arquitectomarceloseia8716"/);
+  const landing = readFileSync(join(root, 'app/sistema-cassaforma/page.tsx'), 'utf8');
+  assert.match(landing, /variant="marcelo"/);
+  assert.match(landing, /arquitecto Marcelo Seia/);
+  assert.match(landing, /href="https:\/\/www\.youtube\.com\/@arquitectomarceloseia8716"/);
+  assert.match(landing, /<SystemBenefits/);
 });
 
 test('Cassaforma landing includes the comparison, process and component assets', () => {
@@ -24,7 +28,7 @@ test('Cassaforma landing includes the comparison, process and component assets',
 
   const landing = readFileSync(join(root, relativePath), 'utf8');
 
-  assert.match(landing, /Comparativa de trabajo/);
+  assert.match(landing, /Comparación orientativa/);
   assert.match(landing, /Tradicional/);
   assert.match(landing, /Steel Frame/);
   assert.match(landing, /Panel SIP/);
@@ -34,12 +38,12 @@ test('Cassaforma landing includes the comparison, process and component assets',
   assert.match(landing, /cassaforma-panel-simple\.png/);
   assert.match(landing, /cassaforma-panel-reforzado\.png/);
   assert.match(landing, /cassaforma-mallas\.png/);
-  assert.match(landing, /w2nY_C0wBdo/);
-  assert.match(landing, /zcGG2Q2swvY/);
-  assert.ok(
-    landing.indexOf('Comparativa de trabajo') < landing.indexOf('Después de la comparativa'),
-    'the comparison should precede the technical explanation',
-  );
+  const benefits = readFileSync(join(root, 'app/components/SystemBenefits.tsx'), 'utf8');
+  assert.match(benefits, /Beneficios del sistema/);
+  assert.match(benefits, /Resistencia al viento/);
+  assert.match(benefits, /Ver beneficios siguientes/);
+  assert.match(landing, /id="proceso"/);
+  assert.match(landing, /id="componentes"/);
 });
 
 test('Cassaforma video cover uses the official Marcelo Seia thumbnail', () => {

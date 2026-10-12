@@ -1,26 +1,13 @@
 'use client';
 
-import { useRef, useState, type FormEvent } from 'react';
+import { type FormEvent } from 'react';
 import {
   ArrowDownRight,
   ArrowRight,
   ArrowUpRight,
-  BroomSparkles,
-  Cable,
-  Check,
-  ChevronLeft,
-  ChevronRight,
   AtSign,
   Mail,
   MapPin,
-  Paintbrush,
-  Ruler,
-  Shapes,
-  ShieldCheck,
-  Thermometer,
-  Wind,
-  X,
-  Zap,
 } from 'lucide-react';
 import Image from 'next/image';
 import { ProfileVideo } from './components/ProfileVideo';
@@ -66,107 +53,7 @@ const services = [
   },
 ];
 
-const systemBenefits = [
-  {
-    title: 'Velocidad de ejecución',
-    description: 'El montaje de paneles permite organizar el avance de la obra por etapas.',
-    icon: Zap,
-  },
-  {
-    title: 'Aislamiento térmico',
-    description: 'El núcleo de EPS aporta aislamiento dentro de la solución constructiva.',
-    icon: Thermometer,
-  },
-  {
-    title: 'Versatilidad',
-    description: 'Se adapta a viviendas, ampliaciones, consultorios y locales comerciales.',
-    icon: Shapes,
-  },
-  {
-    title: 'Paneles a medida',
-    description: 'Las piezas se definen de acuerdo con las necesidades y medidas del proyecto.',
-    icon: Ruler,
-  },
-  {
-    title: 'Obra más limpia',
-    description: 'El montaje ordenado ayuda a reducir desperdicios y tareas innecesarias en obra.',
-    icon: BroomSparkles,
-  },
-  {
-    title: 'Variedad',
-    description: 'Admite diferentes acabados interiores y exteriores según el diseño buscado.',
-    icon: Paintbrush,
-  },
-  {
-    title: 'Integración',
-    description: 'Las instalaciones se prevén dentro del sistema antes del hormigón proyectado.',
-    icon: Cable,
-  },
-  {
-    title: 'Resistencia estructural',
-    description: 'Paneles, mallas y hormigón trabajan como una solución estructural continua.',
-    icon: ShieldCheck,
-  },
-  {
-    title: 'Resistencia al viento',
-    description: 'La estructura se define y calcula según el proyecto, contemplando los vientos fuertes de la Patagonia.',
-    icon: Wind,
-  },
-];
-
-const comparisonCriteria = [
-  'Rapidez',
-  'Aislación termoacústica',
-  'Economía',
-  'Limpieza en obra',
-  'Ahorro energético',
-  'Resistencia a cargas',
-  'Resistencia al viento',
-  'Liviandad del sistema',
-  'Resistencia y durabilidad',
-] as const;
-
-const constructionSystems = [
-  { name: 'Tradicional', values: [false, false, false, false, false, true, true, false, true], featured: false },
-  { name: 'Steel frame', values: [true, false, true, true, false, false, false, true, false], featured: false },
-  { name: 'Panel SIP', values: [true, true, true, true, true, false, false, true, false], featured: false },
-  { name: 'Modular (contenedores)', values: [true, false, false, true, false, true, true, true, true], featured: false },
-  { name: 'Cassaforma', values: [true, true, true, true, true, true, true, true, true], featured: true },
-] as const;
-
 export default function Home() {
-  const [activeBenefit, setActiveBenefit] = useState(0);
-  const benefitTrackRef = useRef<HTMLDivElement>(null);
-
-  function moveBenefitCarousel(direction: number) {
-    const track = benefitTrackRef.current;
-    if (!track) return;
-
-    const visibleCards = window.matchMedia('(max-width: 640px)').matches ? 1 : 3;
-    const lastStart = Math.max(0, systemBenefits.length - visibleCards);
-    let nextIndex = activeBenefit + direction * visibleCards;
-
-    if (nextIndex > lastStart) nextIndex = 0;
-    if (nextIndex < 0) nextIndex = lastStart;
-
-    const firstCard = track.firstElementChild as HTMLElement | null;
-    if (!firstCard) return;
-    const gap = Number.parseFloat(getComputedStyle(track).columnGap || '0');
-
-    setActiveBenefit(nextIndex);
-    track.scrollTo({ left: nextIndex * (firstCard.offsetWidth + gap), behavior: 'smooth' });
-  }
-
-  function syncBenefitIndex() {
-    const track = benefitTrackRef.current;
-    const firstCard = track?.firstElementChild as HTMLElement | null;
-    if (!track || !firstCard) return;
-
-    const gap = Number.parseFloat(getComputedStyle(track).columnGap || '0');
-    const index = Math.round(track.scrollLeft / (firstCard.offsetWidth + gap));
-    setActiveBenefit(Math.min(systemBenefits.length - 1, Math.max(0, index)));
-  }
-
   function openContactEmail(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
@@ -291,123 +178,29 @@ export default function Home() {
         <HomeProjectShowcase projects={homeProjects} />
       </section>
 
-      <section className="system-section" id="sistema" aria-labelledby="system-title">
+      <section className="system-section system-home-preview" id="sistema" aria-labelledby="system-title">
         <div className="system-section-heading">
           <p className="section-kicker section-kicker-light">Sistema Cassaforma</p>
           <div>
-            <h2 id="system-title">Dos miradas para entender cómo funciona.</h2>
+            <h2 id="system-title">Cómo se aplica Cassaforma en una obra.</h2>
             <p className="system-section-heading-copy">
-              Gustavo lo explica desde la experiencia de GMP Obras. Marcelo Seia amplía la mirada
-              técnica sobre un sistema que combina paneles, acero y hormigón.
+              Gustavo Pinto Caetano explica qué elementos componen el sistema, cómo trabajan
+              juntos y por qué GMP Obras lo utiliza en sus proyectos.
             </p>
           </div>
         </div>
-
-        <div className="system-video-feature-list">
-          <article className="system-video-feature">
-            <div className="system-visual">
-              <CassaformaVideoCover
-                variant="gustavo"
-                videoSrc="/gustavo-sistema-cassaforma.mp4"
-                posterSrc="/gustavo-pinto-explica-cassaforma.jpg"
-              />
-            </div>
-            <div className="system-video-feature-copy">
-              <p className="section-kicker section-kicker-light">La opinión de Gustavo</p>
-              <h3>Cómo se aplica Cassaforma en una obra.</h3>
-              <p>
-                Gustavo Pinto Caetano presenta el sistema con una explicación directa: qué elementos lo
-                componen, cómo trabajan juntos y por qué GMP Obras lo utiliza en sus proyectos.
-              </p>
-            </div>
-          </article>
-
-          <article className="system-video-feature">
-            <div className="system-visual">
-              <CassaformaVideoCover variant="marcelo" />
-            </div>
-            <div className="system-video-feature-copy">
-              <p className="section-kicker section-kicker-light">La mirada de un especialista</p>
-              <h3>Una explicación técnica, con ejemplos concretos.</h3>
-              <p>
-                El arquitecto Marcelo Seia profundiza en las características del sistema, sus
-                posibilidades y los aspectos que conviene evaluar antes de incorporarlo a un proyecto.
-              </p>
-              <a href="https://www.youtube.com/@arquitectomarceloseia8716" target="_blank" rel="noreferrer">
-                Conocer al arquitecto Marcelo Seia
-                <ArrowUpRight aria-hidden="true" size={17} />
-              </a>
-            </div>
-          </article>
+        <div className="system-visual system-home-video">
+          <CassaformaVideoCover
+            variant="gustavo"
+            videoSrc="/gustavo-sistema-cassaforma.mp4"
+            posterSrc="/gustavo-pinto-explica-cassaforma.jpg"
+          />
         </div>
-
-        <div className="system-benefits-heading">
-          <div>
-            <p className="section-kicker section-kicker-light">Beneficios del sistema</p>
-            <h3>Ventajas que se traducen en una obra mejor organizada.</h3>
-          </div>
-          <div className="benefit-carousel-meta">
-            <span aria-live="polite">{String(activeBenefit + 1).padStart(2, '0')} / {String(systemBenefits.length).padStart(2, '0')}</span>
-            <div className="benefit-carousel-controls">
-              <button type="button" onClick={() => moveBenefitCarousel(-1)} aria-label="Ver beneficios anteriores"><ChevronLeft aria-hidden="true" size={21} /></button>
-              <button type="button" onClick={() => moveBenefitCarousel(1)} aria-label="Ver beneficios siguientes"><ChevronRight aria-hidden="true" size={21} /></button>
-            </div>
-          </div>
+        <div className="system-home-actions">
+          <a className="button button-light" href="/sistema-cassaforma">
+            Ver más sobre el sistema Cassaforma <ArrowRight aria-hidden="true" size={18} />
+          </a>
         </div>
-        <div ref={benefitTrackRef} className="benefits-track" onScroll={syncBenefitIndex} aria-label="Beneficios del sistema Cassaforma">
-          {systemBenefits.map((benefit, index) => {
-            const Icon = benefit.icon;
-            return (
-              <article key={benefit.title}>
-                <div className="benefit-card-head">
-                  <div className="benefit-icon"><Icon aria-hidden="true" size={26} strokeWidth={1.7} /></div>
-                  <div className="benefit-card-title">
-                    <span>{String(index + 1).padStart(2, '0')}</span>
-                    <h3>{benefit.title}</h3>
-                  </div>
-                </div>
-                <p>{benefit.description}</p>
-              </article>
-            );
-          })}
-        </div>
-        <div className="system-benefits-cta">
-          <p>¿Querés saber si este sistema sirve para tu proyecto?</p>
-          <a href="/agendar">Agendar cita <ArrowRight aria-hidden="true" size={18} /></a>
-        </div>
-
-        <section className="system-comparison" aria-labelledby="comparison-title">
-          <div className="system-comparison-heading">
-            <p className="section-kicker section-kicker-light">Comparación orientativa</p>
-            <h3 id="comparison-title">Cómo se posicionan los principales sistemas constructivos.</h3>
-            <p>Una lectura rápida de propiedades habituales para ordenar la consulta técnica.</p>
-          </div>
-          <div className="comparison-table-wrap" tabIndex={0} aria-label="Tabla comparativa de sistemas constructivos">
-            <table className="comparison-table">
-              <thead>
-                <tr>
-                  <th scope="col">Sistema</th>
-                  {comparisonCriteria.map((criterion) => <th scope="col" key={criterion}>{criterion}</th>)}
-                </tr>
-              </thead>
-              <tbody>
-                {constructionSystems.map((system) => (
-                  <tr className={system.featured ? 'is-featured' : undefined} key={system.name}>
-                    <th scope="row">{system.name}</th>
-                    {system.values.map((meetsCriterion, index) => (
-                      <td key={comparisonCriteria[index]}>
-                        <span className={meetsCriterion ? 'comparison-yes' : 'comparison-no'} aria-label={meetsCriterion ? 'Cumple' : 'No cumple'}>
-                          {meetsCriterion ? <Check aria-hidden="true" size={22} strokeWidth={3} /> : <X aria-hidden="true" size={22} strokeWidth={3} />}
-                        </span>
-                      </td>
-                    ))}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <p className="comparison-note">Comparación visual orientativa provista por GMP Obras. El desempeño final depende del proyecto, el cálculo estructural, el terreno, los materiales y la ejecución.</p>
-        </section>
       </section>
 
       <section className="faq-section" id="preguntas-frecuentes" aria-labelledby="faq-title">

@@ -291,6 +291,21 @@ h1, h2, h3, .button, .header-cta { font-family: var(--font-sansation), Arial, sa
 .system-benefits-cta a { display: inline-flex; align-items: center; gap: 10px; color: #b8c9ed; font-size: 14px; font-weight: 700; }
 .system-benefits-cta a:hover { color: var(--white); }
 
+.system-home-video { max-width: 900px; margin: 0 auto; }
+.system-home-actions { display: flex; justify-content: center; margin-top: 32px; }
+.system-home-actions .button { text-align: center; }
+.system-landing-jump-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 24px; padding: 24px 20px; background: var(--blue-deep); color: var(--white); }
+.system-landing-jump-nav a { display: inline-flex; align-items: center; min-height: 44px; font-size: 14px; }
+.system-landing-specialist .system-video-feature-copy h2 { max-width: 600px; margin: 0; font-size: clamp(30px,3.4vw,50px); letter-spacing: -.045em; line-height: 1.05; }
+.system-landing-benefits { padding-top: 0; }
+.system-landing-benefits .system-benefits-heading { margin-top: 0; }
+.system-landing-benefits .system-benefits-heading h2 { max-width: 720px; margin: 0; font-size: clamp(28px,3vw,42px); letter-spacing: -.035em; line-height: 1.08; }
+.system-landing-benefits .benefits-track h3 { white-space: normal; overflow-wrap: anywhere; }
+.system-landing-table-wrap:focus-visible, .system-landing-jump-nav a:focus-visible, .system-home-actions a:focus-visible, .benefit-carousel-controls button:focus-visible { outline: 3px solid #9bb5ec; outline-offset: 4px; }
+@media (prefers-reduced-motion: reduce) {
+  .system-landing .benefits-track { scroll-behavior: auto; }
+}
+
 .system-comparison { max-width: 1440px; margin: clamp(72px,8vw,112px) auto 0; padding-top: clamp(48px,6vw,76px); border-top: 1px solid rgba(184,201,237,.24); }
 .system-comparison-heading { display: grid; grid-template-columns: minmax(0,1.25fr) minmax(280px,.75fr); gap: 14px clamp(34px,6vw,90px); align-items: end; margin-bottom: 30px; }
 .system-comparison-heading .section-kicker { grid-column: 1 / -1; margin-bottom: 0; }

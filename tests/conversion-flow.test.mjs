@@ -15,13 +15,8 @@ test('Home includes the system, FAQ, contact form and appointment conversion pat
   assert.match(home, /className="contact-form"/);
   assert.match(home, /id="contacto"/);
   assert.match(home, /Agendar cita/);
-  assert.match(home, /Beneficios del sistema/);
-  assert.match(home, /Resistencia al viento/);
-  assert.match(home, /title: 'Variedad'/);
-  assert.match(home, /title: 'Integración'/);
-  assert.match(home, /Ver beneficios siguientes/);
-  assert.match(home, /Comparación orientativa/);
-  assert.match(home, /constructionSystems/);
+  assert.match(home, /href="\/sistema-cassaforma"/);
+  assert.doesNotMatch(home, /Beneficios del sistema|constructionSystems/);
   const faqCatalog = readFileSync(join(root, 'app/data/faqs.ts'), 'utf8');
   assert.match(home, /<FaqList items=\{homeFaqs\}/);
   assert.match(home, /href="\/preguntas-frecuentes"/);

@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
+import { CassaformaVideoCover } from '../components/CassaformaVideoCover';
+import { SystemBenefits } from '../components/SystemBenefits';
 import {
   ArrowLeft,
   ArrowRight,
@@ -15,19 +17,25 @@ import {
 export const metadata: Metadata = {
   title: 'Sistema constructivo Cassaforma: cómo funciona | GMP Obras',
   description:
-    'Conocé cómo funciona Cassaforma, sus componentes y las etapas de construcción. Qué revisar antes de elegir este sistema para tu obra.',
+    'Conocé el sistema Cassaforma: video explicativo, beneficios, comparativa, componentes y etapas de construcción con GMP Obras.',
+  alternates: { canonical: 'https://www.gmpobras.com.ar/sistema-cassaforma' },
+  openGraph: {
+    title: 'Sistema Cassaforma | GMP Obras',
+    description: 'Videos, beneficios, comparativa y proceso de construcción con Cassaforma.',
+    url: 'https://www.gmpobras.com.ar/sistema-cassaforma',
+  },
 };
 
 const comparisonColumns = [
-  { key: 'time', label: 'Tiempo de ejecución rápida' },
+  { key: 'time', label: 'Rapidez' },
   { key: 'insulation', label: 'Aislación termoacústica' },
-  { key: 'economical', label: 'Económica' },
-  { key: 'clean', label: 'Obra limpia' },
+  { key: 'economical', label: 'Economía' },
+  { key: 'clean', label: 'Limpieza en obra' },
   { key: 'energy', label: 'Ahorro energético' },
-  { key: 'loads', label: 'Resistente a cargas' },
-  { key: 'wind', label: 'Resistente a vientos fuertes' },
-  { key: 'foundations', label: 'Sistema liviano / menor costo de fundaciones' },
-  { key: 'durability', label: 'Resistencia / durabilidad' },
+  { key: 'loads', label: 'Resistencia a cargas' },
+  { key: 'wind', label: 'Resistencia al viento' },
+  { key: 'foundations', label: 'Liviandad del sistema' },
+  { key: 'durability', label: 'Resistencia y durabilidad' },
 ] as const;
 
 type ComparisonKey = (typeof comparisonColumns)[number]['key'];
@@ -138,36 +146,18 @@ const components = [
     description: 'Núcleo de EPS y mallas de acero que forman la base del sistema.',
     image: '/cassaforma-panel-simple.png',
     alt: 'Panel simple Cassaforma con núcleo de EPS y mallas de acero',
-    source: 'Producto oficial a validar',
   },
   {
     title: 'Panel simple reforzado',
     description: 'Una variante para resolver situaciones particulares definidas por el proyecto.',
     image: '/cassaforma-panel-reforzado.png',
     alt: 'Panel simple reforzado Cassaforma con instalaciones y terminación',
-    source: 'Producto oficial a validar',
   },
   {
     title: 'Mallas accesorias',
     description: 'Piezas para uniones, refuerzos y continuidad en encuentros y aberturas.',
     image: '/cassaforma-mallas.png',
     alt: 'Mallas accesorias Cassaforma para uniones y refuerzos',
-    source: 'Producto oficial a validar',
-  },
-];
-
-const videoOptions = [
-  {
-    title: 'Proceso constructivo',
-    description: 'Recorrido visual por las etapas de montaje y proyección.',
-    href: 'https://www.youtube.com/watch?v=w2nY_C0wBdo',
-    label: 'Cassaforma · video oficial',
-  },
-  {
-    title: 'Sistema Constructivo Cassaforma',
-    description: 'Presentación general del sistema y sus posibilidades.',
-    href: 'https://www.youtube.com/watch?v=zcGG2Q2swvY',
-    label: 'Cassaforma · video oficial',
   },
 ];
 
@@ -183,7 +173,7 @@ export default function CassaformaSystemPage() {
         <nav aria-label="Navegación de la landing del sistema">
           <a href="/#sistema">
             <ArrowLeft aria-hidden="true" size={16} />
-            Volver a la home
+            Volver al inicio
           </a>
           <a className="system-landing-header-cta" href="/agendar">
             Consultar
@@ -196,12 +186,12 @@ export default function CassaformaSystemPage() {
         <div className="system-landing-hero-copy">
           <p className="eyebrow">Sistema constructivo · GMP Obras</p>
           <h1 id="system-landing-title">
-            Cómo funciona el sistema constructivo Cassaforma
+            Sistema constructivo Cassaforma
           </h1>
           <p>
             Cassaforma combina paneles, mallas de acero y hormigón proyectado. En esta página
-            reunimos la mirada de GMP Obras, una explicación simple y los componentes que conviene
-            conocer antes de consultar.
+            reunimos una explicación técnica, los beneficios, una comparativa y las etapas
+            de construcción para conocer el sistema antes de consultar.
           </p>
           <div className="system-landing-actions">
             <a className="button button-primary" href="/agendar">
@@ -213,10 +203,6 @@ export default function CassaformaSystemPage() {
               <ArrowRight aria-hidden="true" size={18} />
             </a>
           </div>
-          <p className="system-landing-source-note">
-            La denominación oficial es Cassaforma. GMP Obras utiliza el sistema en sus proyectos;
-            esta página no implica representación oficial de la marca.
-          </p>
         </div>
         <div className="system-landing-hero-media">
           <Image
@@ -227,17 +213,66 @@ export default function CassaformaSystemPage() {
             sizes="(max-width: 780px) 100vw, 47vw"
           />
           <div className="system-landing-hero-label">
-            <span>01 / 03</span>
+            <span>Componentes del sistema</span>
             <strong>Panel + mallas + terminación</strong>
           </div>
         </div>
       </section>
 
+      <nav className="system-landing-jump-nav" aria-label="Secciones del sistema Cassaforma">
+        <a href="#video">Videos explicativos</a>
+        <a href="#beneficios">Beneficios</a>
+        <a href="#comparativa">Comparativa</a>
+        <a href="#proceso">Proceso</a>
+        <a href="#componentes">Componentes</a>
+      </nav>
+
+      <section className="system-section system-landing-specialist" id="video" aria-label="Explicaciones de Gustavo y Marcelo sobre Cassaforma">
+        <div className="system-video-feature-list">
+          <article className="system-video-feature">
+            <div className="system-visual">
+              <CassaformaVideoCover
+                variant="gustavo"
+                videoSrc="/gustavo-sistema-cassaforma.mp4"
+                posterSrc="/gustavo-pinto-explica-cassaforma.jpg"
+              />
+            </div>
+            <div className="system-video-feature-copy">
+              <p className="section-kicker section-kicker-light">La explicación de Gustavo</p>
+              <h2>Cómo se aplica Cassaforma en una obra.</h2>
+              <p>
+                Gustavo Pinto Caetano explica qué elementos componen el sistema, cómo trabajan
+                juntos y por qué GMP Obras lo utiliza en sus proyectos.
+              </p>
+            </div>
+          </article>
+          <article className="system-video-feature">
+            <div className="system-visual">
+              <CassaformaVideoCover variant="marcelo" />
+            </div>
+            <div className="system-video-feature-copy">
+              <p className="section-kicker section-kicker-light">La mirada de un especialista</p>
+              <h2>Una explicación técnica, con ejemplos concretos.</h2>
+              <p>
+                El arquitecto Marcelo Seia profundiza en las características del sistema, sus
+                posibilidades y los aspectos que conviene evaluar antes de incorporarlo a un proyecto.
+              </p>
+              <a href="https://www.youtube.com/@arquitectomarceloseia8716" target="_blank" rel="noreferrer">
+                Conocer al arquitecto Marcelo Seia
+                <ArrowUpRight aria-hidden="true" size={17} />
+              </a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <SystemBenefits />
+
       <section className="system-landing-comparison" id="comparativa" aria-labelledby="comparison-title">
         <div className="system-landing-comparison-heading">
           <div>
-            <p className="section-kicker section-kicker-light">Comparativa de trabajo</p>
-            <h2 id="comparison-title">La evaluación de Gustavo, puesta en una sola mirada.</h2>
+            <p className="section-kicker section-kicker-light">Comparación orientativa</p>
+            <h2 id="comparison-title">Comparativa de sistemas constructivos.</h2>
           </div>
           <p className="system-landing-comparison-index">GMP / 01</p>
         </div>
@@ -246,7 +281,7 @@ export default function CassaformaSystemPage() {
           sistemas. Sirve para ordenar la conversación inicial; no reemplaza el proyecto, el
           cálculo ni el análisis particular de cada obra.
         </p>
-        <div className="system-landing-table-wrap">
+        <div className="system-landing-table-wrap" tabIndex={0} role="region" aria-label="Tabla comparativa de sistemas constructivos">
           <table className="system-landing-table">
             <caption>Comparación visual de sistemas y propiedades según la evaluación de GMP Obras</caption>
             <thead>
@@ -291,24 +326,12 @@ export default function CassaformaSystemPage() {
             obra dependen del terreno, el proyecto, el cálculo, la ejecución y las terminaciones.
           </p>
         </div>
-        <div className="system-landing-comparison-summary">
-          <article>
-            <span>Ventajas que aparecen en el cuadro</span>
-            <h3>Cassaforma figura con “Cumple” en los nueve criterios.</h3>
-            <p>Es la lectura comparativa que Gustavo quiso dejar registrada en este documento de trabajo.</p>
-          </article>
-          <article>
-            <span>Desventajas y límites a completar</span>
-            <h3>El PDF no marca desventajas propias de Cassaforma.</h3>
-            <p>Para publicar una evaluación más completa, falta validar con Gustavo qué aspectos quiere presentar como límites o condiciones.</p>
-          </article>
-        </div>
       </section>
 
       <section className="system-landing-intro" aria-labelledby="system-intro-title">
         <div className="system-landing-section-heading">
-          <p className="section-kicker">Después de la comparativa</p>
-          <h2 id="system-intro-title">Qué es y cómo se usa en una obra.</h2>
+          <p className="section-kicker">Qué es Cassaforma</p>
+          <h2 id="system-intro-title">Paneles, mallas de acero y hormigón.</h2>
         </div>
         <div className="system-landing-intro-copy">
           <p>
@@ -324,7 +347,7 @@ export default function CassaformaSystemPage() {
         </div>
       </section>
 
-      <section className="system-landing-process" aria-labelledby="process-title">
+      <section className="system-landing-process" id="proceso" aria-labelledby="process-title">
         <div className="system-landing-section-heading">
           <p className="section-kicker">Cómo funciona</p>
           <h2 id="process-title">Tres momentos para entender el sistema.</h2>
@@ -340,15 +363,15 @@ export default function CassaformaSystemPage() {
         </div>
       </section>
 
-      <section className="system-landing-components" aria-labelledby="components-title">
+      <section className="system-landing-components" id="componentes" aria-labelledby="components-title">
         <div className="system-landing-components-heading">
           <div className="system-landing-section-heading">
             <p className="section-kicker">Componentes</p>
-            <h2 id="components-title">Lo que se ve cuando el sistema queda expuesto.</h2>
+            <h2 id="components-title">Componentes del sistema.</h2>
           </div>
           <p>
-            Los renders de esta maqueta ayudan a reconocer las piezas. Antes de publicar, hay que
-            confirmar la selección y el alcance de uso del material oficial.
+            Paneles y mallas cumplen funciones distintas. La selección se define según el
+            proyecto y el cálculo de cada obra.
           </p>
         </div>
         <div className="system-landing-components-grid">
@@ -358,15 +381,14 @@ export default function CassaformaSystemPage() {
                 <Image src={component.image} alt={component.alt} fill sizes="(max-width: 780px) 100vw, 33vw" />
               </div>
               <div className="system-landing-component-copy">
-                <span>{component.source}</span>
                 <h3>{component.title}</h3>
                 <p>{component.description}</p>
               </div>
             </article>
           ))}
         </div>
-        <a className="system-landing-inline-link" href="https://cassaforma.com/productos" target="_blank" rel="noreferrer">
-          Ver el catálogo de productos de Cassaforma
+        <a className="system-landing-inline-link" href="https://cassaforma.com/sistema-constructivo" target="_blank" rel="noreferrer">
+          Ver los productos en el sitio de Cassaforma
           <ArrowUpRight aria-hidden="true" size={17} />
         </a>
       </section>
@@ -385,30 +407,9 @@ export default function CassaformaSystemPage() {
             <li><ShieldCheck aria-hidden="true" size={18} /> proyecto y cálculo de la solución</li>
             <li><Ruler aria-hidden="true" size={18} /> medidas, encuentros y etapa de obra</li>
             <li><Layers3 aria-hidden="true" size={18} /> instalaciones y terminaciones previstas</li>
-            <li><CircleAlert aria-hidden="true" size={18} /> disponibilidad y autorización de los materiales</li>
+            <li><CircleAlert aria-hidden="true" size={18} /> disponibilidad de los materiales</li>
           </ul>
         </div>
-      </section>
-
-      <section className="system-landing-video-options" aria-labelledby="video-options-title">
-        <div className="system-landing-section-heading">
-          <p className="section-kicker">Para ampliar después</p>
-          <h2 id="video-options-title">Dos videos oficiales que pueden complementar la landing.</h2>
-        </div>
-        <div className="system-landing-video-grid">
-          {videoOptions.map((video, index) => (
-            <a className="system-landing-video-card" href={video.href} target="_blank" rel="noreferrer" key={video.href}>
-              <span>{String(index + 1).padStart(2, '0')} · {video.label}</span>
-              <h3>{video.title}</h3>
-              <p>{video.description}</p>
-              <ArrowUpRight aria-hidden="true" size={18} />
-            </a>
-          ))}
-        </div>
-        <p className="system-landing-video-note">
-          Quedan como propuestas de incorporación. Antes de sumar otro embed conviene revisar el
-          contenido completo, la vigencia y el permiso de uso en el sitio de GMP Obras.
-        </p>
       </section>
 
       <section className="system-landing-cta" aria-labelledby="system-cta-title">
