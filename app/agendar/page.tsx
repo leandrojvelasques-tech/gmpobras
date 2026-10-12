@@ -95,7 +95,7 @@ export default function AppointmentPage() {
   return (
     <main className="booking-page booking-direct">
       <header className="booking-header">
-        <a href="/" className="booking-brand" aria-label="Volver al inicio de GMP Obras"><span className="official-logo" aria-hidden="true"><Image src="/logo-gmp-obras-horizontal.png" alt="" width={1258} height={343} unoptimized /></span></a>
+        <a href="/" className="booking-brand" aria-label="Volver al inicio de GMP Obras"><span className="official-logo" aria-hidden="true"><Image src="/logo-gmp-obras-horizontal-3-piezas.png" alt="" width={2580} height={792} unoptimized /></span></a>
         <a href="/" className="booking-back"><ArrowLeft aria-hidden="true" size={17} /> Volver al sitio</a>
       </header>
       <div className="booking-layout">
