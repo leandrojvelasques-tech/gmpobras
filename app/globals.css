@@ -910,3 +910,17 @@ a:focus-visible, button:focus-visible, video:focus-visible { outline: 3px solid 
 }
 .booking-direct .booking-month h3, .booking-direct .booking-times h3, .booking-direct .booking-contact-form .booking-selection, .booking-direct .booking-date-summary { text-transform: none; }
 .booking-direct .booking-month h3::first-letter, .booking-direct .booking-times h3::first-letter { text-transform: uppercase; }
+.booking-direct .booking-meeting-mode { margin: 0; padding: 0; border: 0; }
+.booking-direct .booking-meeting-mode legend { margin-bottom: 12px; font: inherit; font-size: 14px; font-weight: 700; letter-spacing: 0; line-height: 1.5; color: var(--blue-deep); }
+.booking-direct .booking-meeting-options { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.booking-direct .booking-step .booking-meeting-option { grid-template-columns: 18px minmax(0,1fr); gap: 12px; align-items: start; padding: 16px 14px; border: 1px solid #bcc1c9; cursor: pointer; }
+.booking-direct .booking-step .booking-meeting-option.is-selected { border-color: var(--blue); background: #edf1f8; }
+.booking-direct .booking-step .booking-meeting-option input { width: 18px; height: 18px; min-height: 18px; margin: 2px 0 0; padding: 0; accent-color: var(--blue); }
+.booking-direct .booking-meeting-option strong { display: flex; align-items: center; gap: 7px; color: var(--blue-deep); font-size: 14px; }
+.booking-direct .booking-meeting-option small { display: block; margin-top: 8px; font-size: 12px; font-weight: 400; line-height: 1.5; color: #4e545f; }
+.booking-direct .booking-office-map { display: inline-flex; align-items: center; gap: 7px; min-height: 44px; color: var(--blue); font-size: 12px; text-decoration: underline; }
+.booking-direct .booking-meeting-summary { display: flex; gap: 12px; margin: 20px 0; color: var(--blue-deep); }
+.booking-direct .booking-meeting-summary svg { flex-shrink: 0; margin-top: 2px; }
+.booking-direct .booking-meeting-summary p { margin: 6px 0; color: #626873; font-size: 14px; line-height: 1.5; }
+.booking-direct .booking-meeting-summary a { display: inline-flex; align-items: center; min-height: 44px; color: var(--blue); font-size: 13px; text-decoration: underline; }
+@media (max-width: 520px) { .booking-direct .booking-meeting-options { grid-template-columns: 1fr; } }

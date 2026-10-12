@@ -1,13 +1,15 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { ArrowLeft, ArrowRight, CalendarDays, Check, ChevronLeft, ChevronRight, Clock3, MapPin } from 'lucide-react';
+import { ArrowLeft, ArrowRight, CalendarDays, Check, ChevronLeft, ChevronRight, Clock3, MapPin, Video } from 'lucide-react';
 import Image from 'next/image';
 import { appointmentSchedule, argentinaDate, firstProposedDate, proposedTimes, formatAppointmentDate } from '../../lib/appointment-schedule.mjs';
 
 const projectTypes = ['Vivienda nueva', 'Ampliación', 'Consultorio', 'Local comercial', 'Otro proyecto'];
 const projectStages = ['Todavía es una idea inicial', 'Ya tengo terreno o inmueble', 'Ya tengo anteproyecto o planos', 'La obra ya está iniciada'];
 const initialDetails = { projectType: '', city: '', address: '', projectDetail: '', stage: '', budget: '', materialLink: '' };
+const officeAddress = 'Ramos Mejía 298 · Comodoro Rivadavia';
+const officeMapUrl = 'https://www.google.com/maps/dir/?api=1&destination=Ramos+Mej%C3%ADa+298%2C+Comodoro+Rivadavia%2C+Chubut';
 
 export default function AppointmentPage() {
   const [selectedDate, setSelectedDate] = useState('');
@@ -15,6 +17,7 @@ export default function AppointmentPage() {
   const [month, setMonth] = useState('');
   const [today, setToday] = useState('');
   const [contact, setContact] = useState({ firstName: '', lastName: '', email: '', phone: '' });
+  const [meetingMode, setMeetingMode] = useState<'presencial' | 'virtual' | ''>('');
   const [confirmed, setConfirmed] = useState(false);
   const [detailsOpen, setDetailsOpen] = useState(false);
   const [details, setDetails] = useState(initialDetails);
@@ -53,6 +56,7 @@ export default function AppointmentPage() {
   }
   function previewReservation(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (!meetingMode) { setError('Elegí si preferís la consulta presencial o virtual.'); return; }
     if (!proposedTimes(selectedDate).includes(selectedTime)) { setSelectedTime(''); setError('Elegí un horario futuro para probar la reserva.'); return; }
     setError(''); setConfirmed(true);
   }
@@ -85,6 +89,9 @@ export default function AppointmentPage() {
               <p className="section-kicker">Prueba de reserva</p>
               <h2 id="booking-title" ref={confirmationHeading} tabIndex={-1}>Así queda tu consulta.</h2>
               <p className="booking-date-summary"><CalendarDays size={20} aria-hidden="true" /><strong>{formatAppointmentDate(selectedDate)}<br />{selectedTime} · 45 minutos</strong></p>
+              <div className="booking-meeting-summary">
+                {meetingMode === 'presencial' ? <><MapPin size={20} aria-hidden="true" /><div><strong>Presencial en la oficina</strong><p>{officeAddress}</p><a href={officeMapUrl} target="_blank" rel="noreferrer">Cómo llegar</a></div></> : <><Video size={20} aria-hidden="true" /><div><strong>Virtual por Google Meet</strong><p>En la reserva real, el enlace se incluirá en la confirmación.</p></div></>}
+              </div>
               <p>En la agenda real, vos y Gustavo recibirán un correo con la confirmación y la invitación al calendario.</p>
               <p className="booking-demo-confirmation">Esta es una simulación. No se creó una cita ni se enviaron correos.</p>
               <div className="booking-optional-invitation">
@@ -122,6 +129,20 @@ export default function AppointmentPage() {
               {selectedTime ? <form className="booking-contact-form booking-step" onSubmit={previewReservation}>
                 <h3 ref={contactHeading} tabIndex={-1}>Tus datos para la reserva</h3>
                 <p className="booking-selection">{formatAppointmentDate(selectedDate)} · {selectedTime}<button type="button" onClick={() => setSelectedTime('')}>Cambiar</button></p>
+                <fieldset className="booking-meeting-mode">
+                  <legend>¿Cómo preferís la consulta?</legend>
+                  <div className="booking-meeting-options">
+                    <label className={`booking-meeting-option ${meetingMode === 'presencial' ? 'is-selected' : ''}`}>
+                      <input type="radio" name="meetingMode" value="presencial" required checked={meetingMode === 'presencial'} onChange={() => setMeetingMode('presencial')} />
+                      <span><strong><MapPin size={17} aria-hidden="true" />Presencial</strong><small>{officeAddress}</small></span>
+                    </label>
+                    <label className={`booking-meeting-option ${meetingMode === 'virtual' ? 'is-selected' : ''}`}>
+                      <input type="radio" name="meetingMode" value="virtual" required checked={meetingMode === 'virtual'} onChange={() => setMeetingMode('virtual')} />
+                      <span><strong><Video size={17} aria-hidden="true" />Virtual</strong><small>Por Google Meet</small></span>
+                    </label>
+                  </div>
+                  {meetingMode === 'presencial' && <a className="booking-office-map" href={officeMapUrl} target="_blank" rel="noreferrer">Ver cómo llegar a la oficina<ArrowRight size={15} aria-hidden="true" /></a>}
+                </fieldset>
                 <div className="field-row"><label>Nombre<input required autoComplete="given-name" maxLength={80} value={contact.firstName} onChange={(event) => setContact({ ...contact, firstName: event.target.value })} /></label><label>Apellido<input required autoComplete="family-name" maxLength={80} value={contact.lastName} onChange={(event) => setContact({ ...contact, lastName: event.target.value })} /></label></div>
                 <label>Email<input type="email" required autoComplete="email" maxLength={254} value={contact.email} onChange={(event) => setContact({ ...contact, email: event.target.value })} placeholder="Para recibir la confirmación" /></label>
                 <label>WhatsApp (opcional)<input type="tel" autoComplete="tel" maxLength={80} value={contact.phone} onChange={(event) => setContact({ ...contact, phone: event.target.value })} /></label>
