@@ -436,7 +436,7 @@ h1, h2, h3, .button, .header-cta { font-family: var(--font-sansation), Arial, sa
 .button-light:hover { background: #e8edfa; }
 a:focus-visible, button:focus-visible, video:focus-visible { outline: 3px solid #9bb5ec; outline-offset: 4px; }
 
-.site-footer { display: grid; grid-template-columns: 1fr 1.4fr; gap: 40px; padding: 42px clamp(24px,7.3vw,112px); background: var(--graphite); color: var(--white); }
+.site-footer { display: grid; grid-template-columns: minmax(190px,.75fr) minmax(250px,1.1fr) minmax(220px,1fr); gap: 40px; padding: 42px clamp(24px,7.3vw,112px); background: var(--graphite); color: var(--white); }
 .footer-logo { width: 240px; height: 196px; overflow: visible; }
 .footer-logo img { object-position: left center; }
 .footer-details { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px 30px; align-content: center; color: rgba(255,255,255,.76); font-size: 14px; }
@@ -944,3 +944,21 @@ a:focus-visible, button:focus-visible, video:focus-visible { outline: 3px solid 
 .booking-direct .booking-step > .button:disabled { cursor: wait; opacity: .6; }
 .booking-direct .booking-step .booking-consent { grid-template-columns: 18px minmax(0,1fr); align-items: start; font-size: 12px; line-height: 1.5; }
 .booking-direct .booking-step .booking-consent input { width: 18px; height: 18px; min-height: 18px; margin: 2px 0 0; padding: 0; }
+
+.footer-navigation { display: grid; gap: 22px; align-content: center; }
+.footer-navigation > div { display: grid; gap: 8px; }
+.footer-navigation p { margin: 0 0 4px; color: white; font-size: 15px; font-weight: 700; }
+.footer-navigation a { display: inline-flex; align-items: center; min-height: 32px; width: fit-content; color: rgba(255,255,255,.76); font-size: 14px; line-height: 1.5; }
+.footer-navigation a:hover { color: white; text-decoration: underline; }
+.booking-direct .booking-budget-note { display: grid; gap: 5px; margin: 0 0 22px; padding: 14px 0; border-block: 1px solid rgba(255,255,255,.2); }
+.booking-direct .booking-budget-note strong { color: white; font-size: 17px; }
+.booking-direct .booking-budget-note span { color: #d4dcef; font-size: 12px; }
+@media (max-width: 1000px) {
+  .site-footer { grid-template-columns: minmax(180px,.75fr) minmax(0,1.25fr); }
+  .footer-navigation { grid-column: 1 / -1; grid-template-columns: repeat(2,minmax(0,1fr)); }
+}
+@media (max-width: 730px) {
+  .site-footer { grid-template-columns: 1fr; }
+  .footer-navigation { grid-column: auto; grid-template-columns: 1fr; }
+  .footer-navigation a { min-height: 44px; }
+}

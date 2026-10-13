@@ -103,7 +103,8 @@ export default function AppointmentPage() {
           <div className="booking-intro-copy">
             <p className="section-kicker section-kicker-light">Consulta inicial · Sin costo</p>
             <h1>Conversemos sobre tu proyecto.</h1>
-            <p>Contame qué querés hacer y dónde. Podemos reunirnos en mi oficina o por videollamada.</p>
+            <p>Contame qué querés hacer y dónde.</p>
+            <div className="booking-budget-note"><strong>Presupuestos en 72 horas</strong><span>Después de la consulta.</span></div>
             <div className="booking-facts"><span><Clock3 size={17} aria-hidden="true" />45 minutos</span><span><MapPin size={17} aria-hidden="true" />Comodoro Rivadavia · Rada Tilly</span></div>
             <a className="booking-mobile-link" href="#elegir-turno">Elegir un horario <ArrowRight size={18} aria-hidden="true" /></a>
           </div>
@@ -143,7 +144,6 @@ export default function AppointmentPage() {
             </div>
           ) : (
             <>
-              <p className="section-kicker">Con Gustavo Pinto</p>
               <h2 id="booking-title">Elegí el día y la hora.</h2>
               <p className="booking-lead">Lunes, miércoles y viernes · 10:00 o 15:00</p>
               <div className="booking-calendar-layout">
@@ -180,7 +180,7 @@ export default function AppointmentPage() {
                 <label className="booking-consent"><input type="checkbox" required checked={acceptedPrivacy} onChange={(event) => setAcceptedPrivacy(event.target.checked)} /><span>Acepto que GMP Obras guarde estos datos para contactarme y coordinar esta consulta.</span></label>
                 <small>La información del proyecto es opcional y podés agregarla después de enviar la solicitud.</small>
                 <button type="submit" className="button button-primary" disabled={submitting}>{submitting ? 'Guardando solicitud…' : 'Solicitar consulta'}<ArrowRight size={18} aria-hidden="true" /></button>
-              </form> : <p className="booking-bottom-note">Elegí el horario que preferís. Te confirmo la disponibilidad.</p>}
+              </form> : null}
             </>
           )}
         </section>

@@ -30,6 +30,7 @@ test('Home includes the system, FAQ, contact form and appointment conversion pat
 test('appointment request starts with calendar selection and collects project details afterward', () => {
   const source = readFileSync(join(root, 'app/agendar/page.tsx'), 'utf8');
   assert.match(source, /45 minutos/);
+  assert.match(source, /Presupuestos en 72 horas/);
   assert.match(source, /Lunes, miércoles y viernes/);
   assert.match(source, /10:00 o 15:00/);
   assert.match(source, /booking-calendar-grid/);
@@ -40,6 +41,6 @@ test('appointment request starts with calendar selection and collects project de
   assert.match(source, /Solicitud registrada/);
   assert.match(source, /Guardar detalles/);
   assert.match(source, /Ramos Mejía 298/);
-  assert.doesNotMatch(source, /totalSteps|setStep|72 horas|Probar reserva/);
+  assert.doesNotMatch(source, /totalSteps|setStep|Probar reserva/);
   assert.equal(existsSync(join(root, 'app/api/consultas/route.ts')), true);
 });

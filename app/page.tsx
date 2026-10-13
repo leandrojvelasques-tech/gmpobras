@@ -222,11 +222,11 @@ export default function Home() {
       <section className="consultation" id="consulta">
         <div>
           <p className="section-kicker section-kicker-light">Tu proyecto</p>
-          <h2>Contanos qué querés construir.</h2>
+          <h2>Conversemos sobre tu proyecto.</h2>
         </div>
         <p>
-          Completá el tipo de obra, la ubicación, el estado actual y el
-          presupuesto estimado. Con esa información preparamos la primera conversación.
+          Elegí un día y un horario para contarme tu idea. Los detalles del proyecto
+          podés sumarlos después.
         </p>
         <a className="button button-light" href="/agendar">
           Agendar cita
@@ -237,10 +237,9 @@ export default function Home() {
       <section className="contact-section" id="contacto" aria-labelledby="contact-title">
         <div className="contact-copy">
           <p className="section-kicker">Contacto</p>
-          <h2 id="contact-title">Hablemos sobre tu proyecto.</h2>
+          <h2 id="contact-title">¿Querés contactarme?</h2>
           <p>
-            Podés dejar un mensaje por este formulario o elegir un momento para conversar
-            sobre la obra.
+            Si tenés alguna duda, dejame un mensaje o escribime directamente por correo.
           </p>
           <div className="contact-direct" aria-label="Datos de contacto de GMP Obras">
             <a href="mailto:gpinto@gmpobras.com"><Mail aria-hidden="true" size={16} /> gpinto@gmpobras.com</a>
@@ -251,9 +250,6 @@ export default function Home() {
               <AtSign aria-hidden="true" size={16} /> Instagram · @gmpobras
             </a>
           </div>
-          <a className="button button-primary" href="/agendar">
-            Agendar cita <ArrowRight aria-hidden="true" size={19} />
-          </a>
         </div>
 
         <form className="contact-form" onSubmit={openContactEmail}>
@@ -262,7 +258,7 @@ export default function Home() {
             <label htmlFor="contact-apellido">Apellido<input id="contact-apellido" name="apellido" required autoComplete="family-name" /></label>
           </div>
           <label htmlFor="contact-email">Email<input id="contact-email" name="email" type="email" required autoComplete="email" /></label>
-          <label htmlFor="contact-mensaje">Dejanos tu mensaje<textarea id="contact-mensaje" name="mensaje" rows={6} required /></label>
+          <label htmlFor="contact-mensaje">Dejame tu mensaje<textarea id="contact-mensaje" name="mensaje" rows={6} required /></label>
           <button className="button button-primary" type="submit">Enviar mensaje <ArrowRight aria-hidden="true" size={19} /></button>
           <small>Al enviar, se abrirá tu aplicación de correo con el mensaje preparado.</small>
         </form>
@@ -270,7 +266,7 @@ export default function Home() {
 
       <footer className="site-footer">
         <div className="footer-brand">
-          <a className="brand brand-footer" href="#inicio" aria-label="GMP Obras, inicio">
+          <a className="brand brand-footer" href="/" aria-label="GMP Obras, inicio">
             <span className="official-logo footer-logo" aria-hidden="true">
             <Image src="/logo-gmp-obras-vertical.png" alt="" width={1834} height={1503} unoptimized />
             </span>
@@ -281,12 +277,24 @@ export default function Home() {
             <p>Gustavo Pinto Caetano · Maestro mayor de obras</p>
             <p className="footer-registration">Mat. Mun. 159 · Mat. P. 1206 · Cat. 2°</p>
           </div>
-          <a href="https://www.gmpobras.com.ar/" target="_blank" rel="noreferrer">www.gmpobras.com.ar</a>
+          <a href="/">www.gmpobras.com.ar</a>
           <a href="mailto:gpinto@gmpobras.com">gpinto@gmpobras.com</a>
           <span>Ramos Mejía 298 · Comodoro Rivadavia</span>
           <a href="https://www.instagram.com/gmpobras/" target="_blank" rel="noreferrer">Instagram · @gmpobras</a>
-          <a href="/preguntas-frecuentes">Preguntas frecuentes</a>
         </div>
+        <nav className="footer-navigation" aria-label="Páginas del sitio">
+          <div>
+            <p>Páginas</p>
+            <a href="/">Inicio</a>
+            <a href="/sistema-cassaforma">Sistema Cassaforma</a>
+            <a href="/preguntas-frecuentes">Preguntas frecuentes</a>
+            <a href="/agendar">Agendar una consulta</a>
+          </div>
+          <div>
+            <p>Obras</p>
+            {projects.map((project) => <a key={project.slug} href={`/proyectos/${project.slug}`}>{project.title}</a>)}
+          </div>
+        </nav>
       </footer>
     </main>
   );
