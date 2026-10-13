@@ -15,6 +15,13 @@
       "when": 1791773309830,
       "tag": "0001_dry_plazm",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1791897376075,
+      "tag": "0002_careless_impossible_man",
+      "breakpoints": true
     }
   ]
 }

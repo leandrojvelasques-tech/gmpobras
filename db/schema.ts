@@ -1,6 +1,17 @@
 import { sql } from 'drizzle-orm';
 import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
 
+export const contactMessages = sqliteTable('contact_messages', {
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  name: text('name').notNull(), email: text('email').notNull(), message: text('message').notNull(),
+  createdAt: text('created_at').notNull().default(sql`CURRENT_TIMESTAMP`),
+});
+export const emailNotifications = sqliteTable('email_notifications', {
+  id: text('id').primaryKey(), kind: text('kind').notNull(), reference: integer('reference').notNull(),
+  contactEmail: text('contact_email').notNull(), payload: text('payload').notNull(), mode: text('mode').notNull(),
+  status: text('status').notNull().default('pending'), providerIds: text('provider_ids'), createdAt: text('created_at').notNull(),
+});
+
 export const consultations = sqliteTable('consultations', {
   id: integer('id').primaryKey({ autoIncrement: true }),
   status: text('status').notNull().default('pendiente'),

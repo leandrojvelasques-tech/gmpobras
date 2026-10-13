@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { ArrowLeft, ArrowRight, CalendarDays, Check, ChevronLeft, ChevronRight, Clock3, MapPin, Video } from 'lucide-react';
 import Image from 'next/image';
-import { argentinaDate, firstProposedDate, proposedTimes, formatAppointmentDate } from '../../lib/appointment-schedule.mjs';
+import { argentinaDate, firstProposedDate, proposedTimes, formatAppointmentDate, lastBookingMonth } from '../../lib/appointment-schedule.mjs';
 
 const projectTypes = ['Vivienda nueva', 'Ampliación', 'Consultorio', 'Local comercial', 'Otro proyecto'];
 const projectStages = ['Todavía es una idea inicial', 'Ya tengo terreno o inmueble', 'Ya tengo anteproyecto o planos', 'La obra ya está iniciada'];
@@ -20,6 +20,7 @@ export default function AppointmentPage() {
   const [meetingMode, setMeetingMode] = useState<'presencial' | 'virtual' | ''>('');
   const [confirmed, setConfirmed] = useState(false);
   const [confirmationId, setConfirmationId] = useState<number | null>(null);
+  const [notification, setNotification] = useState('disabled');
   const [detailsToken, setDetailsToken] = useState('');
   const [acceptedPrivacy, setAcceptedPrivacy] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -54,7 +55,9 @@ export default function AppointmentPage() {
   function changeMonth(offset: number) {
     const [year, monthNumber] = month.split('-').map(Number);
     const date = new Date(Date.UTC(year, monthNumber - 1 + offset, 1));
-    setMonth(date.toISOString().slice(0, 7));
+    const next = date.toISOString().slice(0, 7);
+    if (next < argentinaDate().slice(0, 7) || next > lastBookingMonth()) return;
+    setMonth(next);
     setSelectedDate(''); setSelectedTime(''); setError('');
   }
   function updateDetail(field: keyof typeof details, value: string) {
@@ -71,9 +74,9 @@ export default function AppointmentPage() {
         meetingMode: meetingMode === 'presencial' ? 'Presencial en la oficina' : 'Virtual por Google Meet',
         preferredDay: selectedDate, preferredTime: selectedTime, acceptedPrivacy,
       }) });
-      const result = await response.json() as { consultation?: { id: number }; detailsToken?: string; error?: string };
+      const result = await response.json() as { consultation?: { id: number }; detailsToken?: string; error?: string; notification?: string };
       if (!response.ok || !result.consultation?.id || !result.detailsToken) throw new Error(result.error || 'No pudimos guardar la solicitud.');
-      setConfirmationId(result.consultation.id); setDetailsToken(result.detailsToken); setConfirmed(true);
+      setConfirmationId(result.consultation.id); setDetailsToken(result.detailsToken); setNotification(result.notification || 'disabled'); setConfirmed(true);
     } catch (error) { setError(error instanceof Error ? error.message : 'No pudimos guardar la solicitud. Tus datos siguen en pantalla.'); }
     finally { setSubmitting(false); }
   }
@@ -124,7 +127,7 @@ export default function AppointmentPage() {
                 {meetingMode === 'presencial' ? <><MapPin size={20} aria-hidden="true" /><div><strong>Presencial en la oficina</strong><p>{officeAddress}</p><a href={officeMapUrl} target="_blank" rel="noreferrer">Cómo llegar</a></div></> : <><Video size={20} aria-hidden="true" /><div><strong>Virtual por Google Meet</strong><p>El enlace se coordina cuando Gustavo confirme la consulta.</p></div></>}
               </div>
               <p>Tu solicitud quedó guardada con el número <strong>#{confirmationId}</strong>. GMP Obras revisará el horario elegido y te contactará para coordinar la consulta.</p>
-              <p className="booking-demo-confirmation">El horario queda sujeto a confirmación. Todavía no se creó una cita en Google Calendar ni se enviaron correos automáticos.</p>
+              <p className="booking-demo-confirmation">El horario queda sujeto a confirmación. Todavía no se creó una cita en Google Calendar. {notification === 'accepted' ? 'Te enviamos un aviso de recepción por correo.' : notification === 'test' ? 'El aviso se envió al correo de pruebas.' : notification === 'pending' ? 'El aviso por correo está pendiente de envío.' : 'Los avisos por correo todavía no están activos.'}</p>
               <div className="booking-optional-invitation">
                 <h3>¿Querés contarle algo de la obra?</h3>
                 <p>Podés sumar una idea, la ubicación o un enlace a tus planos. Es opcional.</p>
@@ -148,7 +151,7 @@ export default function AppointmentPage() {
               <p className="booking-lead">Lunes, miércoles y viernes · 10:00 o 15:00</p>
               <div className="booking-calendar-layout">
                 <div className="booking-calendar">
-                  <div className="booking-month"><h3 aria-live="polite">{monthLabel}</h3><div><button type="button" aria-label="Mes anterior" disabled={!month || month <= today.slice(0, 7)} onClick={() => changeMonth(-1)}><ChevronLeft size={20} /></button><button type="button" aria-label="Mes siguiente" disabled={!month} onClick={() => changeMonth(1)}><ChevronRight size={20} /></button></div></div>
+                  <div className="booking-month"><h3 aria-live="polite">{monthLabel}</h3><div><button type="button" aria-label="Mes anterior" disabled={!month || month <= today.slice(0, 7)} onClick={() => changeMonth(-1)}><ChevronLeft size={20} /></button><button type="button" aria-label="Mes siguiente" disabled={!month || month >= lastBookingMonth()} onClick={() => changeMonth(1)}><ChevronRight size={20} /></button></div></div>
                   <div className="booking-calendar-grid"><span aria-label="Lunes">L</span><span aria-label="Martes">M</span><span aria-label="Miércoles">M</span><span aria-label="Jueves">J</span><span aria-label="Viernes">V</span><span aria-label="Sábado">S</span><span aria-label="Domingo">D</span>
                     {dates.map((date, index) => date ? <button type="button" key={date} disabled={!proposedTimes(date).length} aria-label={formatAppointmentDate(date)} aria-pressed={selectedDate === date} className={selectedDate === date ? 'is-selected' : ''} onClick={() => { setSelectedDate(date); setSelectedTime(''); setError(''); }}>{Number(date.slice(-2))}</button> : <span key={`empty-${index}`} />)}
                   </div>

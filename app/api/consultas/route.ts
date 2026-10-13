@@ -2,6 +2,7 @@ import { getDb } from '../../../db';
 import { consultations } from '../../../db/schema';
 import { and, eq, gt } from 'drizzle-orm';
 import { normalizeRequest, validateRequest, normalizeDetails, validateDetails } from '../../../lib/consultation-request.mjs';
+import { notificationLimited, notificationSettings, notify } from '../../../lib/notifications';
 
 const privateHeaders = { 'Cache-Control': 'no-store' };
 async function hashToken(token: string) {
@@ -21,13 +22,16 @@ export async function POST(request: Request) {
   const error = validateRequest(values, payload.acceptedPrivacy);
   if (error) return Response.json({ error }, { status: 400, headers: privateHeaders });
   try {
+    if (notificationSettings() && await notificationLimited(values.email)) return Response.json({ error: 'Esperá un minuto antes de solicitar otra consulta.' }, { status: 429, headers: privateHeaders });
     const detailsToken = crypto.randomUUID() + crypto.randomUUID();
     const [consultation] = await getDb().insert(consultations).values({
       ...values,
       detailsTokenHash: await hashToken(detailsToken),
       detailsTokenExpiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
     }).returning({ id: consultations.id, createdAt: consultations.createdAt });
-    return Response.json({ consultation, detailsToken }, { status: 201, headers: privateHeaders });
+    let notification = 'pending';
+    try { notification = await notify('consulta', values, consultation.id); } catch { console.error('No se pudo preparar la notificación', consultation.id); }
+    return Response.json({ consultation, detailsToken, notification }, { status: 201, headers: privateHeaders });
   } catch (error) {
     console.error('No se pudo registrar la consulta', error);
     return Response.json({ error: 'No pudimos guardar la solicitud. Tus datos siguen en pantalla para volver a intentar.' }, { status: 500, headers: privateHeaders });

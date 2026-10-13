@@ -2,6 +2,10 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { spawnSync, spawn } from 'node:child_process';
 const config = JSON.parse(readFileSync('dist/server/wrangler.json', 'utf8'));
+const emailVars = ['RESEND_API_KEY', 'EMAIL_MODE', 'EMAIL_FROM', 'EMAIL_TO', 'EMAIL_TEST_TO'];
+const privateVars = Object.fromEntries(emailVars.filter(name => process.env[name]).map(name => [name, process.env[name]]));
+// Wrangler reads secrets beside its runtime configuration; this ignored file stays on the server.
+writeFileSync('dist/server/.dev.vars', Object.entries(privateVars).map(([name, value]) => `${name}=${JSON.stringify(value)}`).join('\n'), { mode: 0o600 });
 for (const database of config.d1_databases ?? []) database.migrations_dir = resolve('drizzle');
 const runtimeConfig = 'dist/server/wrangler.runtime.json';
 writeFileSync(runtimeConfig, JSON.stringify(config));
