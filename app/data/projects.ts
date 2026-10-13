@@ -160,6 +160,7 @@ const projectCatalog: Project[] = [
   {
     slug: 'javier-aguila',
     title: 'Vivienda Javier Águila',
+    heroImage: { src: '/vivienda-javier-aguila-fachada-rada-tilly.jpeg', alt: 'Fachada de la vivienda de Javier Águila en Rada Tilly' },
     heading: 'Vivienda en Rada Tilly — Javier Águila',
     seoTitle: 'Vivienda en Rada Tilly: Javier Águila | GMP Obras',
     seoDescription: 'Conocé la vivienda terminada de Javier Águila en Rada Tilly, con fotografías de la obra y su experiencia con GMP Obras.',

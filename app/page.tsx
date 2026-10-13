@@ -1,15 +1,11 @@
-'use client';
-
-import { type FormEvent, useState } from 'react';
 import {
   ArrowDownRight,
   ArrowRight,
   ArrowUpRight,
-  AtSign,
-  Mail,
   MapPin,
 } from 'lucide-react';
 import Image from 'next/image';
+import { SiteFooter } from './components/SiteFooter';
 import { ProfileVideo } from './components/ProfileVideo';
 import { CassaformaVideoCover } from './components/CassaformaVideoCover';
 import { HomeProjectShowcase } from './components/HomeProjectShowcase';
@@ -55,30 +51,7 @@ const services = [
 ];
 
 export default function Home() {
-  const [sendingContact, setSendingContact] = useState(false);
-  const [contactFeedback, setContactFeedback] = useState('');
-  async function openContactEmail(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    if (sendingContact) return;
-    const form = event.currentTarget;
-    const formData = new FormData(form);
-    const firstName = String(formData.get('nombre') || '');
-    const lastName = String(formData.get('apellido') || '');
-    const email = String(formData.get('email') || '');
-    const message = String(formData.get('mensaje') || '');
-    const subject = encodeURIComponent(`Consulta desde el sitio · ${firstName} ${lastName}`.trim());
-    const body = encodeURIComponent(`Nombre: ${firstName} ${lastName}\nEmail: ${email}\n\nMensaje:\n${message}`);
-    setSendingContact(true); setContactFeedback('');
-    try {
-      const response = await fetch('/api/contacto', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: `${firstName} ${lastName}`.trim(), email, message, website: formData.get('website') }) });
-      const result = await response.json() as { fallback?: boolean; error?: string; notification?: string };
-      if (result.fallback) { window.location.href = `mailto:gpinto@gmpobras.com?subject=${subject}&body=${body}`; setContactFeedback('Se preparó el mensaje en tu aplicación de correo.'); return; }
-      if (!response.ok) throw new Error(result.error || 'No pudimos recibir tu mensaje.');
-      setContactFeedback(result.notification === 'test' ? 'Mensaje de prueba registrado. El envío se dirige al correo de pruebas.' : result.notification === 'pending' ? 'Tu mensaje quedó registrado. El aviso por correo está pendiente de envío.' : 'Recibimos tu mensaje. Gracias por contactarte.');
-      form.reset();
-    } catch (error) { setContactFeedback(error instanceof Error ? error.message : 'No pudimos recibir tu mensaje. Tus datos siguen en pantalla.'); }
-    finally { setSendingContact(false); }
-  }
+
 
   return (
     <main>
@@ -90,11 +63,11 @@ export default function Home() {
         </a>
 
         <nav className="desktop-nav" aria-label="Navegación principal">
-          <a href="#obras">Proyectos</a>
+          <a href="/proyectos">Proyectos</a>
           <a href="#modelos">Modelos</a>
-          <a href="#sistema">Sistema</a>
+          <a href="/sistema-cassaforma">Sistema</a>
           <a href="/preguntas-frecuentes">Preguntas frecuentes</a>
-          <a href="#contacto">Contacto</a>
+          <a href="/contacto">Contacto</a>
         </nav>
 
         <a className="header-cta" href="/agendar">
@@ -184,8 +157,8 @@ export default function Home() {
             <p className="section-kicker">Proyectos reales</p>
             <h2>Conocé algunas de nuestras obras.</h2>
           </div>
-          <a href="/agendar">
-            Agendar cita
+          <a href="/proyectos">
+            Ver todos los proyectos
             <ArrowRight aria-hidden="true" size={18} />
           </a>
         </div>
@@ -247,70 +220,9 @@ export default function Home() {
         </a>
       </section>
 
-      <section className="contact-section" id="contacto" aria-labelledby="contact-title">
-        <div className="contact-copy">
-          <p className="section-kicker">Contacto</p>
-          <h2 id="contact-title">¿Querés contactarme?</h2>
-          <p>
-            Si tenés alguna duda, dejame un mensaje o escribime directamente por correo.
-          </p>
-          <div className="contact-direct" aria-label="Datos de contacto de GMP Obras">
-            <a href="mailto:gpinto@gmpobras.com"><Mail aria-hidden="true" size={16} /> gpinto@gmpobras.com</a>
-            <a href="https://www.google.com/maps/dir/?api=1&destination=Ramos+Mej%C3%ADa+298%2C+Comodoro+Rivadavia%2C+Chubut" target="_blank" rel="noreferrer">
-              <MapPin aria-hidden="true" size={16} /> Ramos Mejía 298 · Comodoro Rivadavia
-            </a>
-            <a href="https://www.instagram.com/gmpobras/" target="_blank" rel="noreferrer">
-              <AtSign aria-hidden="true" size={16} /> Instagram · @gmpobras
-            </a>
-          </div>
-        </div>
 
-        <form className="contact-form" onSubmit={openContactEmail}>
-          <input name="website" type="text" tabIndex={-1} autoComplete="off" hidden aria-hidden="true" />
-          <div className="field-row">
-            <label htmlFor="contact-nombre">Nombre<input id="contact-nombre" name="nombre" required autoComplete="given-name" /></label>
-            <label htmlFor="contact-apellido">Apellido<input id="contact-apellido" name="apellido" required autoComplete="family-name" /></label>
-          </div>
-          <label htmlFor="contact-email">Email<input id="contact-email" name="email" type="email" required autoComplete="email" /></label>
-          <label htmlFor="contact-mensaje">Dejame tu mensaje<textarea id="contact-mensaje" name="mensaje" rows={6} required /></label>
-          <button className="button button-primary" type="submit" disabled={sendingContact}>{sendingContact ? 'Enviando…' : 'Enviar mensaje'} <ArrowRight aria-hidden="true" size={19} /></button>
-          <small>También podés escribirme directamente a <a href="mailto:gpinto@gmpobras.com">gpinto@gmpobras.com</a>.</small>
-          {contactFeedback && <p role="status">{contactFeedback}</p>}
-        </form>
-      </section>
 
-      <footer className="site-footer">
-        <div className="footer-brand">
-          <a className="brand brand-footer" href="/" aria-label="GMP Obras, inicio">
-            <span className="official-logo footer-logo" aria-hidden="true">
-            <Image src="/logo-gmp-obras-vertical.png" alt="" width={1834} height={1503} unoptimized />
-            </span>
-          </a>
-        </div>
-        <div className="footer-details">
-          <div className="footer-identity">
-            <p>Gustavo Pinto Caetano · Maestro mayor de obras</p>
-            <p className="footer-registration">Mat. Mun. 159 · Mat. P. 1206 · Cat. 2°</p>
-          </div>
-          <a href="/">www.gmpobras.com.ar</a>
-          <a href="mailto:gpinto@gmpobras.com">gpinto@gmpobras.com</a>
-          <span>Ramos Mejía 298 · Comodoro Rivadavia</span>
-          <a href="https://www.instagram.com/gmpobras/" target="_blank" rel="noreferrer">Instagram · @gmpobras</a>
-        </div>
-        <nav className="footer-navigation" aria-label="Páginas del sitio">
-          <div>
-            <p>Páginas</p>
-            <a href="/">Inicio</a>
-            <a href="/sistema-cassaforma">Sistema Cassaforma</a>
-            <a href="/preguntas-frecuentes">Preguntas frecuentes</a>
-            <a href="/agendar">Agendar una consulta</a>
-          </div>
-          <div>
-            <p>Obras</p>
-            {projects.map((project) => <a key={project.slug} href={`/proyectos/${project.slug}`}>{project.title}</a>)}
-          </div>
-        </nav>
-      </footer>
+      <SiteFooter />
     </main>
   );
 }

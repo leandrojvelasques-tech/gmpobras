@@ -74,10 +74,10 @@ test('renders the integrated Home project showcase', () => {
   assert.match(showcase, /Proyecto en una etapa/);
   assert.match(showcase, /Ver proyecto y fotos/);
   assert.match(showcase, /href=\{`\/proyectos\/\$\{project\.slug\}`\}/);
-  assert.match(showcase, /href=\{`\/proyectos\/\$\{item\.slug\}`\}/);
+  assert.match(showcase, /onClick=\{\(\) => setActiveProjectIndex\(index\)\}/);
   assert.doesNotMatch(showcase, /setPanel|openStage|type="range"/);
   assert.match(showcase, /stage2Images/);
-  assert.match(detail, /href="\/#obras"/);
+  assert.match(detail, /href="\/proyectos"/);
   assert.match(detail, /ProjectImageCarousel/);
   assert.doesNotMatch(detail, /Texto provisorio/);
   assert.match(detail, /VideoTestimonial/);

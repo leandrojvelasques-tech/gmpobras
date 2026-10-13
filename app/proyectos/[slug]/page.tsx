@@ -31,7 +31,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   return (
     <main className="project-detail">
       <header className="detail-header">
-        <a href="/#obras" className="detail-back">
+        <a href="/proyectos" className="detail-back">
           <ArrowLeft aria-hidden="true" size={18} />
           Volver a proyectos
         </a>

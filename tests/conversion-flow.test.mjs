@@ -5,15 +5,20 @@ import test from 'node:test';
 
 const root = process.cwd();
 
-test('Home includes the system, FAQ, contact form and appointment conversion path', () => {
+test('Home links to dedicated pages while contact keeps its form and appointment path', () => {
   const home = readFileSync(join(root, 'app/page.tsx'), 'utf8');
 
   assert.match(home, /id="sistema"/);
   assert.match(home, /Sistema Cassaforma/);
   assert.match(home, /id="preguntas-frecuentes"/);
   assert.match(home, /href="\/agendar"/);
-  assert.match(home, /className="contact-form"/);
-  assert.match(home, /id="contacto"/);
+  const contact = readFileSync(join(root, 'app/contacto/page.tsx'), 'utf8');
+  const contactForm = readFileSync(join(root, 'app/components/ContactForm.tsx'), 'utf8');
+  assert.match(contactForm, /className="contact-form"/);
+  assert.match(contact, /id="contacto"/);
+  assert.match(home, /href="\/contacto"/);
+  assert.match(home, /href="\/proyectos"/);
+  assert.doesNotMatch(home, /className="contact-form"/);
   assert.match(home, /Agendar cita/);
   assert.match(home, /href="\/sistema-cassaforma"/);
   assert.doesNotMatch(home, /Beneficios del sistema|constructionSystems/);

@@ -1,7 +1,8 @@
 'use client';
 
 import Image from 'next/image';
-import { ArrowRight } from 'lucide-react';
+import { useRef, useState } from 'react';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { VideoTestimonial } from './VideoTestimonial';
 import type { Project } from '../data/projects';
 
@@ -10,7 +11,9 @@ type HomeProjectShowcaseProps = {
 };
 
 export function HomeProjectShowcase({ projects }: HomeProjectShowcaseProps) {
-  const activeProjectIndex = Math.max(0, projects.findIndex((project) => project.slug === 'volar-sin-escalas'));
+  const [activeProjectIndex, setActiveProjectIndex] = useState(() => Math.max(0, projects.findIndex((project) => project.slug === 'volar-sin-escalas')));
+  const touchStart = useRef<{ x: number; y: number } | null>(null);
+  const moveProject = (offset: number) => setActiveProjectIndex(index => (index + offset + projects.length) % projects.length);
   const project = projects[activeProjectIndex];
   const preview = project.heroImage ?? project.images.at(-1) ?? project.images[0];
   const facts = project.details
@@ -27,10 +30,14 @@ export function HomeProjectShowcase({ projects }: HomeProjectShowcaseProps) {
       <div className="home-project-stage">
         <div className="home-project-stage-head">
           <span>{project.testimonial ? `Testimonio de ${project.testimonial.person}` : 'Presentación'}</span>
-          <span>{String(activeProjectIndex + 1).padStart(2, '0')} / {String(projects.length).padStart(2, '0')}</span>
+          <div className="home-project-pagination">
+            <button type="button" aria-label="Proyecto anterior" onClick={() => moveProject(-1)}><ArrowLeft aria-hidden="true" size={18} /></button>
+            <span aria-live="polite">{String(activeProjectIndex + 1).padStart(2, '0')} / {String(projects.length).padStart(2, '0')}</span>
+            <button type="button" aria-label="Proyecto siguiente" onClick={() => moveProject(1)}><ArrowRight aria-hidden="true" size={18} /></button>
+          </div>
         </div>
 
-        <div className="home-project-summary">
+        <div className="home-project-summary" onTouchStart={event => { const point = event.touches[0]; touchStart.current = { x: point.clientX, y: point.clientY }; }} onTouchEnd={event => { const point = event.changedTouches[0]; const start = touchStart.current; touchStart.current = null; if (!start) return; const dx = point.clientX - start.x; const dy = point.clientY - start.y; if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) moveProject(dx < 0 ? 1 : -1); }}>
           <div className="home-project-media">
             {project.testimonial ? (
               <VideoTestimonial key={project.slug} testimonial={project.testimonial} compact />
@@ -50,7 +57,7 @@ export function HomeProjectShowcase({ projects }: HomeProjectShowcaseProps) {
               <p className="home-project-status">
                 {project.stage2Images?.length ? 'Proyecto en dos etapas' : 'Proyecto en una etapa'}
               </p>
-              <h3>{project.title}</h3>
+              <h3 aria-live="polite">{project.title}</h3>
               <p className="home-project-subtitle">{project.subtitle}</p>
             </div>
 
@@ -82,16 +89,18 @@ export function HomeProjectShowcase({ projects }: HomeProjectShowcaseProps) {
         <p className="home-project-rail-kicker">Otros proyectos</p>
         <div className="home-project-list">
           {projects.map((item, index) => (
-            <a
+            <button
+              type="button"
               className={`home-project-list-item ${index === activeProjectIndex ? 'is-active' : ''}`}
               key={item.slug}
-              href={`/proyectos/${item.slug}`}
-              aria-label={`Ver proyecto de ${item.title}`}
+              onClick={() => setActiveProjectIndex(index)}
+              aria-pressed={index === activeProjectIndex}
+              aria-label={`Mostrar ${item.title} en el inicio`}
             >
               <span>{String(index + 1).padStart(2, '0')}</span>
               <span>{item.title}</span>
               <ArrowRight aria-hidden="true" size={18} />
-            </a>
+            </button>
           ))}
         </div>
       </aside>
