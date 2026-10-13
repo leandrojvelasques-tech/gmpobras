@@ -952,8 +952,8 @@ a:focus-visible, button:focus-visible, video:focus-visible { outline: 3px solid 
 .footer-navigation { grid-column: 2; display: grid; gap: 8px; align-content: center; }
 .footer-navigation > div { display: grid; grid-template-columns: 65px minmax(0,1fr); gap: 12px; align-items: start; }
 .footer-navigation p { display: flex; align-items: center; min-height: 32px; margin: 0; color: white; font-size: 14px; font-weight: 700; }
-.footer-link-row { display: flex; flex-wrap: wrap; gap: 4px 24px; }
-.footer-navigation a { display: inline-flex; align-items: center; min-height: 32px; width: fit-content; color: rgba(255,255,255,.76); font-size: 14px; line-height: 1.5; }
+.footer-link-row { display: flex; flex-wrap: wrap; gap: 4px 18px; }
+.footer-navigation a { display: inline-flex; align-items: center; min-height: 32px; width: fit-content; color: rgba(255,255,255,.76); font-size: 13px; line-height: 1.5; }
 .footer-navigation a:hover { color: white; text-decoration: underline; }
 .subpage-header { display: flex; align-items: center; justify-content: space-between; gap: 30px; min-height: 88px; padding: 12px clamp(24px,7.3vw,112px); background: var(--graphite); color: white; }
 .subpage-header nav { display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 8px 20px; font-size: 13px; }
@@ -1001,5 +1001,5 @@ a:focus-visible, button:focus-visible, video:focus-visible { outline: 3px solid 
   .footer-navigation p { min-height: 24px; }
   .footer-link-row { column-gap: 20px; }
   .footer-logo { width: 180px; height: 147px; }
-  .footer-navigation a { min-height: 44px; }
+  .footer-navigation a { min-height: 44px; font-size: 14px; }
 }
