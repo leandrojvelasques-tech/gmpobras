@@ -37,8 +37,9 @@ test('appointment request starts with calendar selection and collects project de
   assert.match(source, /Tus datos para la consulta/);
   assert.match(source, /WhatsApp \(opcional\)/);
   assert.match(source, /Agregar información del proyecto/);
-  assert.match(source, /El horario queda sujeto a confirmación/);
-  assert.match(source, /Solicitud registrada/);
+  assert.match(source, /El horario ya está reservado para vos/);
+  assert.match(source, /Consulta confirmada/);
+  assert.match(source, /Agregar a Google Calendar/);
   assert.match(source, /Guardar detalles/);
   assert.match(source, /Ramos Mejía 298/);
   assert.doesNotMatch(source, /totalSteps|setStep|Probar reserva/);

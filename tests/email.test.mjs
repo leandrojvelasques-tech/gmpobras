@@ -18,7 +18,8 @@ test('test mode redirects owner and visitor notices exclusively to the test mail
     assert.match(message.subject, /PRUEBA GMP/);
     assert.doesNotMatch(message.text, /NEVER_EXPOSE/);
   }
-  assert.match(messages[1].text, /pendiente de confirmación/);
+  assert.match(messages[1].text, /está confirmada/);
+  assert.match(messages[1].html, /Agregar a Google Calendar/);
 });
 test('live delivery keeps visitor and business recipients distinct', () => {
   const messages = buildEmails(emailSettings({ ...env, EMAIL_MODE: 'live' }), 'contacto', { ...values, message: 'Hola' }, 19);

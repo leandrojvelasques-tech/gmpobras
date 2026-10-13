@@ -3,7 +3,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { ArrowLeft, ArrowRight, CalendarDays, Check, ChevronLeft, ChevronRight, Clock3, MapPin, Video } from 'lucide-react';
 import Image from 'next/image';
-import { argentinaDate, firstProposedDate, proposedTimes, formatAppointmentDate, lastBookingMonth } from '../../lib/appointment-schedule.mjs';
+import { argentinaDate, availableTimes, firstAvailableDate, formatAppointmentDate, lastBookingMonth } from '../../lib/appointment-schedule.mjs';
+import { googleCalendarLink } from '../../lib/appointment-email.mjs';
 
 const projectTypes = ['Vivienda nueva', 'Ampliación', 'Consultorio', 'Local comercial', 'Otro proyecto'];
 const projectStages = ['Todavía es una idea inicial', 'Ya tengo terreno o inmueble', 'Ya tengo anteproyecto o planos', 'La obra ya está iniciada'];
@@ -21,6 +22,8 @@ export default function AppointmentPage() {
   const [confirmed, setConfirmed] = useState(false);
   const [confirmationId, setConfirmationId] = useState<number | null>(null);
   const [notification, setNotification] = useState('disabled');
+  const [booked, setBooked] = useState<{ date: string; time: string }[]>([]);
+  const [availabilityReady, setAvailabilityReady] = useState(false);
   const [detailsToken, setDetailsToken] = useState('');
   const [acceptedPrivacy, setAcceptedPrivacy] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -32,12 +35,26 @@ export default function AppointmentPage() {
   const [error, setError] = useState('');
   const confirmationHeading = useRef<HTMLHeadingElement>(null);
   const contactHeading = useRef<HTMLHeadingElement>(null);
+  async function refreshAvailability(initial = false) {
+    try {
+      const response = await fetch('/api/consultas', { cache: 'no-store' });
+      const result = await response.json() as { booked?: { date: string; time: string }[]; error?: string };
+      if (!response.ok || !Array.isArray(result.booked)) throw new Error(result.error || 'No pudimos consultar los horarios.');
+      setBooked(result.booked); setAvailabilityReady(true);
+      if (initial) {
+        const date = firstAvailableDate(result.booked);
+        setSelectedDate(date); setMonth(date ? date.slice(0, 7) : argentinaDate().slice(0, 7));
+      }
+    } catch (error) { setAvailabilityReady(false); setError(error instanceof Error ? error.message : 'No pudimos consultar los horarios. Volvé a intentar.'); }
+  }
 
   useEffect(() => {
-    const date = firstProposedDate();
-    setToday(argentinaDate()); setSelectedDate(date); setMonth(date.slice(0, 7));
+    setToday(argentinaDate()); setMonth(argentinaDate().slice(0, 7));
+    void refreshAvailability(true);
     const model = new URLSearchParams(window.location.search).get('modelo');
     if (model) setDetails((current) => ({ ...current, projectType: 'Vivienda nueva', projectDetail: `Me interesa el modelo ${model}.` }));
+    const timer = window.setInterval(() => { void refreshAvailability(); }, 60000);
+    return () => window.clearInterval(timer);
   }, []);
   useEffect(() => { if (confirmed) confirmationHeading.current?.focus(); }, [confirmed]);
   useEffect(() => { if (selectedTime) contactHeading.current?.focus(); }, [selectedTime]);
@@ -51,7 +68,7 @@ export default function AppointmentPage() {
     for (let day = 1; day <= days; day++) dates.push(`${month}-${String(day).padStart(2, '0')}`);
   }
   const monthLabel = month ? new Intl.DateTimeFormat('es-AR', { month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${month}-01T12:00:00Z`)) : '';
-  const times = selectedDate ? proposedTimes(selectedDate) : [];
+  const times = selectedDate && availabilityReady ? availableTimes(selectedDate, booked) : [];
   function changeMonth(offset: number) {
     const [year, monthNumber] = month.split('-').map(Number);
     const date = new Date(Date.UTC(year, monthNumber - 1 + offset, 1));
@@ -66,7 +83,7 @@ export default function AppointmentPage() {
   async function submitRequest(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!meetingMode || !acceptedPrivacy || submitting) return;
-    if (!proposedTimes(selectedDate).includes(selectedTime)) { setSelectedTime(''); setError('Elegí un horario futuro para solicitar la consulta.'); return; }
+    if (!availabilityReady || !availableTimes(selectedDate, booked).includes(selectedTime)) { setSelectedTime(''); setError('Elegí uno de los horarios disponibles.'); return; }
     setError(''); setSubmitting(true);
     try {
       const response = await fetch('/api/consultas', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({
@@ -75,6 +92,7 @@ export default function AppointmentPage() {
         preferredDay: selectedDate, preferredTime: selectedTime, acceptedPrivacy,
       }) });
       const result = await response.json() as { consultation?: { id: number }; detailsToken?: string; error?: string; notification?: string };
+      if (response.status === 409) { await refreshAvailability(); setSelectedTime(''); }
       if (!response.ok || !result.consultation?.id || !result.detailsToken) throw new Error(result.error || 'No pudimos guardar la solicitud.');
       setConfirmationId(result.consultation.id); setDetailsToken(result.detailsToken); setNotification(result.notification || 'disabled'); setConfirmed(true);
     } catch (error) { setError(error instanceof Error ? error.message : 'No pudimos guardar la solicitud. Tus datos siguen en pantalla.'); }
@@ -120,14 +138,15 @@ export default function AppointmentPage() {
           {confirmed ? (
             <div className="booking-prepared">
               <span><Check size={28} aria-hidden="true" /></span>
-              <p className="section-kicker">Solicitud registrada</p>
-              <h2 id="booking-title" ref={confirmationHeading} tabIndex={-1}>Recibimos tu solicitud.</h2>
+              <p className="section-kicker">Consulta confirmada</p>
+              <h2 id="booking-title" ref={confirmationHeading} tabIndex={-1}>Tu consulta está confirmada.</h2>
               <p className="booking-date-summary"><CalendarDays size={20} aria-hidden="true" /><strong>{formatAppointmentDate(selectedDate)}<br />{selectedTime} · 45 minutos</strong></p>
               <div className="booking-meeting-summary">
-                {meetingMode === 'presencial' ? <><MapPin size={20} aria-hidden="true" /><div><strong>Presencial en la oficina</strong><p>{officeAddress}</p><a href={officeMapUrl} target="_blank" rel="noreferrer">Cómo llegar</a></div></> : <><Video size={20} aria-hidden="true" /><div><strong>Virtual por Google Meet</strong><p>El enlace se coordina cuando Gustavo confirme la consulta.</p></div></>}
+                {meetingMode === 'presencial' ? <><MapPin size={20} aria-hidden="true" /><div><strong>Presencial en la oficina</strong><p>{officeAddress}</p><a href={officeMapUrl} target="_blank" rel="noreferrer">Cómo llegar</a></div></> : <><Video size={20} aria-hidden="true" /><div><strong>Virtual por Google Meet</strong><p>El enlace de la videollamada se coordina por correo con Gustavo.</p></div></>}
               </div>
-              <p>Tu solicitud quedó guardada con el número <strong>#{confirmationId}</strong>. GMP Obras revisará el horario elegido y te contactará para coordinar la consulta.</p>
-              <p className="booking-demo-confirmation">El horario queda sujeto a confirmación. Todavía no se creó una cita en Google Calendar. {notification === 'accepted' ? 'Te enviamos un aviso de recepción por correo.' : notification === 'test' ? 'El aviso se envió al correo de pruebas.' : notification === 'pending' ? 'El aviso por correo está pendiente de envío.' : 'Los avisos por correo todavía no están activos.'}</p>
+              <p>Tu reserva quedó guardada con el número <strong>#{confirmationId}</strong>. El horario ya está reservado para vos.</p>
+              <p className="booking-demo-confirmation">{notification === 'accepted' ? 'Te enviamos la confirmación por correo.' : notification === 'test' ? 'La confirmación se envió al correo de pruebas.' : notification === 'pending' ? 'La reserva está confirmada. El correo está pendiente de envío.' : 'La reserva está confirmada. Los avisos por correo todavía no están activos.'}</p>
+              <a className="button button-primary" href={googleCalendarLink({ preferredDay: selectedDate, preferredTime: selectedTime, meetingMode: meetingMode === 'presencial' ? 'Presencial en la oficina' : 'Virtual por Google Meet' }, confirmationId, 'gpinto@gmpobras.com')} target="_blank" rel="noreferrer">Agregar a Google Calendar <CalendarDays size={18} aria-hidden="true" /></a>
               <div className="booking-optional-invitation">
                 <h3>¿Querés contarle algo de la obra?</h3>
                 <p>Podés sumar una idea, la ubicación o un enlace a tus planos. Es opcional.</p>
@@ -153,11 +172,11 @@ export default function AppointmentPage() {
                 <div className="booking-calendar">
                   <div className="booking-month"><h3 aria-live="polite">{monthLabel}</h3><div><button type="button" aria-label="Mes anterior" disabled={!month || month <= today.slice(0, 7)} onClick={() => changeMonth(-1)}><ChevronLeft size={20} /></button><button type="button" aria-label="Mes siguiente" disabled={!month || month >= lastBookingMonth()} onClick={() => changeMonth(1)}><ChevronRight size={20} /></button></div></div>
                   <div className="booking-calendar-grid"><span aria-label="Lunes">L</span><span aria-label="Martes">M</span><span aria-label="Miércoles">M</span><span aria-label="Jueves">J</span><span aria-label="Viernes">V</span><span aria-label="Sábado">S</span><span aria-label="Domingo">D</span>
-                    {dates.map((date, index) => date ? <button type="button" key={date} disabled={!proposedTimes(date).length} aria-label={formatAppointmentDate(date)} aria-pressed={selectedDate === date} className={selectedDate === date ? 'is-selected' : ''} onClick={() => { setSelectedDate(date); setSelectedTime(''); setError(''); }}>{Number(date.slice(-2))}</button> : <span key={`empty-${index}`} />)}
+                    {dates.map((date, index) => date ? <button type="button" key={date} disabled={!availabilityReady || !availableTimes(date, booked).length} aria-label={formatAppointmentDate(date)} aria-pressed={selectedDate === date} className={selectedDate === date ? 'is-selected' : ''} onClick={() => { setSelectedDate(date); setSelectedTime(''); setError(''); }}>{Number(date.slice(-2))}</button> : <span key={`empty-${index}`} />)}
                   </div>
                   <small className="booking-zone">Hora de Argentina (UTC−3)</small>
                 </div>
-                <div className="booking-times"><h3>{selectedDate ? formatAppointmentDate(selectedDate) : month ? 'Elegí un día' : 'Cargando fechas…'}</h3><p>Horarios propuestos</p>{times.map((time) => <button key={time} type="button" aria-pressed={selectedTime === time} className={selectedTime === time ? 'is-selected' : ''} onClick={() => { setSelectedTime(time); setError(''); }}><Clock3 size={16} aria-hidden="true" />{time}<ArrowRight size={16} aria-hidden="true" /></button>)}<small>45 minutos por consulta</small></div>
+                <div className="booking-times"><h3>{!availabilityReady ? 'Consultando horarios…' : selectedDate ? formatAppointmentDate(selectedDate) : 'Elegí un día'}</h3><p>Horarios disponibles</p>{times.map((time) => <button key={time} type="button" aria-pressed={selectedTime === time} className={selectedTime === time ? 'is-selected' : ''} onClick={() => { setSelectedTime(time); setError(''); }}><Clock3 size={16} aria-hidden="true" />{time}<ArrowRight size={16} aria-hidden="true" /></button>)}<small>45 minutos por consulta</small></div>
               </div>
               {error && <p role="alert" className="booking-submit-error">{error}</p>}
               {selectedTime ? <form className="booking-contact-form booking-step" onSubmit={submitRequest}>
@@ -182,7 +201,7 @@ export default function AppointmentPage() {
                 <label>WhatsApp (opcional)<input type="tel" autoComplete="tel" maxLength={80} value={contact.phone} onChange={(event) => setContact({ ...contact, phone: event.target.value })} /></label>
                 <label className="booking-consent"><input type="checkbox" required checked={acceptedPrivacy} onChange={(event) => setAcceptedPrivacy(event.target.checked)} /><span>Acepto que GMP Obras guarde estos datos para contactarme y coordinar esta consulta.</span></label>
                 <small>La información del proyecto es opcional y podés agregarla después de enviar la solicitud.</small>
-                <button type="submit" className="button button-primary" disabled={submitting}>{submitting ? 'Guardando solicitud…' : 'Solicitar consulta'}<ArrowRight size={18} aria-hidden="true" /></button>
+                <button type="submit" className="button button-primary" disabled={submitting || !availabilityReady}>{submitting ? 'Reservando consulta…' : 'Reservar consulta'}<ArrowRight size={18} aria-hidden="true" /></button>
               </form> : null}
             </>
           )}

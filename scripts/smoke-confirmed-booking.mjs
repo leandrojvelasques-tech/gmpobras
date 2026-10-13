@@ -1,0 +1,18 @@
+import assert from 'node:assert/strict';
+const base = new URL(process.argv[2] || 'http://127.0.0.1:3001');
+if (!['127.0.0.1', 'localhost'].includes(base.hostname)) throw new Error('Esta prueba escribe sólo en la base local.');
+const { firstAvailableDate, availableTimes } = await import('../lib/appointment-schedule.mjs');
+const initial = await (await fetch(`${base}api/consultas`)).json();
+const date = firstAvailableDate(initial.booked);
+const time = availableTimes(date, initial.booked)[0];
+const payload = { name: 'PRUEBA LOCAL - NO ATENDER', email: 'prueba@example.invalid', meetingMode: 'Presencial en la oficina', preferredDay: date, preferredTime: time, acceptedPrivacy: true };
+const attempt = () => fetch(`${base}api/consultas`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+const attempts = await Promise.all([attempt(), attempt()]);
+assert.deepEqual(attempts.map(result => result.status).sort(), [201, 409]);
+const reservation = await attempts.find(result => result.status === 201).json();
+assert.equal(reservation.consultation.status, 'confirmada');
+assert.equal(reservation.notification, 'disabled');
+const availability = await (await fetch(`${base}api/consultas`)).json();
+assert.ok(availability.booked.some(slot => slot.date === date && slot.time === time));
+assert.equal(JSON.stringify(availability).includes(payload.email), false);
+console.log(JSON.stringify({ result: 'pass', concurrentStatuses: [201, 409], date, time, personalDataPublic: false }));

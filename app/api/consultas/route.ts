@@ -1,10 +1,17 @@
 import { getDb } from '../../../db';
 import { consultations } from '../../../db/schema';
-import { and, eq, gt } from 'drizzle-orm';
+import { and, eq, gt, gte, lte } from 'drizzle-orm';
+import { argentinaDate, lastBookingMonth } from '../../../lib/appointment-schedule.mjs';
 import { normalizeRequest, validateRequest, normalizeDetails, validateDetails } from '../../../lib/consultation-request.mjs';
 import { notificationLimited, notificationSettings, notify } from '../../../lib/notifications';
 
 const privateHeaders = { 'Cache-Control': 'no-store' };
+export async function GET() {
+  try {
+    const booked = await getDb().select({ date: consultations.preferredDay, time: consultations.preferredTime }).from(consultations).where(and(eq(consultations.status, 'confirmada'), gte(consultations.preferredDay, argentinaDate()), lte(consultations.preferredDay, `${lastBookingMonth()}-31`)));
+    return Response.json({ booked }, { headers: privateHeaders });
+  } catch { return Response.json({ error: 'No pudimos consultar los horarios. Volvé a intentar.' }, { status: 503, headers: privateHeaders }); }
+}
 async function hashToken(token: string) {
   const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(token));
   return Array.from(new Uint8Array(digest), (byte) => byte.toString(16).padStart(2, '0')).join('');
@@ -26,9 +33,11 @@ export async function POST(request: Request) {
     const detailsToken = crypto.randomUUID() + crypto.randomUUID();
     const [consultation] = await getDb().insert(consultations).values({
       ...values,
+      status: 'confirmada',
       detailsTokenHash: await hashToken(detailsToken),
       detailsTokenExpiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
-    }).returning({ id: consultations.id, createdAt: consultations.createdAt });
+    }).onConflictDoNothing().returning({ id: consultations.id, createdAt: consultations.createdAt, status: consultations.status });
+    if (!consultation) return Response.json({ error: 'Ese horario acaba de reservarse. Elegí otro turno.' }, { status: 409, headers: privateHeaders });
     let notification = 'pending';
     try { notification = await notify('consulta', values, consultation.id); } catch { console.error('No se pudo preparar la notificación', consultation.id); }
     return Response.json({ consultation, detailsToken, notification }, { status: 201, headers: privateHeaders });

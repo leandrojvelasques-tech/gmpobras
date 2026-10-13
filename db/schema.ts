@@ -1,5 +1,5 @@
 import { sql } from 'drizzle-orm';
-import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
+import { integer, sqliteTable, text, uniqueIndex } from 'drizzle-orm/sqlite-core';
 
 export const contactMessages = sqliteTable('contact_messages', {
   id: integer('id').primaryKey({ autoIncrement: true }),
@@ -32,4 +32,4 @@ export const consultations = sqliteTable('consultations', {
   detailsTokenHash: text('details_token_hash'),
   detailsTokenExpiresAt: text('details_token_expires_at'),
   createdAt: text('created_at').notNull().default(sql`CURRENT_TIMESTAMP`),
-});
+}, (table) => [uniqueIndex('confirmed_slot').on(table.preferredDay, table.preferredTime).where(sql`${table.status} = 'confirmada'`)]);

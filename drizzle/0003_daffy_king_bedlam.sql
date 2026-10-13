@@ -1,0 +1,1 @@
+CREATE UNIQUE INDEX `confirmed_slot` ON `consultations` (`preferred_day`,`preferred_time`) WHERE "consultations"."status" = 'confirmada';
