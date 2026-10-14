@@ -1,6 +1,6 @@
-import { HeaderLogo } from '../components/HeaderLogo';
 'use client';
 
+import { HeaderLogo } from '../components/HeaderLogo';
 import { useEffect, useRef, useState } from 'react';
 import { ArrowLeft, ArrowRight, CalendarDays, Check, ChevronLeft, ChevronRight, Clock3, MapPin, Video } from 'lucide-react';
 import Image from 'next/image';
