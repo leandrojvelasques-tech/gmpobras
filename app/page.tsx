@@ -58,7 +58,7 @@ export default function Home() {
       <header className="site-header">
         <a className="brand" href="#inicio" aria-label="GMP Obras, inicio">
           <span className="official-logo" aria-hidden="true">
-            <Image src="/logo-gmp-obras-horizontal-cuadrado-punteado.png" alt="" width={2580} height={888} unoptimized />
+            <Image src="/logo-gmp-obras-landing-transparente.png" alt="" width={1000} height={250} unoptimized />
           </span>
         </a>
 
