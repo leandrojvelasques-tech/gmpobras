@@ -34,7 +34,7 @@ body { min-width: 0; margin: 0; background: var(--white); color: var(--ink); fon
 a { color: inherit; text-decoration: none; }
 h1, h2, h3, .button, .header-cta { font-family: var(--font-sansation), Arial, sans-serif; }
 
-.site-header { position: absolute; inset: 0 0 auto; z-index: 20; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 32px; min-height: 88px; padding: 0 clamp(24px, 5vw, 76px); background: var(--graphite); color: var(--white); }
+.site-header { position: absolute; inset: 0 0 auto; z-index: 20; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 32px; min-height: 88px; padding: 0 clamp(24px, 5vw, 76px); color: var(--white); }
 .brand { display: inline-flex; align-items: center; gap: 10px; }
 .compact-mark { position: relative; display: block; width: 44px; height: 42px; flex: 0 0 44px; }
 .mark-square { position: absolute; display: block; width: 15px; height: 15px; border: 1px solid rgba(255,255,255,.88); background: rgba(255,255,255,.12); transform: rotate(-9deg); }
