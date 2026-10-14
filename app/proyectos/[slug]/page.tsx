@@ -1,3 +1,4 @@
+import { HeaderLogo } from '../../components/HeaderLogo';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
@@ -35,7 +36,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           <ArrowLeft aria-hidden="true" size={18} />
           Volver a proyectos
         </a>
-        <span>GMP Obras</span>
+        <a className="brand" href="/" aria-label="GMP Obras, inicio"><HeaderLogo /></a>
       </header>
 
       <section className="detail-intro">

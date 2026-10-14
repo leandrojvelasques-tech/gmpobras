@@ -1,3 +1,4 @@
+import { HeaderLogo } from '../components/HeaderLogo';
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
@@ -24,9 +25,7 @@ export default function FrequentlyAskedQuestionsPage() {
     <main className="faq-page">
       <header className="faq-page-header">
         <a className="brand" href="/" aria-label="GMP Obras, inicio">
-          <span className="official-logo" aria-hidden="true">
-            <Image src="/logo-gmp-obras-horizontal-cuadrado-punteado.png" alt="" width={2580} height={888} unoptimized />
-          </span>
+          <HeaderLogo />
         </a>
         <nav aria-label="Navegación principal">
           <a className="faq-back" href="/"><ArrowLeft aria-hidden="true" size={16} />Volver al inicio</a>

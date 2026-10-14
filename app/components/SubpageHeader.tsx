@@ -1,8 +1,8 @@
-import Image from 'next/image';
+import { HeaderLogo } from './HeaderLogo';
 
 export function SubpageHeader({ active }: { active: 'proyectos' | 'contacto' }) {
   return <header className="subpage-header">
-    <a className="brand" href="/" aria-label="GMP Obras, inicio"><span className="official-logo" aria-hidden="true"><Image src="/logo-gmp-obras-horizontal-cuadrado-punteado.png" alt="" width={2580} height={888} unoptimized /></span></a>
+    <a className="brand" href="/" aria-label="GMP Obras, inicio"><HeaderLogo /></a>
     <nav aria-label="Navegación principal">
       <a href="/">Inicio</a>
       <a href="/proyectos" aria-current={active === 'proyectos' ? 'page' : undefined}>Proyectos</a>

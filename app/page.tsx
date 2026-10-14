@@ -1,3 +1,4 @@
+import { HeaderLogo } from './components/HeaderLogo';
 import {
   ArrowDownRight,
   ArrowRight,
@@ -57,9 +58,7 @@ export default function Home() {
     <main>
       <header className="site-header">
         <a className="brand" href="#inicio" aria-label="GMP Obras, inicio">
-          <span className="official-logo" aria-hidden="true">
-            <Image src="/logo-gmp-obras-landing-transparente.png" alt="" width={1000} height={250} unoptimized />
-          </span>
+          <HeaderLogo />
         </a>
 
         <nav className="desktop-nav" aria-label="Navegación principal">

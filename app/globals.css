@@ -46,7 +46,7 @@ h1, h2, h3, .button, .header-cta { font-family: var(--font-sansation), Arial, sa
 .compact-wordmark strong { font-weight: 760; color: var(--white); }
 .compact-wordmark em { color: rgba(255,255,255,.74); font-style: normal; font-weight: 400; }
 .official-logo { position: relative; display: block; width: 210px; height: 64px; overflow: hidden; }
-.site-header .official-logo { width: 240px; }
+
 .official-logo img { display: block; width: 100%; height: 100%; object-fit: contain; object-position: center; }
 .desktop-nav { display: flex; justify-content: center; gap: clamp(20px,2.6vw,42px); font-size: 14px; font-weight: 600; }
 .desktop-nav a { opacity: .82; transition: opacity 180ms ease; }
@@ -356,7 +356,7 @@ h1, h2, h3, .button, .header-cta { font-family: var(--font-sansation), Arial, sa
 .faq-page-header { display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 88px; padding: 0 clamp(24px,7.3vw,112px); background: var(--graphite); color: var(--white); border-bottom: 1px solid rgba(255,255,255,.18); }
 .faq-page-header nav { display: flex; align-items: center; gap: 28px; }
 .faq-back { display: inline-flex; align-items: center; gap: 9px; min-height: 44px; font-size: 14px; }
-.faq-page-header .official-logo { width: 218px; height: 73px; }
+
 .faq-page-hero { display: grid; grid-template-columns: 1.05fr .95fr; background: var(--mist); color: var(--ink); }
 .faq-page-hero-copy { display: flex; flex-direction: column; justify-content: center; align-items: flex-start; min-width: 0; padding: 72px clamp(24px,7.3vw,112px); padding-right: clamp(30px,4vw,64px); }
 .faq-page-hero .section-kicker { margin-bottom: 24px; font-size: 11px; font-weight: 700; line-height: 1.7; }
@@ -395,7 +395,7 @@ h1, h2, h3, .button, .header-cta { font-family: var(--font-sansation), Arial, sa
   .faq-page-header { min-height: 74px; padding-inline: 20px; }
   .faq-page-header .faq-back { display: none; }
   .faq-page-header nav { gap: 0; }
-  .faq-page-header .official-logo { width: 156px; height: 54px; }
+
   .faq-page-hero { grid-template-columns: 1fr; }
   .faq-page-hero-copy { padding: 42px 20px 38px; }
   .faq-page-hero .section-kicker { font-size: 10px; margin-bottom: 18px; }
@@ -411,7 +411,7 @@ h1, h2, h3, .button, .header-cta { font-family: var(--font-sansation), Arial, sa
 }
 @media (max-width: 360px) {
   .faq-page-header { gap: 16px; }
-  .faq-page-header .official-logo { width: 130px; height: 45px; }
+
   .faq-page-hero h1 { font-size: 44px; }
   .faq-page-hero-image { height: 350px; }
 }
@@ -705,7 +705,7 @@ a:focus-visible, button:focus-visible, video:focus-visible { outline: 3px solid 
 @media (max-width: 640px) {
   .site-header { min-height: 74px; padding-inline: 20px; }
   .official-logo { width: 156px; height: 54px; }
-  .site-header .official-logo { width: 156px; }
+
   .footer-logo { width: 230px; height: 188px; }
   .header-cta { min-height: 42px; padding-inline: 15px; }
   .hero { min-height: 760px; }
@@ -775,7 +775,7 @@ a:focus-visible, button:focus-visible, video:focus-visible { outline: 3px solid 
   .comparison-table { min-width: 1080px; }
   .comparison-table thead th:first-child { width: 175px; }
   .system-landing-header { min-height: 74px; padding-inline: 20px; }
-  .system-landing-header .official-logo { width: 156px; height: 54px; }
+
   .system-landing-header nav { gap: 10px; }
   .system-landing-header nav > a:first-child { display: none; }
   .system-landing-header-cta { min-height: 40px; padding-inline: 13px; }
@@ -805,7 +805,7 @@ a:focus-visible, button:focus-visible, video:focus-visible { outline: 3px solid 
   .system-landing-footer > div { justify-content: start; }
   .field-row, .choice-grid { grid-template-columns: 1fr; }
   .booking-header { min-height: 74px; padding-inline: 20px; }
-  .booking-header .official-logo { width: 145px; }
+
   .booking-layout { min-height: calc(100vh - 74px); }
   .booking-intro { padding: 58px 20px 64px; }
   .booking-intro h1 { font-size: clamp(43px,12vw,58px); }
@@ -979,7 +979,7 @@ a:focus-visible, button:focus-visible, video:focus-visible { outline: 3px solid 
 @media (max-width: 1000px) { .projects-page-grid { grid-template-columns: repeat(2,minmax(0,1fr)); } }
 @media (max-width: 730px) {
   .subpage-header { padding: 16px 20px; }
-  .subpage-header .official-logo { width: 180px; height: 62px; }
+
   .subpage-header nav { gap: 4px 16px; font-size: 12px; }
   .projects-page-intro { padding: 42px 20px 32px; }
   .projects-page-grid { grid-template-columns: 1fr; gap: 24px; padding: 0 20px 42px; }
@@ -1004,4 +1004,16 @@ a:focus-visible, button:focus-visible, video:focus-visible { outline: 3px solid 
   .footer-link-row { column-gap: 20px; }
   .footer-logo { width: 180px; height: 147px; }
   .footer-navigation a { min-height: 44px; font-size: 14px; }
+}
+
+
+/* Shared header proportions and optical alignment of the approved wordmark. */
+.official-logo.header-logo { flex: 0 0 auto; width: 200px; height: 54px; overflow: visible; }
+.official-logo.header-logo img { transform: translateY(-4px); }
+@media (max-width: 640px) {
+  .official-logo.header-logo { width: 140px; height: 44px; }
+  .official-logo.header-logo img { transform: translateY(-3px); }
+}
+@media (max-width: 380px) {
+  .official-logo.header-logo { width: 130px; }
 }

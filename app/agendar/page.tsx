@@ -1,3 +1,4 @@
+import { HeaderLogo } from '../components/HeaderLogo';
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
@@ -116,7 +117,7 @@ export default function AppointmentPage() {
   return (
     <main className="booking-page booking-direct">
       <header className="booking-header">
-        <a href="/" className="booking-brand" aria-label="Volver al inicio de GMP Obras"><span className="official-logo" aria-hidden="true"><Image src="/logo-gmp-obras-horizontal-cuadrado-punteado.png" alt="" width={2580} height={888} unoptimized /></span></a>
+        <a href="/" className="booking-brand" aria-label="Volver al inicio de GMP Obras"><HeaderLogo /></a>
         <a href="/" className="booking-back"><ArrowLeft aria-hidden="true" size={17} /> Volver al sitio</a>
       </header>
       <div className="booking-layout">
