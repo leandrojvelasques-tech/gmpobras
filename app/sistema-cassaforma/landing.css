@@ -1,3 +1,6 @@
+.system-landing .system-landing-header {
+  padding-left: clamp(24px, 7.3vw, 112px);
+}
 .system-landing .system-landing-hero {
   grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr);
   min-height: 0;
@@ -47,11 +50,13 @@
 }
 .system-landing-sustainability-copy .system-landing-inline-link { margin-top: 8px; }
 @media (max-width: 1000px) {
+  .system-landing .system-landing-header { padding-left: 24px; }
   .system-landing .system-landing-hero { grid-template-columns: 1fr 1fr; }
   .system-landing .system-landing-hero-copy { padding: 40px 24px; }
   .system-landing .system-landing-hero-media { min-height: 340px; }
 }
 @media (max-width: 780px) {
+  .system-landing .system-landing-header { padding-left: 20px; }
   .system-landing .system-landing-hero { grid-template-columns: 1fr; }
   .system-landing .system-landing-hero-copy { padding: 36px 20px; }
   .system-landing .system-landing-hero-copy h1 { max-width: 550px; font-size: clamp(34px, 8.5vw, 48px); }
