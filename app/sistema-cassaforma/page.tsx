@@ -127,9 +127,9 @@ const comparisonRows: Array<{
 const systemSections = [
   { href: '#que-es', label: 'Qué es Cassaforma' },
   { href: '#beneficios', label: 'Beneficios' },
-  { href: '#video', label: 'Videos' },
+  { href: '#video', label: 'Videos explicativos' },
   { href: '#comparativa', label: 'Comparativa' },
-  { href: '#sustentabilidad', label: 'Sustentable' },
+  { href: '#sustentabilidad', label: 'Construcción sustentable' },
 ];
 
 export default function CassaformaSystemPage() {
