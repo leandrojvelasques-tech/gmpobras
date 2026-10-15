@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import { projects } from '../data/projects';
 
 export function SiteFooter() {
   return (
@@ -31,12 +30,6 @@ export function SiteFooter() {
           <a href="/sistema-cassaforma">Sistema Cassaforma</a>
           <a href="/preguntas-frecuentes">Preguntas frecuentes</a>
           <a href="/agendar">Agendar una consulta</a>
-          </div>
-        </div>
-        <div>
-          <p>Obras</p>
-          <div className="footer-link-row">
-          {projects.map((project) => <a key={project.slug} href={`/proyectos/${project.slug}`}>{project.title}</a>)}
           </div>
         </div>
       </nav>
