@@ -12,6 +12,14 @@ export function FaqList({ items, openFirst = false }: { items: Faq[]; openFirst?
           </summary>
           <div className="faq-answer">
             {faq.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+            {faq.listItems && (
+              <ul>
+                {faq.listItems.map((item) => (
+                  <li key={item.label}><strong>{item.label}:</strong> {item.text}</li>
+                ))}
+              </ul>
+            )}
+            {faq.closingParagraphs?.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
             {faq.links && (
               <div className="faq-answer-links">
                 {faq.links.map((link) => (

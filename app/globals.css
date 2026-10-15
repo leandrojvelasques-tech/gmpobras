@@ -345,6 +345,9 @@ h1, h2, h3, .button, .header-cta { font-family: var(--font-sansation), Arial, sa
 .faq-answer { max-width: 760px; margin: -5px 56px 24px 0; }
 .faq-answer p { margin: 0; color: #626873; font-size: 16px; line-height: 1.65; }
 .faq-answer p + p { margin-top: 16px; }
+.faq-answer ul { margin: 16px 0; padding-left: 22px; color: #626873; list-style: disc; }
+.faq-answer li { padding-left: 4px; font-size: 16px; line-height: 1.65; }
+.faq-answer li + li { margin-top: 10px; }
 .faq-answer-links { display: flex; flex-direction: column; align-items: flex-start; }
 .faq-answer-links a { min-height: 44px; margin-top: 6px; }
 .faq-answer-links svg, .faq-all-link svg { flex-shrink: 0; }
