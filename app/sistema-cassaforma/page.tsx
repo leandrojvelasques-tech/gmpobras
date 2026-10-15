@@ -5,7 +5,6 @@ import './landing.css';
 import { CassaformaVideoCover } from '../components/CassaformaVideoCover';
 import { SystemBenefits } from '../components/SystemBenefits';
 import {
-  ArrowLeft,
   ArrowRight,
   ArrowUpRight,
   Check,
@@ -125,6 +124,14 @@ const comparisonRows: Array<{
   },
 ];
 
+const systemSections = [
+  { href: '#que-es', label: 'Qué es Cassaforma' },
+  { href: '#beneficios', label: 'Beneficios' },
+  { href: '#video', label: 'Videos explicativos' },
+  { href: '#comparativa', label: 'Comparativa' },
+  { href: '#sustentabilidad', label: 'Construcción sustentable' },
+];
+
 export default function CassaformaSystemPage() {
   return (
     <main className="system-landing">
@@ -132,25 +139,19 @@ export default function CassaformaSystemPage() {
         <a className="brand" href="/#inicio" aria-label="GMP Obras, volver al inicio">
           <HeaderLogo />
         </a>
-        <nav aria-label="Navegación de la landing del sistema">
-          <a href="/#sistema">
-            <ArrowLeft aria-hidden="true" size={16} />
-            Volver al inicio
-          </a>
-          <a className="system-landing-header-cta" href="/agendar">
-            Consultar
-            <ArrowRight aria-hidden="true" size={16} />
-          </a>
+        <nav className="system-header-sections" aria-label="Secciones del sistema Cassaforma">
+          {systemSections.map(section => <a key={section.href} href={section.href}>{section.label}</a>)}
         </nav>
+        <details className="system-header-mobile-menu">
+          <summary>Secciones <span aria-hidden="true">⌄</span></summary>
+          <nav aria-label="Secciones del sistema Cassaforma en móvil">
+            {systemSections.map(section => <a key={section.href} href={section.href}>{section.label}</a>)}
+          </nav>
+        </details>
+        <a className="system-landing-header-cta" href="/agendar">
+          Consultar <ArrowRight aria-hidden="true" size={16} />
+        </a>
       </header>
-
-      <nav className="system-landing-jump-nav" aria-label="Secciones del sistema Cassaforma">
-        <a href="#que-es">Qué es Cassaforma</a>
-        <a href="#beneficios">Beneficios</a>
-        <a href="#video">Videos explicativos</a>
-        <a href="#comparativa">Comparativa</a>
-        <a href="#sustentabilidad">Construcción sustentable</a>
-      </nav>
 
       <section className="system-landing-hero" aria-labelledby="system-landing-title">
         <div className="system-landing-hero-copy">
