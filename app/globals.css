@@ -780,7 +780,6 @@ a:focus-visible, button:focus-visible, video:focus-visible { outline: 3px solid 
   .system-landing-header { min-height: 74px; padding-inline: 20px; }
 
   .system-landing-header nav { gap: 10px; }
-  .system-landing-header nav > a:first-child { display: none; }
   .system-landing-header-cta { min-height: 40px; padding-inline: 13px; }
   .system-landing-hero-copy { padding: 64px 20px 70px; }
   .system-landing-hero-copy h1 { font-size: clamp(48px,14vw,68px); }
@@ -1021,10 +1020,11 @@ a:focus-visible, button:focus-visible, video:focus-visible { outline: 3px solid 
   .official-logo.header-logo { width: 130px; }
 }
 
-/* Preview: solid sky-gray header for the requested inner pages. */
+/* Shared sky-gray headers for inner pages. */
 .system-landing-header,
 .faq-page-header,
-.contact-page .subpage-header {
+.contact-page .subpage-header,
+.projects-page .subpage-header {
   background: #657287;
   border-bottom: 0;
 }
@@ -1033,31 +1033,24 @@ a:focus-visible, button:focus-visible, video:focus-visible { outline: 3px solid 
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto;
   gap: 24px;
-  padding-inline: clamp(20px, 3vw, 48px);
+  padding: 12px clamp(20px, 3vw, 48px);
   z-index: 30;
 }
 .system-landing-header .system-header-sections {
   display: flex;
-  justify-content: center;
-  gap: clamp(14px, 1.5vw, 24px);
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 0 clamp(14px, 1.5vw, 24px);
   font: 600 16px var(--font-sansation), Arial, sans-serif;
   letter-spacing: 0;
   text-transform: none;
 }
-.system-landing-header .system-header-sections a { color: #fff; min-height: 44px; white-space: nowrap; }
+.system-landing-header .system-header-sections a { display: inline-flex; color: #fff; min-height: 44px; white-space: nowrap; }
 .system-landing-header > .system-landing-header-cta { display: inline-flex; align-items: center; gap: 9px; font-size: 14px; font-weight: 700; white-space: nowrap; }
-.system-header-mobile-menu { display: none; justify-self: end; }
-.system-header-mobile-menu summary { display: flex; align-items: center; gap: 10px; min-height: 44px; cursor: pointer; list-style: none; }
-.system-header-mobile-menu summary::-webkit-details-marker { display: none; }
-.system-header-mobile-menu summary:focus-visible { outline: 3px solid #fff; outline-offset: 4px; }
-.system-header-mobile-menu[open] summary span { transform: rotate(180deg); }
-.system-landing-header .system-header-mobile-menu nav { position: absolute; top: 100%; left: 0; right: 0; display: grid; gap: 0; padding: 8px 20px 16px; background: #657287; font: 600 15px var(--font-sansation), Arial, sans-serif; text-transform: none; letter-spacing: 0; box-shadow: 0 12px 20px rgba(0,0,0,.15); }
-.system-landing-header .system-header-mobile-menu nav a { display: flex; min-height: 44px; color: #fff; }
-@media (max-width: 1200px) {
-  .system-landing-header .system-header-sections { display: none; }
-  .system-header-mobile-menu { display: block; }
-}
 @media (max-width: 640px) {
-  .system-landing-header { grid-template-columns: auto 1fr; gap: 16px; }
+  .system-landing-header { grid-template-columns: auto minmax(0, 1fr); gap: 16px; }
+  .system-landing-header .header-logo { width: 110px; }
+  .system-landing-header .system-header-sections { gap: 0 12px; font-size: 14px; }
+  .system-landing-header .system-header-sections a { white-space: normal; line-height: 1.3; }
   .system-landing-header > .system-landing-header-cta { display: none; }
 }

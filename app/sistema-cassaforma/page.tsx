@@ -142,12 +142,6 @@ export default function CassaformaSystemPage() {
         <nav className="system-header-sections" aria-label="Secciones del sistema Cassaforma">
           {systemSections.map(section => <a key={section.href} href={section.href}>{section.label}</a>)}
         </nav>
-        <details className="system-header-mobile-menu">
-          <summary>Secciones <span aria-hidden="true">⌄</span></summary>
-          <nav aria-label="Secciones del sistema Cassaforma en móvil">
-            {systemSections.map(section => <a key={section.href} href={section.href}>{section.label}</a>)}
-          </nav>
-        </details>
         <a className="system-landing-header-cta" href="/agendar">
           Consultar <ArrowRight aria-hidden="true" size={16} />
         </a>
