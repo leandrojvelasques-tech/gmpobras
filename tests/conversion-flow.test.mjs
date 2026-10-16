@@ -33,7 +33,7 @@ test('Home links to dedicated pages while contact keeps its form and appointment
 });
 
 test('appointment request starts with calendar selection and collects project details afterward', () => {
-  const source = readFileSync(join(root, 'app/agendar/page.tsx'), 'utf8');
+  const source = readFileSync(join(root, 'app/components/AppointmentFlow.tsx'), 'utf8');
   assert.match(source, /45 minutos/);
   assert.match(source, /Presupuestos en 72 horas/);
   assert.match(source, /Lunes, miércoles y viernes/);

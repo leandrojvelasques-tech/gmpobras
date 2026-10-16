@@ -1,3 +1,4 @@
+import { whatsappDisplay, whatsappUrl } from '../../lib/contact';
 import { HeaderLogo } from '../components/HeaderLogo';
 import type { Metadata } from 'next';
 import Image from 'next/image';
@@ -88,7 +89,8 @@ export default function FrequentlyAskedQuestionsPage() {
         <nav aria-label="Enlaces del pie">
           <a href="/">Inicio</a>
           <a href="/#obras">Proyectos</a>
-          <a href="/#contacto">Contacto</a>
+          <a href="/contacto">Contacto</a>
+          <a href={whatsappUrl} target="_blank" rel="noreferrer">WhatsApp · {whatsappDisplay}</a>
         </nav>
       </footer>
     </main>

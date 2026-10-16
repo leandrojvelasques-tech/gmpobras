@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { IBM_Plex_Mono } from 'next/font/google';
 import localFont from 'next/font/local';
 import './globals.css';
+import { WhatsAppBubble } from './components/WhatsAppBubble';
 
 const plexMono = IBM_Plex_Mono({
   variable: '--font-plex-mono',
@@ -56,6 +57,7 @@ export default function RootLayout({
       </head>
       <body className={`${plexMono.variable} ${sansation.variable}`}>
         {children}
+        <WhatsAppBubble />
       </body>
     </html>
   );

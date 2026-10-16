@@ -1,3 +1,4 @@
+import { whatsappDisplay, whatsappUrl } from '../../lib/contact';
 import { HeaderLogo } from '../components/HeaderLogo';
 import type { Metadata } from 'next';
 import Image from 'next/image';
@@ -392,7 +393,8 @@ export default function CassaformaSystemPage() {
         <p>MMO Gustavo Pinto · Comodoro Rivadavia</p>
         <div>
           <a href="https://cassaforma.com/sistema-constructivo" target="_blank" rel="noreferrer">Fuente técnica consultada: Cassaforma</a>
-          <a href="/#contacto">Contacto GMP Obras</a>
+          <a href="/contacto">Contacto GMP Obras</a>
+          <a href={whatsappUrl} target="_blank" rel="noreferrer">WhatsApp · {whatsappDisplay}</a>
         </div>
       </footer>
     </main>

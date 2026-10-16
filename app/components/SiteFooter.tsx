@@ -1,3 +1,4 @@
+import { whatsappDisplay, whatsappUrl } from '../../lib/contact';
 import Image from 'next/image';
 
 export function SiteFooter() {
@@ -17,6 +18,7 @@ export function SiteFooter() {
         </div>
         <a href="/">www.gmpobras.com.ar</a>
         <a href="mailto:gpinto@gmpobras.com">gpinto@gmpobras.com</a>
+        <a href={whatsappUrl} target="_blank" rel="noreferrer">WhatsApp · {whatsappDisplay}</a>
         <span>Ramos Mejía 298 · Comodoro Rivadavia</span>
         <a href="https://www.instagram.com/gmpobras/" target="_blank" rel="noreferrer">Instagram · @gmpobras</a>
       </div>
