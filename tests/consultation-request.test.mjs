@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import { normalizeRequest, validateRequest, normalizeDetails, validateDetails } from '../lib/consultation-request.mjs';
 const now = new Date('2026-10-11T20:00:00Z');
-const minimal = { name: 'Prueba local', email: 'prueba@example.com', meetingMode: 'Presencial en la oficina', preferredDay: '2026-10-12', preferredTime: '10:00' };
+const minimal = { name: 'Prueba local', email: 'prueba@example.com', meetingMode: 'Presencial en la oficina', preferredDay: '2026-10-12', preferredTime: '09:00' };
 test('a request accepts only contact and meeting preference, with no mandatory project details or WhatsApp', () => {
   const values = normalizeRequest(minimal);
   assert.equal(validateRequest(values, true, now), '');
@@ -11,7 +11,7 @@ test('a request accepts only contact and meeting preference, with no mandatory p
 });
 test('both meeting modes are accepted and consent, email and a future offered slot are required', () => {
   assert.equal(validateRequest(normalizeRequest({ ...minimal, meetingMode: 'Virtual por Google Meet' }), true, now), '');
-  for (const changes of [{ email: 'bad' }, { preferredDay: '2026-10-13' }, { preferredTime: '11:00' }, { meetingMode: 'other' }, { name: '' }]) {
+  for (const changes of [{ email: 'bad' }, { preferredDay: '2026-10-13' }, { preferredTime: '15:00' }, { meetingMode: 'other' }, { name: '' }]) {
     assert.ok(validateRequest(normalizeRequest({ ...minimal, ...changes }), true, now));
   }
   assert.ok(validateRequest(normalizeRequest(minimal), false, now));

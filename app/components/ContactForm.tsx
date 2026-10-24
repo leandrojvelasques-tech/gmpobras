@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from 'react';
 import { ArrowRight } from 'lucide-react';
+import { contactEmail } from '../../lib/contact';
 
 export function ContactForm() {
   const [sendingContact, setSendingContact] = useState(false);
@@ -21,7 +22,7 @@ export function ContactForm() {
     try {
       const response = await fetch('/api/contacto', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: `${firstName} ${lastName}`.trim(), email, message, website: formData.get('website') }) });
       const result = await response.json() as { fallback?: boolean; error?: string; notification?: string };
-      if (result.fallback) { window.location.href = `mailto:gpinto@gmpobras.com?subject=${subject}&body=${body}`; setContactFeedback('Se preparó el mensaje en tu aplicación de correo.'); return; }
+      if (result.fallback) { window.location.href = `mailto:${contactEmail}?subject=${subject}&body=${body}`; setContactFeedback('Se preparó el mensaje en tu aplicación de correo.'); return; }
       if (!response.ok) throw new Error(result.error || 'No pudimos recibir tu mensaje.');
       setContactFeedback(result.notification === 'test' ? 'Mensaje de prueba registrado. El envío se dirige al correo de pruebas.' : result.notification === 'pending' ? 'Tu mensaje quedó registrado. El aviso por correo está pendiente de envío.' : 'Recibimos tu mensaje. Gracias por contactarte.');
       form.reset();
@@ -39,7 +40,7 @@ export function ContactForm() {
       <label htmlFor="contact-email">Email<input id="contact-email" name="email" type="email" required autoComplete="email" /></label>
       <label htmlFor="contact-mensaje">Dejame tu mensaje<textarea id="contact-mensaje" name="mensaje" rows={6} required /></label>
       <button className="button button-primary" type="submit" disabled={sendingContact}>{sendingContact ? 'Enviando…' : 'Enviar mensaje'} <ArrowRight aria-hidden="true" size={19} /></button>
-      <small>También podés escribirme directamente a <a href="mailto:gpinto@gmpobras.com">gpinto@gmpobras.com</a>.</small>
+      <small>También podés escribirme directamente a <a href={`mailto:${contactEmail}`}>{contactEmail}</a>.</small>
       {contactFeedback && <p role="status">{contactFeedback}</p>}
     </form>
   );

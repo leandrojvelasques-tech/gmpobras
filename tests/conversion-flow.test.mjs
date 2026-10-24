@@ -37,7 +37,7 @@ test('appointment request starts with calendar selection and collects project de
   assert.match(source, /45 minutos/);
   assert.match(source, /Presupuestos en 72 horas/);
   assert.match(source, /Lunes, miércoles y viernes/);
-  assert.match(source, /10:00 o 15:00/);
+  assert.match(source, /09:00 o 11:00/);
   assert.match(source, /booking-calendar-grid/);
   assert.match(source, /Tus datos para la consulta/);
   assert.match(source, /WhatsApp \(opcional\)/);

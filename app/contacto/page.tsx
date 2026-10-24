@@ -1,4 +1,4 @@
-import { whatsappDisplay, whatsappUrl } from '../../lib/contact';
+import { contactEmail, whatsappDisplay, whatsappUrl } from '../../lib/contact';
 import type { Metadata } from 'next';
 import { AtSign, Mail, MapPin, MessageCircle } from 'lucide-react';
 import { ContactForm } from '../components/ContactForm';
@@ -20,7 +20,7 @@ export default function ContactPage() {
           </p>
           <div className="contact-direct" aria-label="Datos de contacto de GMP Obras">
             <a href={whatsappUrl} target="_blank" rel="noreferrer"><MessageCircle aria-hidden="true" size={18} /> WhatsApp · {whatsappDisplay}</a>
-            <a href="mailto:gpinto@gmpobras.com"><Mail aria-hidden="true" size={16} /> gpinto@gmpobras.com</a>
+            <a href={`mailto:${contactEmail}`}><Mail aria-hidden="true" size={16} /> {contactEmail}</a>
             <a href="https://www.google.com/maps/dir/?api=1&destination=Ramos+Mej%C3%ADa+298%2C+Comodoro+Rivadavia%2C+Chubut" target="_blank" rel="noreferrer">
               <MapPin aria-hidden="true" size={16} /> Ramos Mejía 298 · Comodoro Rivadavia
             </a>

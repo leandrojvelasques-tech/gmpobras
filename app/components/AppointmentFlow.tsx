@@ -174,7 +174,7 @@ export function AppointmentFlow({ thankYou = false }: { thankYou?: boolean }) {
               <p>Tu reserva quedó guardada con el número <strong>#{confirmationId}</strong>. El horario ya está reservado para vos.</p>
               <p className="booking-demo-confirmation">{notification === 'accepted' ? 'Te enviamos la confirmación por correo.' : notification === 'test' ? 'La confirmación se envió al correo de pruebas.' : notification === 'pending' ? 'La reserva está confirmada. El correo está pendiente de envío.' : 'La reserva está confirmada. Los avisos por correo todavía no están activos.'}</p>
               <p>Ante cualquier consulta, escribinos a <a href={`mailto:${contactEmail}`}>{contactEmail}</a> o por <a href={whatsappUrl} target="_blank" rel="noreferrer">WhatsApp al {whatsappDisplay}</a>.</p>
-              <a className="button button-primary" href={googleCalendarLink({ preferredDay: selectedDate, preferredTime: selectedTime, meetingMode: meetingMode === 'presencial' ? 'Presencial en la oficina' : 'Virtual por Google Meet' }, confirmationId, 'gpinto@gmpobras.com')} target="_blank" rel="noreferrer">Agregar a Google Calendar <CalendarDays size={18} aria-hidden="true" /></a>
+              <a className="button button-primary" href={googleCalendarLink({ preferredDay: selectedDate, preferredTime: selectedTime, meetingMode: meetingMode === 'presencial' ? 'Presencial en la oficina' : 'Virtual por Google Meet' }, confirmationId, contactEmail)} target="_blank" rel="noreferrer">Agregar a Google Calendar <CalendarDays size={18} aria-hidden="true" /></a>
               <div className="booking-optional-invitation">
                 <h3>¿Querés contarle algo de la obra?</h3>
                 <p>Podés sumar una idea, la ubicación o un enlace a tus planos. Es opcional.</p>
@@ -195,7 +195,7 @@ export function AppointmentFlow({ thankYou = false }: { thankYou?: boolean }) {
           ) : (
             <>
               <h2 id="booking-title">Elegí el día y la hora.</h2>
-              <p className="booking-lead">Lunes, miércoles y viernes · 10:00 o 15:00</p>
+              <p className="booking-lead">Lunes, miércoles y viernes · 09:00 o 11:00</p>
               <div className="booking-calendar-layout">
                 <div className="booking-calendar">
                   <div className="booking-month"><h3 aria-live="polite">{monthLabel}</h3><div><button type="button" aria-label="Mes anterior" disabled={!month || month <= today.slice(0, 7)} onClick={() => changeMonth(-1)}><ChevronLeft size={20} /></button><button type="button" aria-label="Mes siguiente" disabled={!month || month >= lastBookingMonth()} onClick={() => changeMonth(1)}><ChevronRight size={20} /></button></div></div>
