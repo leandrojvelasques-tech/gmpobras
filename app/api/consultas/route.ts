@@ -29,7 +29,7 @@ export async function POST(request: Request) {
   const error = validateRequest(values, payload.acceptedPrivacy);
   if (error) return Response.json({ error }, { status: 400, headers: privateHeaders });
   try {
-    if (notificationSettings() && await notificationLimited(values.email)) return Response.json({ error: 'Esperá un minuto antes de solicitar otra consulta.' }, { status: 429, headers: privateHeaders });
+    if (notificationSettings('consulta') && await notificationLimited(values.email)) return Response.json({ error: 'Esperá un minuto antes de solicitar otra consulta.' }, { status: 429, headers: privateHeaders });
     const detailsToken = crypto.randomUUID() + crypto.randomUUID();
     const [consultation] = await getDb().insert(consultations).values({
       ...values,

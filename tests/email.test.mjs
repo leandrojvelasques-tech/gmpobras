@@ -27,6 +27,17 @@ test('live delivery keeps visitor and business recipients distinct', () => {
   assert.equal(messages[0].reply_to, values.email);
   assert.doesNotMatch(messages[1].text, /Hola/);
 });
+test('appointment delivery can be live while contact delivery stays in test mode', () => {
+  const configured = { ...env, EMAIL_APPOINTMENT_MODE: 'live' };
+  const appointment = buildEmails(emailSettings(configured, 'consulta'), 'consulta', values, 20);
+  const contact = buildEmails(emailSettings(configured, 'contacto'), 'contacto', { ...values, message: 'Hola' }, 21);
+  assert.deepEqual(appointment.map(message => message.to[0]), ['gustavo@gmpobras.com.ar', 'visitante@example.invalid']);
+  assert.equal(appointment[1].reply_to, 'gustavo@gmpobras.com.ar');
+  assert.match(appointment[1].text, /gustavo%40gmpobras\.com\.ar/);
+  assert.match(appointment[1].html, /gustavo%40gmpobras\.com\.ar/);
+  assert.deepEqual(contact.map(message => message.to[0]), [env.EMAIL_TEST_TO, env.EMAIL_TEST_TO]);
+  assert.equal(emailSettings({ ...configured, EMAIL_APPOINTMENT_MODE: 'invalid' }, 'consulta'), null);
+});
 test('sender uses stable idempotency and propagates rejection or malformed acceptance', async () => {
   const settings = emailSettings(env);
   const messages = buildEmails(settings, 'consulta', values, 17);

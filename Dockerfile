@@ -4,6 +4,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates
 
 WORKDIR /app
 
+ENV EMAIL_APPOINTMENT_MODE=live
+
 COPY package*.json ./
 RUN npm install --no-audit --no-fund
 

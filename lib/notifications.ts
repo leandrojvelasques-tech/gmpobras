@@ -4,7 +4,7 @@ import { getDb } from '../db';
 import { emailNotifications } from '../db/schema';
 import { emailSettings, buildEmails, sendEmails } from './email.mjs';
 
-export function notificationSettings() { return emailSettings(env as unknown as Record<string, string>); }
+export function notificationSettings(kind = 'contacto') { return emailSettings(env as unknown as Record<string, string>, kind); }
 
 export async function notificationLimited(email: string) {
   const recent = await getDb().select({ id: emailNotifications.id }).from(emailNotifications).where(and(eq(emailNotifications.contactEmail, email), gt(emailNotifications.createdAt, new Date(Date.now() - 60_000).toISOString()))).limit(1);
@@ -12,7 +12,7 @@ export async function notificationLimited(email: string) {
 }
 
 export async function notify(kind: string, values: Record<string, unknown>, reference: number) {
-  const settings = notificationSettings();
+  const settings = notificationSettings(kind);
   if (!settings) return 'disabled';
   const id = crypto.randomUUID();
   const messages = buildEmails(settings, kind, values, reference);
