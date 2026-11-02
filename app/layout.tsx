@@ -51,6 +51,21 @@ export default function RootLayout({
               function gtag(){window.dataLayer.push(arguments);}
               gtag('js', new Date());
               gtag('config', 'G-L4L8THHBE6');
+              gtag('config', 'AW-18548100639');
+
+              document.addEventListener('click', function (event) {
+                if (!(event.target instanceof Element)) return;
+                var link = event.target.closest('a[href]');
+                if (!link) return;
+                var url = new URL(link.href, window.location.href);
+                if (url.protocol !== 'https:' && url.protocol !== 'http:') return;
+                if (url.hostname !== 'wa.me' && url.hostname !== 'api.whatsapp.com') return;
+
+                gtag('event', 'conversion', {
+                  send_to: 'AW-18548100639/wUoaCMbunLAdEJ-ctoxF',
+                  transport_type: 'beacon'
+                });
+              }, true);
             `,
           }}
         />
