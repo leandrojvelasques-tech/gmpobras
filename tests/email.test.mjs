@@ -15,6 +15,7 @@ test('test mode redirects owner and visitor notices exclusively to the test mail
   for (const message of messages) {
     assert.deepEqual(message.to, ['info@leandrovelasques.com.ar']);
     assert.equal(message.reply_to, 'info@leandrovelasques.com.ar');
+    assert.equal(message.bcc, undefined);
     assert.match(message.subject, /PRUEBA GMP/);
     assert.doesNotMatch(message.text, /NEVER_EXPOSE/);
   }
@@ -51,4 +52,30 @@ test('sender uses stable idempotency and propagates rejection or malformed accep
   assert.deepEqual(ids, ['a', 'b']);
   await assert.rejects(sendEmails(settings, messages, 'unique-id', async () => Response.json({ message: 'No' }, { status: 403 })));
   await assert.rejects(sendEmails(settings, messages, 'unique-id', async () => Response.json({ data: [] })));
+});
+
+
+test('live appointments copy Leandro without exposing the copy to the visitor', () => {
+  const settings = emailSettings({ ...env, EMAIL_MODE: 'live', EMAIL_TO: 'info@leandrovelasques.com.ar' }, 'consulta');
+  const messages = buildEmails(settings, 'consulta', values, 23);
+  assert.deepEqual(messages[0].to, ['gustavo@gmpobras.com.ar']);
+  assert.deepEqual(messages[0].bcc, ['info@leandrovelasques.com.ar']);
+  assert.deepEqual(messages[1].to, [values.email]);
+  assert.equal(messages[1].bcc, undefined);
+  assert.equal(messages[1].reply_to, 'gustavo@gmpobras.com.ar');
+});
+
+test('live contacts notify Leandro and confirm directly to the visitor', () => {
+  const settings = emailSettings({ ...env, EMAIL_MODE: 'live', EMAIL_TO: 'info@leandrovelasques.com.ar' });
+  const messages = buildEmails(settings, 'contacto', { ...values, message: 'Consulta' }, 24);
+  assert.deepEqual(messages[0].to, ['info@leandrovelasques.com.ar']);
+  assert.equal(messages[0].bcc, undefined);
+  assert.deepEqual(messages[1].to, [values.email]);
+  assert.equal(messages[1].reply_to, 'info@leandrovelasques.com.ar');
+  assert.doesNotMatch(messages[1].subject, /PRUEBA/);
+});
+
+test('appointment copy is omitted when the configured mailbox is already the owner', () => {
+  const settings = emailSettings({ ...env, EMAIL_MODE: 'live', EMAIL_TO: 'gustavo@gmpobras.com.ar' }, 'consulta');
+  assert.equal(buildEmails(settings, 'consulta', values, 25)[0].bcc, undefined);
 });
