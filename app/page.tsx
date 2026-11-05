@@ -1,3 +1,4 @@
+import { PressSection } from './components/PressSection';
 import { HeaderLogo } from './components/HeaderLogo';
 import {
   ArrowDownRight,
@@ -191,6 +192,8 @@ export default function Home() {
           </a>
         </div>
       </section>
+
+      <PressSection />
 
       <section className="faq-section" id="preguntas-frecuentes" aria-labelledby="faq-title">
         <div className="faq-heading">

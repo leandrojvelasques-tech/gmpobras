@@ -1,0 +1,32 @@
+[
+  {
+    "fecha": "2023-12-18",
+    "medio": "ADNSUR",
+    "titulo": "Innovación y ventajas en construcción de viviendas adaptadas a las caracteristicas de Comodoro Rivadavia",
+    "url": "https://www.adnsur.com.ar/empresarias/innovacion-y-ventajas-en-construccion-de-viviendas-adaptadas-a-las-caracteristicas-de-comodoro-rivadavia_a657b793d3999fce70cd3c511",
+    "maqueta": true,
+    "image": "https://adnsur-app.tadevel-cdn.com/hostname/www.adnsur.com.ar/api/v1/image/article/657b793d3999fce70cd3c511/facebook?v=20d2ff4ddc70f3a3664f2a29f66e6b36&s=0679bd29d83f67b04940d80796a5208e",
+    "foto_original": "https://adnsur-assets.tadevel-cdn.com/657b79a13999fce70cd3c70e/720.webp",
+    "foto_local": "/prensa/adnsur-2023-12-18.webp"
+  },
+  {
+    "fecha": "2023-11-17",
+    "medio": "ADNSUR",
+    "titulo": "GMP obras, innovación en construcción de viviendas adaptadas a la geografía de Comodoro",
+    "url": "https://www.adnsur.com.ar/empresarias/-gmp-obras---innovacion-en-construccion-de-viviendas-adaptadas-a-la-geografia-de-comodoro_a655601012b631e307ae64a93",
+    "maqueta": true,
+    "image": "https://adnsur-app.tadevel-cdn.com/hostname/www.adnsur.com.ar/api/v1/image/article/655601012b631e307ae64a93/facebook?v=28c00802bc440abc200e01d04fa3fc55&s=34c46c30b779fcc7edeeab1dba2299c8",
+    "foto_original": "https://adnsur-assets.tadevel-cdn.com/65564b262b631e307aec275e/720.webp",
+    "foto_local": "/prensa/adnsur-2023-11-17.webp"
+  },
+  {
+    "fecha": "2023-10-18",
+    "medio": "ADNSUR",
+    "titulo": "Tu casa en tiempo record: el sistema constructivo que la rompió en Expo Industrial",
+    "url": "https://www.adnsur.com.ar/empresarias/tu-casa-en-tiempo-record--el-sistema-constructivo-que-la-rompio-en-expo-industrial_a6526b47a2998d22019e64f4d",
+    "maqueta": true,
+    "image": "https://adnsur-app.tadevel-cdn.com/hostname/www.adnsur.com.ar/api/v1/image/article/6526b47a2998d22019e64f4d/facebook?v=33ea84d3241e861e1fdd57a818f29bac&s=c3cbd08ffa1f4a0d48a2d5721a40b6db",
+    "foto_original": "https://adnsur-assets.tadevel-cdn.com/652fee045f41a6dea9b15c4f/720.webp",
+    "foto_local": "/prensa/adnsur-2023-10-18.webp"
+  }
+]
