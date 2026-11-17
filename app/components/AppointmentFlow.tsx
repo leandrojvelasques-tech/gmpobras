@@ -5,8 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import { ArrowLeft, ArrowRight, CalendarDays, Check, ChevronLeft, ChevronRight, Clock3, MapPin, Video, MessageCircle } from 'lucide-react';
 import Image from 'next/image';
 import { argentinaDate, availableTimes, firstAvailableDate, formatAppointmentDate, lastBookingMonth, nextAvailableSlots } from '../../lib/appointment-schedule.mjs';
-import { VideoTestimonial } from './VideoTestimonial';
-import { projects } from '../data/projects';
+import { ProjectCards } from './ProjectCards';
 import { whatsappUrl, whatsappDisplay, contactEmail } from '../../lib/contact';
 import { readBookingReceipt, bookingReceiptKey } from '../../lib/booking-receipt.mjs';
 import { googleCalendarLink } from '../../lib/appointment-email.mjs';
@@ -96,7 +95,6 @@ export function AppointmentFlow({ thankYou = false, preview = false }: { thankYo
   const monthLabel = month ? new Intl.DateTimeFormat('es-AR', { month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${month}-01T12:00:00Z`)) : '';
   const times = selectedDate && availabilityReady ? availableTimes(selectedDate, booked) : [];
   const upcomingSlots = availabilityReady ? nextAvailableSlots(booked) : [];
-  const testimonialProject = projects.find((project) => project.slug === 'javier-aguila')!;
   function changeMonth(offset: number) {
     const [year, monthNumber] = month.split('-').map(Number);
     const date = new Date(Date.UTC(year, monthNumber - 1 + offset, 1));
@@ -165,19 +163,12 @@ export function AppointmentFlow({ thankYou = false, preview = false }: { thankYo
             <h1>{thankYou ? 'Gracias por agendar tu cita.' : 'Consultá por tu obra con Gustavo.'}</h1>
             <p>{thankYou ? 'Encontrá acá los datos de tu consulta con Gustavo.' : 'Conversá con Gustavo sobre tu vivienda, ampliación o local en Comodoro Rivadavia o Rada Tilly.'}</p>
             {!thankYou && <div className="booking-contact-options">
-              <a className="button booking-schedule-link" href="#elegir-turno">Agendar consulta sin costo <ArrowRight size={18} aria-hidden="true" /></a>
               <a className="booking-whatsapp-link" href={`${whatsappUrl}?text=${encodeURIComponent('Hola Gustavo, estoy evaluando una obra y quisiera hacerte una consulta.')}`} target="_blank" rel="noreferrer"><MessageCircle size={20} aria-hidden="true" />Prefiero consultar por WhatsApp</a>
             </div>}
-            {!thankYou && <>
-              <ul className="booking-benefits">
-                <li><Check size={18} aria-hidden="true" />Revisamos tu idea y lo que necesitás construir.</li>
-                <li><Check size={18} aria-hidden="true" />Conversamos sobre la ubicación y la etapa del proyecto.</li>
-                <li><Check size={18} aria-hidden="true" />Definimos qué información hace falta para avanzar.</li>
-              </ul>
-              <p className="booking-preparation">Podés consultar aunque todavía no tengas planos.</p>
+            {thankYou && <>
+              <div className="booking-budget-note"><strong>Presupuestos en 72 horas</strong><span>Después de la consulta.</span></div>
+              <div className="booking-facts"><span><Clock3 size={17} aria-hidden="true" />45 minutos</span><span><MapPin size={17} aria-hidden="true" />Comodoro Rivadavia · Rada Tilly</span></div>
             </>}
-            <div className="booking-budget-note"><strong>Presupuestos en 72 horas</strong><span>Después de la consulta.</span></div>
-            <div className="booking-facts"><span><Clock3 size={17} aria-hidden="true" />45 minutos</span><span><MapPin size={17} aria-hidden="true" />Comodoro Rivadavia · Rada Tilly</span></div>
 
           </div>
           <figure className="booking-photo">
@@ -218,7 +209,6 @@ export function AppointmentFlow({ thankYou = false, preview = false }: { thankYo
             </div>
           ) : (
             <>
-              <p className="section-kicker">Consulta inicial sin costo</p>
               <h2 id="booking-title">Elegí tu horario.</h2>
               <p className="booking-lead">45 minutos con Gustavo. Presencial en Ramos Mejía 298 o por Google Meet.</p>
               <div className="booking-upcoming" aria-label="Próximos horarios disponibles">
@@ -271,12 +261,21 @@ export function AppointmentFlow({ thankYou = false, preview = false }: { thankYo
           )}
         </section>
       </div>
-      {!thankYou && <section className="booking-evidence" aria-labelledby="booking-evidence-title">
-        <div className="booking-evidence-copy"><p className="section-kicker">Obras y experiencias reales</p><h2 id="booking-evidence-title">Conocé el trabajo de GMP Obras.</h2><p>Una vivienda en Rada Tilly, su proceso de construcción y la experiencia de su propietario, Javier Águila.</p><a href="/proyectos/javier-aguila">Ver la vivienda y su proceso <ArrowRight size={18} aria-hidden="true" /></a>
-          {testimonialProject.heroImage && <a className="booking-project-photo" href="/proyectos/javier-aguila"><Image src={testimonialProject.heroImage.src} alt={testimonialProject.heroImage.alt} width={850} height={550} unoptimized /></a>}
-        </div>
-        <div className="booking-evidence-video">{testimonialProject.testimonial && <VideoTestimonial testimonial={testimonialProject.testimonial} compact />}<p>Javier Águila · Vivienda en Rada Tilly</p></div>
-      </section>}
+      {!thankYou && <>
+        <section className="booking-explained" aria-labelledby="booking-explained-title">
+          <h2 id="booking-explained-title">¿Qué vemos en la consulta?</h2>
+          <div className="booking-explained-grid">
+            <div><h3>Tu idea</h3><p>Revisamos qué querés construir y qué necesitás. Podés consultar aunque todavía no tengas planos.</p></div>
+            <div><h3>El lugar y la etapa</h3><p>Conversamos sobre la ubicación de la obra y lo que ya tenés definido.</p></div>
+            <div><h3>Los próximos pasos</h3><p>Definimos qué información hace falta para avanzar con tu proyecto.</p></div>
+          </div>
+          <p className="booking-budget-summary"><strong>Presupuestos en 72 horas</strong><span>Después de la consulta.</span></p>
+        </section>
+        <section className="booking-evidence" aria-labelledby="booking-evidence-title">
+          <div className="booking-evidence-heading"><p className="section-kicker">Obras y experiencias reales</p><h2 id="booking-evidence-title">Conocé nuestras obras.</h2><p>Fotos, etapas y testimonios de cada proyecto.</p></div>
+          <div className="projects-page-grid"><ProjectCards nested /></div>
+        </section>
+      </>}
     </main>
   );
 }
