@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import { PressSection } from './components/PressSection';
 import { HeaderLogo } from './components/HeaderLogo';
 import {
@@ -15,6 +16,10 @@ import { HouseModels } from './components/HouseModels';
 import { FaqList } from './components/FaqList';
 import { homeFaqs } from './data/faqs';
 import { projects } from './data/projects';
+
+export const metadata: Metadata = {
+  alternates: { canonical: 'https://www.gmpobras.com.ar/' },
+};
 
 const featuredProjectOrder = ['volar-sin-escalas', 'vivienda-gabriel-ambrozy'];
 const homeProjects = [...projects].sort((projectA, projectB) => {
