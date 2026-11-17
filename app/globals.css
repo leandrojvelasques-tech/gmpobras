@@ -1099,7 +1099,7 @@ a:focus-visible, button:focus-visible, video:focus-visible { outline: 3px solid 
 .booking-improved .booking-layout { min-height: 0; }
 .booking-improved .booking-intro { align-content: start; gap: 32px; padding-block: 64px; }
 .booking-improved .booking-intro h1 { font-size: clamp(36px,3.5vw,52px); }
-.booking-improved .booking-card { box-shadow: none; }
+.booking-improved .booking-card { align-self: center; box-shadow: none; }
 .booking-explained { padding: 64px clamp(24px,7.3vw,112px); background: white; }
 .booking-explained h2, .booking-evidence-heading h2 { margin: 0 0 28px; color: var(--blue-deep); font-size: clamp(28px,3vw,40px); font-weight: 400; line-height: 1.15; letter-spacing: -.03em; }
 .booking-budget-summary { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 32px 0 0; padding-top: 24px; border-top: 1px solid #d8dce4; font-size: 14px; }
@@ -1110,6 +1110,7 @@ a:focus-visible, button:focus-visible, video:focus-visible { outline: 3px solid 
 .booking-evidence-heading > p:last-child { margin: 0; color: #626873; font-size: 16px; }
 @media (max-width: 760px) {
   .booking-improved .booking-intro { align-content: start; padding: 30px 24px; gap: 20px; }
+  .booking-improved .booking-card { margin-block: 24px; }
   .booking-improved .booking-intro h1 { font-size: clamp(32px,8vw,42px); }
   .booking-improved .booking-intro-copy > p:not(.section-kicker) { margin-bottom: 12px; }
   .booking-explained { padding: 40px 24px; }
