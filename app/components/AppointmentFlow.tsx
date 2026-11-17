@@ -2,9 +2,11 @@
 
 import { HeaderLogo } from './HeaderLogo';
 import { useEffect, useRef, useState } from 'react';
-import { ArrowLeft, ArrowRight, CalendarDays, Check, ChevronLeft, ChevronRight, Clock3, MapPin, Video } from 'lucide-react';
+import { ArrowLeft, ArrowRight, CalendarDays, Check, ChevronLeft, ChevronRight, Clock3, MapPin, Video, MessageCircle } from 'lucide-react';
 import Image from 'next/image';
-import { argentinaDate, availableTimes, firstAvailableDate, formatAppointmentDate, lastBookingMonth } from '../../lib/appointment-schedule.mjs';
+import { argentinaDate, availableTimes, firstAvailableDate, formatAppointmentDate, lastBookingMonth, nextAvailableSlots } from '../../lib/appointment-schedule.mjs';
+import { VideoTestimonial } from './VideoTestimonial';
+import { projects } from '../data/projects';
 import { whatsappUrl, whatsappDisplay, contactEmail } from '../../lib/contact';
 import { readBookingReceipt, bookingReceiptKey } from '../../lib/booking-receipt.mjs';
 import { googleCalendarLink } from '../../lib/appointment-email.mjs';
@@ -15,7 +17,7 @@ const initialDetails = { projectType: '', city: '', address: '', projectDetail: 
 const officeAddress = 'Ramos Mejía 298 · Comodoro Rivadavia';
 const officeMapUrl = 'https://www.google.com/maps/dir/?api=1&destination=Ramos+Mej%C3%ADa+298%2C+Comodoro+Rivadavia%2C+Chubut';
 
-export function AppointmentFlow({ thankYou = false }: { thankYou?: boolean }) {
+export function AppointmentFlow({ thankYou = false, preview = false }: { thankYou?: boolean; preview?: boolean }) {
   const [selectedDate, setSelectedDate] = useState('');
   const [selectedTime, setSelectedTime] = useState('');
   const [month, setMonth] = useState('');
@@ -27,6 +29,7 @@ export function AppointmentFlow({ thankYou = false }: { thankYou?: boolean }) {
   const [notification, setNotification] = useState('disabled');
   const [booked, setBooked] = useState<{ date: string; time: string }[]>([]);
   const [availabilityReady, setAvailabilityReady] = useState(false);
+  const [showCalendar, setShowCalendar] = useState(false);
   const [detailsToken, setDetailsToken] = useState('');
   const [acceptedPrivacy, setAcceptedPrivacy] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -39,6 +42,11 @@ export function AppointmentFlow({ thankYou = false }: { thankYou?: boolean }) {
   const confirmationHeading = useRef<HTMLHeadingElement>(null);
   const contactHeading = useRef<HTMLHeadingElement>(null);
   async function refreshAvailability(initial = false) {
+    if (preview) {
+      setBooked([]); setAvailabilityReady(true);
+      if (initial) { const date = firstAvailableDate([]); setSelectedDate(date); setMonth(date.slice(0, 7)); }
+      return;
+    }
     try {
       const response = await fetch('/api/consultas', { cache: 'no-store' });
       const result = await response.json() as { booked?: { date: string; time: string }[]; error?: string };
@@ -73,7 +81,7 @@ export function AppointmentFlow({ thankYou = false }: { thankYou?: boolean }) {
     if (model) setDetails((current) => ({ ...current, projectType: 'Vivienda nueva', projectDetail: `Me interesa el modelo ${model}.` }));
     const timer = window.setInterval(() => { void refreshAvailability(); }, 60000);
     return () => window.clearInterval(timer);
-  }, [thankYou]);
+  }, [thankYou, preview]);
   useEffect(() => { if (confirmed) confirmationHeading.current?.focus(); }, [confirmed]);
   useEffect(() => { if (selectedTime) contactHeading.current?.focus(); }, [selectedTime]);
 
@@ -87,6 +95,8 @@ export function AppointmentFlow({ thankYou = false }: { thankYou?: boolean }) {
   }
   const monthLabel = month ? new Intl.DateTimeFormat('es-AR', { month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${month}-01T12:00:00Z`)) : '';
   const times = selectedDate && availabilityReady ? availableTimes(selectedDate, booked) : [];
+  const upcomingSlots = availabilityReady ? nextAvailableSlots(booked) : [];
+  const testimonialProject = projects.find((project) => project.slug === 'javier-aguila')!;
   function changeMonth(offset: number) {
     const [year, monthNumber] = month.split('-').map(Number);
     const date = new Date(Date.UTC(year, monthNumber - 1 + offset, 1));
@@ -100,6 +110,7 @@ export function AppointmentFlow({ thankYou = false }: { thankYou?: boolean }) {
   }
   async function submitRequest(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (preview) return;
     if (!meetingMode || !acceptedPrivacy || submitting) return;
     if (!availabilityReady || !availableTimes(selectedDate, booked).includes(selectedTime)) { setSelectedTime(''); setError('Elegí uno de los horarios disponibles.'); return; }
     setError(''); setSubmitting(true);
@@ -141,7 +152,8 @@ export function AppointmentFlow({ thankYou = false }: { thankYou?: boolean }) {
   if (thankYou && !confirmed) return <main className="booking-page"><p role="status">Consultando tu confirmación…</p></main>;
 
   return (
-    <main className="booking-page booking-direct">
+    <main className={`booking-page booking-direct${thankYou ? '' : ' booking-improved'}`}>
+      {preview && <div className="booking-preview-note">Vista previa para revisión · Horarios de ejemplo · No se crean reservas ni se envían avisos.</div>}
       <header className="booking-header">
         <a href="/" className="booking-brand" aria-label="Volver al inicio de GMP Obras"><HeaderLogo /></a>
         <a href="/" className="booking-back"><ArrowLeft aria-hidden="true" size={17} /> Volver al sitio</a>
@@ -150,11 +162,23 @@ export function AppointmentFlow({ thankYou = false }: { thankYou?: boolean }) {
         <aside className="booking-intro">
           <div className="booking-intro-copy">
             <p className="section-kicker section-kicker-light">Consulta inicial · Sin costo</p>
-            <h1>{thankYou ? 'Gracias por agendar tu cita.' : 'Conversemos sobre tu proyecto.'}</h1>
-            <p>{thankYou ? 'Encontrá acá los datos de tu consulta con Gustavo.' : 'Contame qué querés hacer y dónde.'}</p>
+            <h1>{thankYou ? 'Gracias por agendar tu cita.' : 'Consultá por tu obra con Gustavo.'}</h1>
+            <p>{thankYou ? 'Encontrá acá los datos de tu consulta con Gustavo.' : 'Conversá con Gustavo sobre tu vivienda, ampliación o local en Comodoro Rivadavia o Rada Tilly.'}</p>
+            {!thankYou && <div className="booking-contact-options">
+              <a className="button booking-schedule-link" href="#elegir-turno">Agendar consulta sin costo <ArrowRight size={18} aria-hidden="true" /></a>
+              <a className="booking-whatsapp-link" href={`${whatsappUrl}?text=${encodeURIComponent('Hola Gustavo, estoy evaluando una obra y quisiera hacerte una consulta.')}`} target="_blank" rel="noreferrer"><MessageCircle size={20} aria-hidden="true" />Prefiero consultar por WhatsApp</a>
+            </div>}
+            {!thankYou && <>
+              <ul className="booking-benefits">
+                <li><Check size={18} aria-hidden="true" />Revisamos tu idea y lo que necesitás construir.</li>
+                <li><Check size={18} aria-hidden="true" />Conversamos sobre la ubicación y la etapa del proyecto.</li>
+                <li><Check size={18} aria-hidden="true" />Definimos qué información hace falta para avanzar.</li>
+              </ul>
+              <p className="booking-preparation">Podés consultar aunque todavía no tengas planos.</p>
+            </>}
             <div className="booking-budget-note"><strong>Presupuestos en 72 horas</strong><span>Después de la consulta.</span></div>
             <div className="booking-facts"><span><Clock3 size={17} aria-hidden="true" />45 minutos</span><span><MapPin size={17} aria-hidden="true" />Comodoro Rivadavia · Rada Tilly</span></div>
-            {!thankYou && <a className="booking-mobile-link" href="#elegir-turno">Elegir un horario <ArrowRight size={18} aria-hidden="true" /></a>}
+
           </div>
           <figure className="booking-photo">
             <Image src="/gustavo-pinto-atendiendo-consulta.webp" alt="Gustavo Pinto atiende una consulta por teléfono mientras revisa planos en su oficina." width={1000} height={1333} unoptimized priority />
@@ -194,10 +218,21 @@ export function AppointmentFlow({ thankYou = false }: { thankYou?: boolean }) {
             </div>
           ) : (
             <>
-              <h2 id="booking-title">Elegí el día y la hora.</h2>
-              <p className="booking-lead">Lunes, miércoles y viernes · 09:00 o 11:00</p>
-              <div className="booking-calendar-layout">
+              <p className="section-kicker">Consulta inicial sin costo</p>
+              <h2 id="booking-title">Elegí tu horario.</h2>
+              <p className="booking-lead">45 minutos con Gustavo. Presencial en Ramos Mejía 298 o por Google Meet.</p>
+              <div className="booking-upcoming" aria-label="Próximos horarios disponibles">
+                {!availabilityReady && <p role="status">Consultando horarios…</p>}
+                {availabilityReady && !upcomingSlots.length && <p>No hay horarios disponibles por ahora. Escribinos para coordinar.</p>}
+                {upcomingSlots.map((slot) => <button type="button" key={`${slot.date}-${slot.time}`} aria-pressed={selectedDate === slot.date && selectedTime === slot.time} onClick={() => { setSelectedDate(slot.date); setMonth(slot.date.slice(0, 7)); setSelectedTime(slot.time); setError(''); }}>
+                  <CalendarDays size={20} aria-hidden="true" /><span>{formatAppointmentDate(slot.date)}<strong>{slot.time} h</strong></span><ArrowRight size={18} aria-hidden="true" />
+                </button>)}
+              </div>
+              <button type="button" className="booking-text-button" aria-expanded={showCalendar} aria-controls="booking-full-calendar" onClick={() => setShowCalendar(!showCalendar)}>{showCalendar ? 'Ocultar calendario' : 'Ver más días y horarios'}<CalendarDays size={17} aria-hidden="true" /></button>
+              <small className="booking-zone">Hora de Argentina (UTC−3)</small>
+              {showCalendar && <div id="booking-full-calendar" className="booking-calendar-layout">
                 <div className="booking-calendar">
+                  <p className="booking-calendar-hours">Lunes, miércoles y viernes · 09:00 o 11:00</p>
                   <div className="booking-month"><h3 aria-live="polite">{monthLabel}</h3><div><button type="button" aria-label="Mes anterior" disabled={!month || month <= today.slice(0, 7)} onClick={() => changeMonth(-1)}><ChevronLeft size={20} /></button><button type="button" aria-label="Mes siguiente" disabled={!month || month >= lastBookingMonth()} onClick={() => changeMonth(1)}><ChevronRight size={20} /></button></div></div>
                   <div className="booking-calendar-grid"><span aria-label="Lunes">L</span><span aria-label="Martes">M</span><span aria-label="Miércoles">M</span><span aria-label="Jueves">J</span><span aria-label="Viernes">V</span><span aria-label="Sábado">S</span><span aria-label="Domingo">D</span>
                     {dates.map((date, index) => date ? <button type="button" key={date} disabled={!availabilityReady || !availableTimes(date, booked).length} aria-label={formatAppointmentDate(date)} aria-pressed={selectedDate === date} className={selectedDate === date ? 'is-selected' : ''} onClick={() => { setSelectedDate(date); setSelectedTime(''); setError(''); }}>{Number(date.slice(-2))}</button> : <span key={`empty-${index}`} />)}
@@ -205,7 +240,8 @@ export function AppointmentFlow({ thankYou = false }: { thankYou?: boolean }) {
                   <small className="booking-zone">Hora de Argentina (UTC−3)</small>
                 </div>
                 <div className="booking-times"><h3>{!availabilityReady ? 'Consultando horarios…' : selectedDate ? formatAppointmentDate(selectedDate) : 'Elegí un día'}</h3><p>Horarios disponibles</p>{times.map((time) => <button key={time} type="button" aria-pressed={selectedTime === time} className={selectedTime === time ? 'is-selected' : ''} onClick={() => { setSelectedTime(time); setError(''); }}><Clock3 size={16} aria-hidden="true" />{time}<ArrowRight size={16} aria-hidden="true" /></button>)}<small>45 minutos por consulta</small></div>
-              </div>
+              </div>}
+              <div className="booking-alternative"><strong>¿No te sirven estos horarios?</strong><a href={`${whatsappUrl}?text=${encodeURIComponent('Hola Gustavo, quisiera coordinar una consulta, pero no puedo en los horarios de la web. ¿Podemos buscar otra opción?')}`} target="_blank" rel="noreferrer">Consultá otra opción por WhatsApp <ArrowRight size={16} aria-hidden="true" /></a></div>
               {error && <p role="alert" className="booking-submit-error">{error}</p>}
               {selectedTime ? <form className="booking-contact-form booking-step" onSubmit={submitRequest}>
                 <h3 ref={contactHeading} tabIndex={-1}>Tus datos para la consulta</h3>
@@ -229,12 +265,18 @@ export function AppointmentFlow({ thankYou = false }: { thankYou?: boolean }) {
                 <label>WhatsApp (opcional)<input type="tel" autoComplete="tel" maxLength={80} value={contact.phone} onChange={(event) => setContact({ ...contact, phone: event.target.value })} /></label>
                 <label className="booking-consent"><input type="checkbox" required checked={acceptedPrivacy} onChange={(event) => setAcceptedPrivacy(event.target.checked)} /><span>Acepto que GMP Obras guarde estos datos para contactarme y coordinar esta consulta.</span></label>
                 <small>La información del proyecto es opcional y podés agregarla después de enviar la solicitud.</small>
-                <button type="submit" className="button button-primary" disabled={submitting || !availabilityReady}>{submitting ? 'Reservando consulta…' : 'Reservar consulta'}<ArrowRight size={18} aria-hidden="true" /></button>
+                <button type="submit" className="button button-primary" disabled={preview || submitting || !availabilityReady}>{preview ? 'Reserva desactivada en esta vista previa' : submitting ? 'Reservando consulta…' : 'Reservar consulta'}<ArrowRight size={18} aria-hidden="true" /></button>
               </form> : null}
             </>
           )}
         </section>
       </div>
+      {!thankYou && <section className="booking-evidence" aria-labelledby="booking-evidence-title">
+        <div className="booking-evidence-copy"><p className="section-kicker">Obras y experiencias reales</p><h2 id="booking-evidence-title">Conocé el trabajo de GMP Obras.</h2><p>Una vivienda en Rada Tilly, su proceso de construcción y la experiencia de su propietario, Javier Águila.</p><a href="/proyectos/javier-aguila">Ver la vivienda y su proceso <ArrowRight size={18} aria-hidden="true" /></a>
+          {testimonialProject.heroImage && <a className="booking-project-photo" href="/proyectos/javier-aguila"><Image src={testimonialProject.heroImage.src} alt={testimonialProject.heroImage.alt} width={850} height={550} unoptimized /></a>}
+        </div>
+        <div className="booking-evidence-video">{testimonialProject.testimonial && <VideoTestimonial testimonial={testimonialProject.testimonial} compact />}<p>Javier Águila · Vivienda en Rada Tilly</p></div>
+      </section>}
     </main>
   );
 }

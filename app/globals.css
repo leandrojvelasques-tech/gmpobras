@@ -1070,3 +1070,52 @@ a:focus-visible, button:focus-visible, video:focus-visible { outline: 3px solid 
   .whatsapp-bubble { width: 56px; height: 56px; right: max(16px, env(safe-area-inset-right)); bottom: calc(16px + env(safe-area-inset-bottom)); }
   .site-footer, .faq-page-footer, .system-landing-footer, .booking-page { padding-bottom: calc(88px + env(safe-area-inset-bottom)); }
 }
+/* Booking proposal: clear choices, real work and a compact calendar. */
+.booking-improved .booking-intro { gap: 26px; }
+.booking-improved .booking-benefits { display: grid; gap: 12px; margin: 24px 0; padding: 0; list-style: none; color: #eef2fa; font-size: 15px; line-height: 1.5; }
+.booking-benefits li { display: flex; align-items: start; gap: 10px; }
+.booking-benefits svg { flex-shrink: 0; margin-top: 3px; color: #9dbaf0; }
+.booking-improved .booking-intro-copy .booking-preparation { font-size: 14px; color: white; }
+.booking-contact-options { display: grid; gap: 8px; margin-top: 26px; }
+.booking-schedule-link { background: white; color: var(--blue-deep); justify-content: space-between; }
+.booking-whatsapp-link { display: inline-flex; align-items: center; gap: 10px; min-height: 48px; color: white; font-size: 14px; text-decoration: underline; text-underline-offset: 4px; }
+.booking-improved .booking-photo { display: flex; align-items: center; gap: 16px; }
+.booking-improved .booking-photo img { width: 76px; height: 90px; object-position: center 35%; }
+.booking-improved .booking-photo figcaption { background: transparent; padding: 0; }
+.booking-upcoming { display: grid; gap: 10px; }
+.booking-upcoming > button { display: flex; gap: 14px; align-items: center; width: 100%; min-height: 78px; text-align: left; border: 1px solid #a9b7cf; padding: 14px 18px; background: white; color: var(--blue-deep); font: inherit; cursor: pointer; }
+.booking-upcoming > button:hover { background: #edf1f8; }
+.booking-upcoming > button[aria-pressed=true] { background: var(--blue); color: white; border-color: var(--blue); }
+.booking-upcoming button span { display: grid; gap: 5px; font-size: 14px; }
+.booking-upcoming button strong { font-size: 21px; }
+.booking-upcoming button svg:last-child { margin-left: auto; }
+.booking-improved .booking-text-button { margin-top: 12px; }
+.booking-improved .booking-zone { margin-top: 6px; }
+.booking-improved .booking-calendar-layout { margin-top: 24px; padding-top: 24px; border-top: 1px solid #d8dce4; }
+.booking-alternative { display: grid; gap: 10px; margin-top: 24px; padding-top: 22px; border-top: 1px solid #d8dce4; font-size: 14px; }
+.booking-alternative a { display: inline-flex; align-items: center; gap: 7px; min-height: 36px; color: var(--blue); text-decoration: underline; text-underline-offset: 4px; }
+.booking-evidence { display: grid; grid-template-columns: 1.3fr 1fr; gap: clamp(32px,7vw,100px); max-width: 1200px; margin: auto; padding: 72px 36px; align-items: center; }
+.booking-evidence h2 { color: var(--blue-deep); font-size: clamp(30px,3vw,42px); line-height: 1.1; margin: 16px 0; }
+.booking-evidence-copy > p:not(.section-kicker) { color: #535b68; line-height: 1.6; max-width: 500px; }
+.booking-evidence-copy > a:not(.booking-project-photo) { display: inline-flex; align-items: center; gap: 12px; min-height: 48px; color: var(--blue); text-decoration: underline; text-underline-offset: 4px; }
+.booking-project-photo { display: block; margin-top: 24px; }
+.booking-project-photo img { width: 100%; height: auto; aspect-ratio: 1.65; object-fit: cover; }
+.booking-evidence-video { justify-self: center; max-width: 310px; }
+.booking-evidence-video > p { font-size: 13px; color: #535b68; line-height: 1.5; }
+@media (max-width: 760px) {
+  .booking-improved .booking-intro { padding: 30px 24px; }
+  .booking-improved .booking-intro-copy { padding-right: 0; }
+  .booking-improved .booking-intro h1 { max-width: 480px; font-size: clamp(34px,9vw,46px); }
+  .booking-improved .booking-intro-copy .section-kicker { font-size: 11px; }
+  .booking-improved .booking-photo { position: static; width: auto; max-width: none; }
+  .booking-improved .booking-photo figcaption { display: grid; }
+  .booking-improved .booking-photo img { width: 64px; height: 74px; }
+  .booking-improved .booking-benefits { margin: 20px 0; font-size: 14px; }
+  .booking-improved .booking-facts { font-size: 12px; }
+  .booking-improved .booking-card { scroll-margin-top: 16px; }
+  .booking-evidence { grid-template-columns: 1fr; padding: 42px 24px; gap: 32px; }
+  .booking-evidence-video { max-width: 300px; width: 100%; }
+}
+.booking-calendar-hours { color: #626873; font-size: 12px; line-height: 1.5; margin: 0 0 18px; }
+.booking-improved .booking-intro h1 { max-width: 560px; }
+.booking-improved .booking-intro-copy .booking-preparation { margin-bottom: 20px; }

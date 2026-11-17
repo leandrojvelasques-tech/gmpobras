@@ -41,14 +41,16 @@ export default function RootLayout({
     <html lang="es">
       <head>
         <script
-          async
-          src="https://www.googletagmanager.com/gtag/js?id=G-L4L8THHBE6"
-        />
-        <script
           dangerouslySetInnerHTML={{
             __html: `
+              (function () {
+              if (window.location.hostname !== 'www.gmpobras.com.ar' || window.location.pathname.startsWith('/vista-previa/')) return;
+              var tag = document.createElement('script');
+              tag.async = true;
+              tag.src = 'https://www.googletagmanager.com/gtag/js?id=G-L4L8THHBE6';
+              document.head.appendChild(tag);
               window.dataLayer = window.dataLayer || [];
-              function gtag(){window.dataLayer.push(arguments);}
+              var gtag = window.gtag = function(){window.dataLayer.push(arguments);};
               gtag('js', new Date());
               gtag('config', 'G-L4L8THHBE6');
               gtag('config', 'AW-18548100639');
@@ -66,6 +68,7 @@ export default function RootLayout({
                   transport_type: 'beacon'
                 });
               }, true);
+              })();
             `,
           }}
         />
