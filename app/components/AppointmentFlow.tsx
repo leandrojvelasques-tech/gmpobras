@@ -2,7 +2,7 @@
 
 import { HeaderLogo } from './HeaderLogo';
 import { useEffect, useRef, useState } from 'react';
-import { ArrowLeft, ArrowRight, CalendarDays, Check, ChevronLeft, ChevronRight, Clock3, MapPin, Video, MessageCircle } from 'lucide-react';
+import { ArrowLeft, ArrowRight, CalendarDays, Check, ChevronLeft, ChevronRight, Clock3, MapPin, Video, MessageCircle, Lightbulb, House, Wallet, FileText } from 'lucide-react';
 import Image from 'next/image';
 import { argentinaDate, availableTimes, firstAvailableDate, formatAppointmentDate, lastBookingMonth, nextAvailableSlots } from '../../lib/appointment-schedule.mjs';
 import { ProjectCards } from './ProjectCards';
@@ -172,7 +172,7 @@ export function AppointmentFlow({ thankYou = false, preview = false }: { thankYo
 
           </div>
           <figure className="booking-photo">
-            <Image src="/gustavo-pinto-atendiendo-consulta.webp" alt="Gustavo Pinto atiende una consulta por teléfono mientras revisa planos en su oficina." width={1000} height={1333} unoptimized priority />
+            <Image src={thankYou ? "/gustavo-pinto-atendiendo-consulta.webp" : "/gustavo-pinto-explicando-plano-gmp-obras.webp"} alt={thankYou ? "Gustavo Pinto atiende una consulta en su oficina." : "Gustavo Pinto revisa un plano junto a un cliente en la oficina de GMP Obras."} width={1200} height={1600} unoptimized priority />
             <figcaption><strong>Gustavo Pinto</strong><span>Maestro mayor de obras · GMP Obras</span></figcaption>
           </figure>
         </aside>
@@ -264,11 +264,13 @@ export function AppointmentFlow({ thankYou = false, preview = false }: { thankYo
       {!thankYou && <>
         <section className="booking-explained" aria-labelledby="booking-explained-title">
           <h2 id="booking-explained-title">¿Qué vemos en la consulta?</h2>
-          <div className="booking-explained-grid">
-            <div><h3>Tu idea</h3><p>Revisamos qué querés construir y qué necesitás. Podés consultar aunque todavía no tengas planos.</p></div>
-            <div><h3>El lugar y la etapa</h3><p>Conversamos sobre la ubicación de la obra y lo que ya tenés definido.</p></div>
-            <div><h3>Los próximos pasos</h3><p>Definimos qué información hace falta para avanzar con tu proyecto.</p></div>
-          </div>
+          <ol className="booking-consultation-map" aria-label="Recorrido de la consulta">
+            <li><span className="booking-map-icon"><Lightbulb size={25} aria-hidden="true" /></span><div><span className="booking-map-number" aria-hidden="true">01</span><h3>Tu idea</h3><p>Qué querés construir y qué necesitás. Podés venir aunque todavía no tengas planos.</p></div></li>
+            <li><span className="booking-map-icon"><MapPin size={25} aria-hidden="true" /></span><div><span className="booking-map-number" aria-hidden="true">02</span><h3>El lugar y la etapa</h3><p>Dónde sería la obra y qué tenés definido: terreno, planos o una obra iniciada.</p></div></li>
+            <li><span className="booking-map-icon"><House size={25} aria-hidden="true" /></span><div><span className="booking-map-number" aria-hidden="true">03</span><h3>Modelo de vivienda</h3><p>Si querés una casa, vemos modelos, ambientes y distribución según tus necesidades.</p></div></li>
+            <li><span className="booking-map-icon"><Wallet size={25} aria-hidden="true" /></span><div><span className="booking-map-number" aria-hidden="true">04</span><h3>Posibilidad de financiación</h3><p>Conversamos sobre tu inversión y la posibilidad de financiación para tu proyecto.</p></div></li>
+            <li><span className="booking-map-icon"><FileText size={25} aria-hidden="true" /></span><div><span className="booking-map-number" aria-hidden="true">05</span><h3>Presupuesto y próximos pasos</h3><p>Definimos el alcance y la información necesaria para preparar el presupuesto.</p></div></li>
+          </ol>
           <p className="booking-budget-summary"><strong>Presupuestos en 72 horas</strong><span>Después de la consulta.</span></p>
         </section>
         <section className="booking-evidence" aria-labelledby="booking-evidence-title">
