@@ -1072,8 +1072,6 @@ a:focus-visible, button:focus-visible, video:focus-visible { outline: 3px solid 
 }
 /* Booking proposal: clear choices, real work and a compact calendar. */
 .booking-improved .booking-intro { gap: 26px; }
-.booking-contact-options { display: grid; gap: 8px; margin-top: 26px; }
-.booking-whatsapp-link { display: inline-flex; align-items: center; gap: 10px; min-height: 48px; color: white; font-size: 14px; text-decoration: underline; text-underline-offset: 4px; }
 .booking-upcoming { display: grid; gap: 10px; }
 .booking-upcoming > button { display: flex; gap: 14px; align-items: center; width: 100%; min-height: 78px; text-align: left; border: 1px solid #a9b7cf; padding: 14px 18px; background: white; color: var(--blue-deep); font: inherit; cursor: pointer; }
 .booking-upcoming > button:hover { background: #edf1f8; }
@@ -1114,7 +1112,6 @@ a:focus-visible, button:focus-visible, video:focus-visible { outline: 3px solid 
   .booking-improved .booking-intro { align-content: start; padding: 30px 24px; gap: 20px; }
   .booking-improved .booking-intro h1 { font-size: clamp(32px,8vw,42px); }
   .booking-improved .booking-intro-copy > p:not(.section-kicker) { margin-bottom: 12px; }
-  .booking-improved .booking-contact-options { margin-top: 12px; }
   .booking-explained { padding: 40px 24px; }
   .booking-evidence { padding-top: 40px; }
   .booking-evidence-heading { padding: 0 24px 28px; }
@@ -1142,3 +1139,5 @@ a:focus-visible, button:focus-visible, video:focus-visible { outline: 3px solid 
   .booking-consultation-map h3 { margin: 6px 0 10px; }
   .booking-consultation-map p { max-width: 660px; }
 }
+.booking-improved .booking-intro-copy > .booking-stage-note { margin: 24px 0 0; padding-top: 20px; border-top: 1px solid rgba(255,255,255,.2); font-size: 15px; line-height: 1.6; }
+.booking-stage-note strong { display: block; margin-top: 8px; color: white; }

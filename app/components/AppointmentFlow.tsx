@@ -2,7 +2,7 @@
 
 import { HeaderLogo } from './HeaderLogo';
 import { useEffect, useRef, useState } from 'react';
-import { ArrowLeft, ArrowRight, CalendarDays, Check, ChevronLeft, ChevronRight, Clock3, MapPin, Video, MessageCircle, Lightbulb, House, Wallet, FileText } from 'lucide-react';
+import { ArrowLeft, ArrowRight, CalendarDays, Check, ChevronLeft, ChevronRight, Clock3, MapPin, Video, Lightbulb, House, Wallet, FileText } from 'lucide-react';
 import Image from 'next/image';
 import { argentinaDate, availableTimes, firstAvailableDate, formatAppointmentDate, lastBookingMonth, nextAvailableSlots } from '../../lib/appointment-schedule.mjs';
 import { ProjectCards } from './ProjectCards';
@@ -162,9 +162,7 @@ export function AppointmentFlow({ thankYou = false, preview = false }: { thankYo
             <p className="section-kicker section-kicker-light">Consulta inicial · Sin costo</p>
             <h1>{thankYou ? 'Gracias por agendar tu cita.' : 'Consultá por tu obra con Gustavo.'}</h1>
             <p>{thankYou ? 'Encontrá acá los datos de tu consulta con Gustavo.' : 'Conversá con Gustavo sobre tu vivienda, ampliación o local en Comodoro Rivadavia o Rada Tilly.'}</p>
-            {!thankYou && <div className="booking-contact-options">
-              <a className="booking-whatsapp-link" href={`${whatsappUrl}?text=${encodeURIComponent('Hola Gustavo, estoy evaluando una obra y quisiera hacerte una consulta.')}`} target="_blank" rel="noreferrer"><MessageCircle size={20} aria-hidden="true" />Prefiero consultar por WhatsApp</a>
-            </div>}
+            {!thankYou && <p className="booking-stage-note">Podés consultar en cualquier etapa, aunque todavía no tengas planos o la obra ya esté iniciada. <strong>La consulta inicial no tiene costo.</strong></p>}
             {thankYou && <>
               <div className="booking-budget-note"><strong>Presupuestos en 72 horas</strong><span>Después de la consulta.</span></div>
               <div className="booking-facts"><span><Clock3 size={17} aria-hidden="true" />45 minutos</span><span><MapPin size={17} aria-hidden="true" />Comodoro Rivadavia · Rada Tilly</span></div>
