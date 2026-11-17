@@ -1,0 +1,14 @@
+{
+  "date": "2026-11-17",
+  "application": "GMPObras",
+  "applicationId": "rBUQAsv4qd8wztP-uZ54z",
+  "appliedVia": "Dokploy Domains and Advanced > Redirects",
+  "domainAdded": { "host": "gmpobras.com.ar", "port": 3000, "https": true, "certificate": "letsencrypt" },
+  "redirectsAdded": [
+    { "regex": "^https?://gmpobras\\.com\\.ar/(.*)$", "replacement": "https://www.gmpobras.com.ar/${1}", "permanent": true },
+    { "regex": "^https?://(www\\.)?gmpobras\\.com\\.ar/proyectos/vivienda-gabriel-ambrozy(:|%3[Aa])12qey3m((:|%3[Aa])[012])?/?(\\?.*)?$", "replacement": "https://www.gmpobras.com.ar/proyectos/vivienda-gabriel-ambrozy${5}", "permanent": true },
+    { "regex": "^https?://(www\\.)?gmpobras\\.com\\.ar/proyectos/volar-sin-escalas(:|%3[Aa])yumo5o/?(\\?.*)?$", "replacement": "https://www.gmpobras.com.ar/proyectos/volar-sin-escalas${3}", "permanent": true }
+  ],
+  "observedStatus": 308,
+  "notes": "No frontend redeploy. Existing domains, three legacy-domain redirects, volumes, email settings and press patch preserved. HTTP apex uses HTTPS upgrade followed by canonical-host redirect. These rules are persisted in Dokploy; this file records them and is not an automatic deployment script."
+}
