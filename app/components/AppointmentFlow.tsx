@@ -6,6 +6,9 @@ import { ArrowLeft, ArrowRight, CalendarDays, Check, ChevronLeft, ChevronRight, 
 import Image from 'next/image';
 import { argentinaDate, availableTimes, firstAvailableDate, formatAppointmentDate, lastBookingMonth, nextAvailableSlots } from '../../lib/appointment-schedule.mjs';
 import { ProjectCards } from './ProjectCards';
+import { FaqList } from './FaqList';
+import { SiteFooter } from './SiteFooter';
+import { bookingFaqs } from '../data/faqs';
 import { whatsappUrl, whatsappDisplay, contactEmail } from '../../lib/contact';
 import { readBookingReceipt, bookingReceiptKey } from '../../lib/booking-receipt.mjs';
 import { googleCalendarLink } from '../../lib/appointment-email.mjs';
@@ -174,7 +177,7 @@ export function AppointmentFlow({ thankYou = false, preview = false }: { thankYo
             <figcaption><strong>Gustavo Pinto</strong><span>Maestro mayor de obras · GMP Obras</span></figcaption>
           </figure>
         </aside>
-        <section className="booking-card" id="elegir-turno" aria-labelledby="booking-title">
+        <section className="booking-card" id="elegir-turno" aria-labelledby="booking-title" tabIndex={-1}>
           {confirmed ? (
             <div className="booking-prepared">
               <span><Check size={28} aria-hidden="true" /></span>
@@ -275,6 +278,12 @@ export function AppointmentFlow({ thankYou = false, preview = false }: { thankYo
           <div className="booking-evidence-heading"><p className="section-kicker">Obras y experiencias reales</p><h2 id="booking-evidence-title">Conocé nuestras obras.</h2><p>Fotos, etapas y testimonios de cada proyecto.</p></div>
           <div className="projects-page-grid"><ProjectCards nested /></div>
         </section>
+        <section className="booking-faq" aria-labelledby="booking-faq-title">
+          <div className="booking-faq-heading"><p className="section-kicker">Preguntas frecuentes</p><h2 id="booking-faq-title">Antes de tu consulta.</h2><p>Respuestas sobre precios, presupuesto y cómo empezar tu obra.</p></div>
+          <FaqList items={bookingFaqs} showLinks={false} />
+          <div className="booking-faq-closing"><p>Conversá con Gustavo sobre tu proyecto.</p><span>La consulta inicial no tiene costo.</span><a className="button button-primary" href="#elegir-turno" onClick={() => { setSelectedTime(''); setShowCalendar(true); }}>Agendar horario<ArrowRight size={18} aria-hidden="true" /></a></div>
+        </section>
+        <SiteFooter />
       </>}
     </main>
   );

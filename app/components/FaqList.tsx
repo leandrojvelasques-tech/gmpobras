@@ -1,7 +1,7 @@
 import { ArrowRight } from 'lucide-react';
 import type { Faq } from '../data/faqs';
 
-export function FaqList({ items, openFirst = false }: { items: Faq[]; openFirst?: boolean }) {
+export function FaqList({ items, openFirst = false, showLinks = true }: { items: Faq[]; openFirst?: boolean; showLinks?: boolean }) {
   return (
     <div className="faq-list">
       {items.map((faq, index) => (
@@ -20,7 +20,7 @@ export function FaqList({ items, openFirst = false }: { items: Faq[]; openFirst?
               </ul>
             )}
             {faq.closingParagraphs?.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
-            {faq.links && (
+            {showLinks && faq.links && (
               <div className="faq-answer-links">
                 {faq.links.map((link) => (
                   <a key={link.href} href={link.href}>

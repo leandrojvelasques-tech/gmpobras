@@ -1142,3 +1142,17 @@ a:focus-visible, button:focus-visible, video:focus-visible { outline: 3px solid 
 }
 .booking-improved .booking-intro-copy > .booking-stage-note { margin: 24px 0 0; padding-top: 20px; border-top: 1px solid rgba(255,255,255,.2); font-size: 15px; line-height: 1.6; }
 .booking-stage-note strong { display: block; margin-top: 8px; color: white; }
+
+.booking-faq { padding: 64px clamp(24px,7.3vw,112px); background: white; }
+.booking-faq-heading h2 { margin: 0 0 20px; color: var(--blue-deep); font-size: clamp(28px,3vw,40px); font-weight: 400; line-height: 1.15; letter-spacing: -.03em; }
+.booking-faq-heading > p:last-child { margin: 0 0 36px; color: #626873; font-size: 16px; line-height: 1.65; }
+.booking-faq .faq-answer { max-width: 850px; }
+.booking-faq-closing { display: flex; flex-direction: column; align-items: center; margin-top: 48px; padding-top: 40px; text-align: center; }
+.booking-faq-closing p { margin: 0 0 10px; color: var(--blue-deep); font-size: clamp(24px,3vw,32px); line-height: 1.25; }
+.booking-faq-closing > span { color: #626873; font-size: 16px; line-height: 1.6; }
+.booking-faq-closing .button { margin-top: 24px; }
+@media (max-width: 760px) {
+  .booking-faq { padding: 44px 24px; }
+  .booking-faq .faq-list summary { gap: 16px; font-size: 17px; }
+  .booking-faq-closing .button { width: 100%; justify-content: space-between; }
+}

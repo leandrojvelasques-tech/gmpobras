@@ -239,3 +239,7 @@ export const faqs: Faq[] = [
 ];
 
 export const homeFaqs = faqs.filter((faq) => faq.showOnHome);
+
+// Select existing answers by ID so edits remain shared with the FAQ page.
+const bookingFaqIds = ['precio-metro-cuadrado', 'alcance-del-presupuesto', 'consulta-inicial', 'ampliaciones-y-etapas', 'plazos-de-obra'];
+export const bookingFaqs = bookingFaqIds.flatMap((id) => faqs.filter((faq) => faq.id === id));
