@@ -12,6 +12,7 @@ import { bookingFaqs } from '../data/faqs';
 import { whatsappUrl, whatsappDisplay, contactEmail } from '../../lib/contact';
 import { readBookingReceipt, bookingReceiptKey } from '../../lib/booking-receipt.mjs';
 import { googleCalendarLink } from '../../lib/appointment-email.mjs';
+import { availabilityMessage, BookingRequestError, loadAvailability, readBookingResponse } from '../../lib/booking-api.mjs';
 
 const projectTypes = ['Vivienda nueva', 'Ampliación', 'Consultorio', 'Local comercial', 'Otro proyecto'];
 const projectStages = ['Todavía es una idea inicial', 'Ya tengo terreno o inmueble', 'Ya tengo anteproyecto o planos', 'La obra ya está iniciada'];
@@ -31,6 +32,9 @@ export function AppointmentFlow({ thankYou = false, preview = false }: { thankYo
   const [notification, setNotification] = useState('disabled');
   const [booked, setBooked] = useState<{ date: string; time: string }[]>([]);
   const [availabilityReady, setAvailabilityReady] = useState(false);
+  const [availabilityError, setAvailabilityError] = useState('');
+  const [availabilityLoading, setAvailabilityLoading] = useState(false);
+  const availabilityInFlight = useRef(false);
   const [showCalendar, setShowCalendar] = useState(false);
   const [detailsToken, setDetailsToken] = useState('');
   const [acceptedPrivacy, setAcceptedPrivacy] = useState(false);
@@ -49,16 +53,21 @@ export function AppointmentFlow({ thankYou = false, preview = false }: { thankYo
       if (initial) { const date = firstAvailableDate([]); setSelectedDate(date); setMonth(date.slice(0, 7)); }
       return;
     }
+    if (availabilityInFlight.current) return;
+    availabilityInFlight.current = true;
+    setAvailabilityLoading(true);
     try {
-      const response = await fetch('/api/consultas', { cache: 'no-store' });
-      const result = await response.json() as { booked?: { date: string; time: string }[]; error?: string };
-      if (!response.ok || !Array.isArray(result.booked)) throw new Error(result.error || 'No pudimos consultar los horarios.');
-      setBooked(result.booked); setAvailabilityReady(true);
+      const bookedSlots = await loadAvailability();
+      setBooked(bookedSlots); setAvailabilityReady(true); setAvailabilityError('');
+      const date = firstAvailableDate(bookedSlots);
       if (initial) {
-        const date = firstAvailableDate(result.booked);
         setSelectedDate(date); setMonth(date ? date.slice(0, 7) : argentinaDate().slice(0, 7));
+      } else {
+        setSelectedDate(current => current || date);
+        setMonth(current => current || (date ? date.slice(0, 7) : argentinaDate().slice(0, 7)));
       }
-    } catch (error) { setAvailabilityReady(false); setError(error instanceof Error ? error.message : 'No pudimos consultar los horarios. Volvé a intentar.'); }
+    } catch { setAvailabilityReady(false); setAvailabilityError(availabilityMessage); }
+    finally { availabilityInFlight.current = false; setAvailabilityLoading(false); }
   }
 
   useEffect(() => {
@@ -121,9 +130,9 @@ export function AppointmentFlow({ thankYou = false, preview = false }: { thankYo
         meetingMode: meetingMode === 'presencial' ? 'Presencial en la oficina' : 'Virtual por Google Meet',
         preferredDay: selectedDate, preferredTime: selectedTime, acceptedPrivacy,
       }) });
-      const result = await response.json() as { consultation?: { id: number }; detailsToken?: string; error?: string; notification?: string };
       if (response.status === 409) { await refreshAvailability(); setSelectedTime(''); }
-      if (!response.ok || !result.consultation?.id || !result.detailsToken) throw new Error(result.error || 'No pudimos guardar la solicitud.');
+      const result = await readBookingResponse(response, 'No pudimos confirmar la reserva. Tus datos siguen en pantalla. Consultanos por WhatsApp antes de volver a enviarla.') as { consultation?: { id: number }; detailsToken?: string; notification?: string };
+      if (!result.consultation?.id || !result.detailsToken) throw new BookingRequestError('No pudimos confirmar la reserva. Consultanos por WhatsApp antes de volver a enviarla.');
       setConfirmationId(result.consultation.id); setDetailsToken(result.detailsToken); setNotification(result.notification || 'disabled'); setConfirmed(true);
       try {
         window.sessionStorage.setItem(bookingReceiptKey, JSON.stringify({
@@ -132,7 +141,7 @@ export function AppointmentFlow({ thankYou = false, preview = false }: { thankYo
         }));
         window.location.assign('/agendar/gracias');
       } catch { /* Keep the confirmed booking visible if browser storage is unavailable. */ }
-    } catch (error) { setError(error instanceof Error ? error.message : 'No pudimos guardar la solicitud. Tus datos siguen en pantalla.'); }
+    } catch (error) { setError(error instanceof BookingRequestError ? error.message : 'No pudimos confirmar la reserva. Tus datos siguen en pantalla. Consultanos por WhatsApp antes de volver a enviarla.'); }
     finally { setSubmitting(false); }
   }
   async function saveDetails(event: React.FormEvent<HTMLFormElement>) {
@@ -143,10 +152,10 @@ export function AppointmentFlow({ thankYou = false, preview = false }: { thankYo
       const response = await fetch('/api/consultas', { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({
         ...details, projectStages: details.stage ? [details.stage] : [], id: confirmationId, detailsToken,
       }) });
-      const result = await response.json() as { consultation?: { id: number }; detailsToken?: string; error?: string };
-      if (!response.ok || !result.consultation) throw new Error(result.error || 'No pudimos guardar los detalles.');
+      const result = await readBookingResponse(response, 'No pudimos guardar los detalles. Tu reserva sigue confirmada; podés volver a intentar.') as { consultation?: { id: number } };
+      if (!result.consultation) throw new BookingRequestError('No pudimos guardar los detalles. Tu reserva sigue confirmada.');
       setDetailsSaved(true);
-    } catch (error) { setDetailsError(error instanceof Error ? error.message : 'No pudimos guardar los detalles.'); }
+    } catch (error) { setDetailsError(error instanceof BookingRequestError ? error.message : 'No pudimos guardar los detalles. Tu reserva sigue confirmada; podés volver a intentar.'); }
     finally { setSavingDetails(false); }
   }
 
@@ -213,7 +222,8 @@ export function AppointmentFlow({ thankYou = false, preview = false }: { thankYo
               <h2 id="booking-title">Elegí tu horario.</h2>
               <p className="booking-lead">45 minutos con Gustavo. Presencial en Ramos Mejía 298 o por Google Meet.</p>
               <div className="booking-upcoming" aria-label="Próximos horarios disponibles">
-                {!availabilityReady && <p role="status">Consultando horarios…</p>}
+                {!availabilityReady && (!availabilityError || availabilityLoading) && <p role="status">Consultando horarios…</p>}
+                {availabilityError && <div><p role="alert" className="booking-submit-error">{availabilityError}</p><button type="button" className="booking-text-button" disabled={availabilityLoading} onClick={() => void refreshAvailability()}>{availabilityLoading ? 'Consultando horarios…' : 'Volver a consultar horarios'}</button></div>}
                 {availabilityReady && !upcomingSlots.length && <p>No hay horarios disponibles por ahora. Escribinos para coordinar.</p>}
                 {upcomingSlots.map((slot) => <button type="button" key={`${slot.date}-${slot.time}`} aria-pressed={selectedDate === slot.date && selectedTime === slot.time} onClick={() => { setSelectedDate(slot.date); setMonth(slot.date.slice(0, 7)); setSelectedTime(slot.time); setError(''); }}>
                   <CalendarDays size={20} aria-hidden="true" /><span>{formatAppointmentDate(slot.date)}<strong>{slot.time} h</strong></span><ArrowRight size={18} aria-hidden="true" />
